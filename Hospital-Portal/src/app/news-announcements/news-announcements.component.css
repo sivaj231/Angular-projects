@@ -1,0 +1,14 @@
+.marquee-slide{
+    height: 250px;
+    font-size: larger;      
+}
+.marquee-slide li{
+    margin-bottom: 10px;
+}
+.list-circle{
+    list-style-type:circle;
+}
+
+.border-blue{
+    border: 1px solid #0071bb;
+}

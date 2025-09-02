@@ -1,0 +1,53 @@
+.notification-icon{
+    position: absolute;
+    font-size: .765rem;
+    /* padding:5px; */
+    /*border-radius: 50%; */
+    font-weight: bold;
+    background-color: #FF5E6D;
+    bottom: 15px;
+    margin-left: 10px;
+}
+@media (max-width: 991px) and (min-width:768px) {
+    .notification-icon{
+        margin-left: 5px;
+    }
+}
+@media (max-width: 767px) and (min-width:540px) {
+    .notification-icon{
+        margin-left: 5px;
+    }
+}
+.p-2 {
+    padding: 0.5rem !important;
+    border-radius: 10px!important;
+}
+.bg-secondary {
+    background-color: #dc3545!important;
+  
+}
+.text-light{
+    color: #043c73 !important;
+    font-weight: 600;
+}
+/* .blink_me {
+    animation: blinker 1s linear infinite;
+  }
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  } */
+  .blink_me {
+    animation-name: flash;
+     animation-duration: 0.3s;
+     animation-timing-function: linear;
+     animation-iteration-count: infinite;
+     animation-direction: alternate;
+     animation-play-state: running;
+ }
+ 
+ @keyframes flash {
+     from {color:rgb(235, 227, 227);}
+     to {color: #0609b1;}
+ }

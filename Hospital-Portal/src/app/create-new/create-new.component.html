@@ -1,0 +1,241 @@
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <!-- <div class="page-header">
+        <h3 class="page-title">
+          Create New
+        </h3>
+      </div> -->
+      <div class="row grid-margin">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">          
+          <div class="card card-statistics p-1">
+            <h5 class="bg-light text-dark p-2 card-heading">              
+              Pre Authorization Details
+            </h5>         
+            <div class="card-body bg-light text-dark">                                                   
+              <!-- <div class="text-dark">    -->
+                <form action="" method=""> 
+                  <div id="accordion" class="myaccordion">                                               
+                      <div class="card">
+                        <div class="card-header" id="headingOne">
+                          <h2 class="mb-0">
+                            <button type="button" class="d-flex align-items-center justify-content-between btn btn-link accordion-btn " data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Claim Detail
+                              <span class="fa-stack fa-sm">                           
+                                <i class="fas fa-minus fa-stack-1x text-light"></i>
+                              </span>
+                            </button>
+                          </h2>
+                        </div>                 
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                            <div class="container-fluid">
+                              <div class="row mt-2">
+                                <div class="col-lg-6 col-md-6 col-12 col-sm-12"> 
+                                  <div class="row">
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Health Card Number</label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" />
+                                    </div>
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">Name of the Patient </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
+                                      <input type="text" class="form-control" />
+                                    </div>
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Length Of Stay <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" readonly/>
+                                    </div>                                       
+                                                                            
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Provisional Diagnosis <span class="text-danger">*</span> </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" />
+                                    </div>                                            
+                                                                      
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Total Expected cost <span class="text-danger">*</span> </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" />
+                                    </div>                                                 
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Attendant Contact number <span class="text-danger">*</span> </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" />
+                                    </div>                                                                             
+                                  </div> 
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12 col-sm-12">
+                                  <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                      <button class="btn btn-info custom-btn">Search</button>
+                                      <button class="btn btn-danger custom-btn ml-2">Clear</button>
+                                    </div>                                                                                                                                                                             
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3 pt-2">Date of admission <span class="text-danger">*</span> </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3 pt-2">
+                                      <input type="date" class="form-control" />
+                                    </div>                                                                                                                      
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Date of discharge <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="date" class="form-control" />
+                                    </div>                                         
+                                                                      
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Name of the treating doctor <span class="text-danger">*</span></label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" />
+                                    </div>                                             
+                                                                            
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Room Type <span class="text-danger">*</span> </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="text" class="form-control" />
+                                    </div>                                                                                                                                                                                     
+                                    <label class="col-lg-6 col-md-6 col-sm-12 col-12">Patient E-mail id </label>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                      <input type="email" class="form-control" />
+                                    </div>  
+                                  </div>                                                          
+                                </div>                                                    
+                              </div>                          
+                              <div class="col-lg-12 col-md-12 col-sm-12 col-12  text-right">
+                                <button type="button" id="nextNav" class="btn btn-info collapsed nextNav" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Next >></button>                    
+                              </div> 
+                            </div>
+                            <!-- <div class="col-md-6 col-lg-6 col-sm-12 col-12 grid-margin stretch-card justify-content-center">
+                              <div class="form-check-inline">
+                                <label class="form-check-label large-text" for="radio1">
+                                  <input  class="form-check-input" name="options"  [(ngModel)]="options" type="radio" [value]="false" [checked]="options"/><i class="fas fa-user-circle"></i> Individual                              
+                                </label>
+                              </div>                                                                                              
+                              <div class="form-check-inline">
+                                <label class="form-check-label large-text" for="radio2">
+                                  <input class="form-check-input" name="options"[(ngModel)]="options" type="radio" [value]="true" [checked]="!options"/><i class="fas fa-building"></i> Corporate                              
+                                </label>
+                              </div>                                                                     
+                            </div>  -->                                                                    
+                          </div>
+                        </div>
+                      </div>            
+                      <div class="card">
+                        <div class="card-header" id="headingTwo">
+                          <h2 class="mb-0">
+                            <button type="button" class="d-flex align-items-center justify-content-between btn btn-link accordion-btn  collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                             Documents
+                              <span class="fa-stack fa-2x">                              
+                                <i class="fas fa-plus fa-stack-1x text-light"></i>
+                              </span>
+                            </button>
+                          </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                          <div class="card-body"> 
+                            <div class="container-fluid mt-3 mb-3">
+                              <div class="row" *ngFor="let healthCard of appendDocs">                                                         
+                                <label for="" class="col-lg-2 col-md-2 col-sm-12 col-12">Health Card</label>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                          
+                                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                                      <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                                    </div>                                                                   
+                                  </div>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                        
+                                    <div class="camera-container">
+                                      <i class="fa fa-camera"></i>
+                                    </div>                                                                   
+                                  </div> 
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">          
+                                    <button type="button" class="btn btn-sm btn-primary" (click)="addDocument()">+</button>
+                                  </div>                            
+                                  <div class="col-lg-4 col-md-4 col-sm-10 col-10 mt-1">                                                                                                                   
+                                    <div  class="files-list" *ngFor="let file of files;let i=index">
+                                      <span>{{ file }}</span>
+                                        <button class="delete-file" (click)="deleteAttachment(i)">
+                                          <i class="fa fa-trash text-danger"></i>
+                                        </button>
+                                    </div>                                                                          
+                                  </div>                                                                                                                        
+                              </div>
+                              <div class="row mt-2">                                                         
+                                <label for="" class="col-lg-2 col-md-2 col-sm-12 col-12">Id Card</label>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                          
+                                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                                      <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                                    </div>                                                                   
+                                  </div>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                        
+                                    <div class="camera-container">
+                                      <i class="fa fa-camera"></i>
+                                    </div>                                                                   
+                                  </div> 
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">          
+                                    <button type="button" class="btn btn-sm btn-primary">+</button>
+                                  </div>                             
+                                  <div class="col-lg-4 col-md-4 col-sm-10 col-10">                                                                                                                   
+                                    <div  class="files-list" *ngFor="let file of files;let i=index">
+                                      <span>{{ file }}</span>
+                                        <button class="delete-file" (click)="deleteAttachment(i)">
+                                          <i class="fa fa-trash text-danger"></i>
+                                        </button>
+                                    </div>                                                                          
+                                  </div>                                                                                                                        
+                              </div>                        
+                              <div class="row mt-2">                                                         
+                                <label for="" class="col-lg-2 col-md-2 col-sm-12 col-12">Investigation Reports</label>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                          
+                                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                                      <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                                    </div>                                                                   
+                                  </div>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                        
+                                    <div class="camera-container">
+                                      <i class="fa fa-camera"></i>
+                                    </div>                                                                   
+                                  </div>  
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">          
+                                    <button type="button" class="btn btn-sm btn-primary">+</button>
+                                  </div>                            
+                                  <div class="col-lg-4 col-md-4 col-sm-10 col-10">                                                                                                                   
+                                    <div  class="files-list" *ngFor="let file of files;let i=index">
+                                      <span>{{ file }}</span>
+                                        <button class="delete-file" (click)="deleteAttachment(i)">
+                                          <i class="fa fa-trash text-danger"></i>
+                                        </button>
+                                    </div>                                                                          
+                                  </div>                                                                                                                        
+                              </div>
+                              <div class="row mt-2">                                                         
+                                <label for="" class="col-lg-2 col-md-2 col-sm-12 col-12">Others</label>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                          
+                                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+                                      <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                                    </div>                                                                   
+                                  </div>
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">                        
+                                    <div class="camera-container">
+                                      <i class="fa fa-camera"></i>
+                                    </div>                                                                   
+                                  </div>  
+                                  <div class="col-lg-2 col-md-2 col-sm-4 col-4">          
+                                    <button type="button" class="btn btn-sm btn-primary">+</button>
+                                  </div>                            
+                                  <div class="col-lg-4 col-md-4 col-sm-10 col-10">                                                                                                                   
+                                    <div  class="files-list" *ngFor="let file of files;let i=index">
+                                      <span>{{ file }}</span>
+                                        <button class="delete-file" (click)="deleteAttachment(i)">
+                                          <i class="fa fa-trash text-danger"></i>
+                                        </button>
+                                    </div>                                                                          
+                                  </div>                                                                                                                        
+                              </div>  
+                            </div>                                                                  
+                          </div>
+                        </div>                                                          
+                      </div>  
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-3 mb-3 text-center">
+                        <button type="button" class="btn btn-info large-btn">View</button>
+                        <button type="submit" class="btn btn-primary large-btn ml-2">Submit</button>
+                        <button type="reset" class="btn btn-danger large-btn ml-2">Reset</button>
+                        <button type="button" class="btn btn-secondary large-btn ml-2">Print</button>
+                      </div>                                                                                                                                                                                                                        
+                    </div>        
+                </form>
+              <!-- </div>             -->
+            </div>             
+          </div>
+        </div>
+      </div>     
+    </div>
+  </div>

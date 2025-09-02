@@ -1,0 +1,47 @@
+                                          <div class="row mt-lg-3 mt-md-3">
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Claim Ref no </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; CL00141</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Patient name </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; Shabeer ahmed</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Status </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; In process</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Claimed amount </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; 23000</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Approved Amount </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; 12000</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Date of Admission </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; 10-01-2020</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Date of Discharge </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; 22-01-2020</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Processed time </label>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><span>:&nbsp; 40 mins</span></div>
+                                            <label for="" class="col-lg-6 col-md-6 col-sm-6 col-xs-6">Awaiting time </label>
+                                            <div class="col-lg-6 col-md-6col-sm-6 col-xs-6"><span>:&nbsp; 20 mins</span></div>
+                                          </div>
+
+        
+                                        <div class="row">                                                                
+                                            <label for="" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Health Card</label>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">                          
+                                                : &nbsp;<span>shabeer ahmed-Health card.jpg</span>                                                                        
+                                            </div>                                                                                                                                                                                     
+                                        </div>                                                                                        
+                                        <div class="row">                                                                
+                                            <label for="" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Id Card</label>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">                          
+                                            : &nbsp;<span>shabeer ahmed-Id card.jpg</span>                                                                        
+                                            </div>                                                                                                                                                                                     
+                                        </div>   
+                                        <div class="row">                                                                
+                                            <label for="" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Investigation Reports</label>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">                          
+                                                : &nbsp;<span>investigation reports.pdf</span>                                                                        
+                                            </div>                                                                                                                                                                                     
+                                        </div>
+                                        <div class="row">                                                                
+                                            <label for="" class="col-lg-4 col-md-4 col-sm-12 col-xs-12">Others</label>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">                          
+                                                : &nbsp;<span>aadhar card.png</span>                                                                        
+                                            </div>                                                                                                                                                                                     
+                                        </div>                                                         
+                                 

@@ -1,0 +1,72 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row grid-margin">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+          <div class="card card-statistics">
+            <h5 class="bg-light text-dark m-1 p-2 card-heading">              
+                Payment Status
+            </h5> 
+            <div class="card-body">
+              <div class="container-fluid bg-light text-dark p-4">
+                <!-- <div class="row">
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">Claim Id</label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="text" value="" name="" class="form-control"></div>
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">Health Card No. </label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="text" value="" name="" class="form-control"></div>
+                </div>
+                <div class="row">
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">Claim No.</label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="text" value="" name="" class="form-control"></div> 
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">Patient Name</label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="text" value="" name="" class="form-control"></div>
+                </div>
+                <div class="row">                                                    
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">UTR No.</label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="text" value="" name="" class="form-control"></div>
+                </div>
+                <div class="row">
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">From Date </label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="date" value="" name="" class="form-control"></div>
+                    <label for=""class="col-lg-2 col-md-2 col-sm-6 col-6">To Date</label>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-6"><input type="date" value="" name="" class="form-control"></div>                           
+                </div> -->
+                <div class="table-responsive p-3">
+                    <table id="order-listing" class="table table-bordered table-striped table-hover bg-light" datatable [dtOptions]="dtOptions">
+                      <thead>
+                        <tr>                        
+                          <th>CLAIM ID</th>
+                          <th>HEALTH CARD NO.</th>
+                          <th>CLAIM NO.</th>
+                          <th>PATIENT NAME</th>
+                          <th>UTR NO.</th>
+                          <th>Claimed Amount</th>
+                          <th>Approved Amount</th> 
+                          <th>Status</th>                                            
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr  *ngFor="let pay of paymentData">                            
+                          <td class="link-text">{{pay.claimId}}</td>
+                          <td>{{pay.healthcardNo}}</td>
+                          <td>{{pay.claimNo}}</td>
+                          <td>{{pay.patientName}}</td>                        
+                          <td>{{pay.utrNo}}</td>
+                          <td>{{pay.claimedAmount}}</td>                                                  
+                          <td>{{pay.approvedAmount}}</td>                          
+                          <ng-container>
+                            <td *ngIf="pay.status=='Approved'"><label class="badge badge-success p-2">{{pay.status}}</label></td>
+                            <td *ngIf="pay.status=='Pending'"> <label class="badge badge-info p-2"> {{pay.status}}</label></td>
+                            <td *ngIf="pay.status=='Reject'"> <label class="badge badge-danger p-2"> {{pay.status}}</label></td>
+                            <td *ngIf="pay.status=='Onhold'"> <label class="badge badge-warning p-2"> {{pay.status}}</label></td>
+                          </ng-container>                             
+                        </tr>                                              
+                      </tbody>
+                    </table>
+                  </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>           
+  </div>
+</div>

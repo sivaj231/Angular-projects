@@ -1,0 +1,40 @@
+<footer class="footer" *ngIf='authService.isLoggedin'>
+
+    <div class="fn-container">
+        <div class="inner-block-fn">
+            <div class="flex-container">
+                <div class="news-title flex-col-sm"><span>NEWS</span></div>
+                <marquee class="scroll-text flex-col-lg">
+                    <ul class="list-group-fn" *ngFor="let data of masterDataList">
+                        <li class="list-fn"><a [routerLink]="['/news', data.id,'edit']">{{data.headLines}}</a></li>
+                    </ul>
+                </marquee>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+        <button type="submit" class="btn btn-md btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Chat with us</button>
+    </div>
+    <div class="text-center">
+        <a class="text-primary">Copyright © FA SOFTWARES SERVICES 2019. All rights reserved.</a>
+    </div>
+</footer>
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span style="margin-left: 29rem;" aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <div style="color: #0071bb; text-align: center;font-weight: 600;"> Live Chat </div>&nbsp;&nbsp;
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <span><img src="assets/images/chat.svg" alt=""></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

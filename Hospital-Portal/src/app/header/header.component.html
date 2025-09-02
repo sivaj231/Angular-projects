@@ -1,0 +1,48 @@
+<div *ngIf='authService.isLoggedin'>
+  <div class="container-fluid">
+    <div class="row m-t-90">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-12 bg-secondary p-2">
+        <div class="text-light text-center blink_me">
+          TODAYS FASTEST PROCESSED REQUEST - PATIENT RAHIM, APPROVED IN JUST 20 MIN
+        </div>
+
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+        <div class="text-center p-2">
+          Rohini Code : <span>RH133443</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="fn-container">
+    <div class="inner-block-fn">
+      <div class="flex-container">
+        <div class="news-title flex-col-sm"><span>NEWS</span></div>
+        <marquee class="scroll-text flex-col-lg">
+          <ul class="list-group-fn" *ngFor="let data of masterDataList">
+            <li class="list-fn"><a  [routerLink]="['/news', data.id,'edit']">{{data.headLines}}</a></li>
+          </ul>
+        </marquee>
+      </div>
+    </div>
+  </div> -->
+  <nav>
+    <div class="nav nav-tabs nav-fill text-center" id="nav-tab" role="tablist">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item nav-link" id="" data-toggle="tab" role="tab"
+        aria-selected="true">Dashboard</a>
+      <a routerLink="/create-new" routerLinkActive="active" class="nav-item nav-link" id="" data-toggle="tab" role="tab"
+        aria-selected="false">New Patient</a>
+      <a *ngIf='false' routerLink="/my-claim" routerLinkActive="active" class="nav-item nav-link" id=""
+        data-toggle="tab" role="tab" aria-selected="false">My Claims</a>
+      <!-- <a routerLink="/news-announcements" routerLinkActive="active" class="nav-item nav-link" id="" data-toggle="tab"
+        role="tab" aria-selected="false">News & Announcements <sup><span *ngIf='newsCount>0'
+            class="badge badge-pill notification-icon">{{newsCount}}</span></sup></a> -->
+      <a routerLink="/queries-response" routerLinkActive="active" class="nav-item nav-link" id="" data-toggle="tab"
+        role="tab" aria-selected="false">Query & Bills <sup><span
+            class="badge badge-pill notification-icon">4</span></sup></a>
+      <a *ngIf='true' routerLink="/payments" routerLinkActive="active" class="nav-item nav-link" id=""
+        data-toggle="tab" role="tab" aria-selected="false">Payments</a>
+
+    </div>
+  </nav>
+</div>
