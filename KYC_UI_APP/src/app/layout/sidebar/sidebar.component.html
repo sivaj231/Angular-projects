@@ -1,0 +1,76 @@
+<div *ngIf="isLoggedIn">
+  <a id="show-sidebar" class="btn btn-sm toggle-btn">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar" class="sidebar-wrapper">
+    <div class="sidebar-content">
+      <div class="sidebar-menu">
+        <ul>
+          <div id="close-sidebar">
+            <i class="fas fa-times"></i>
+          </div>
+          <li class="header-menu">
+            <span>Menu</span>
+          </li>
+          <div *ngFor='let key of objectKeys(moduleData)'>
+            <li class="sidebar-dropdown">
+              <a>
+                <span *ngIf="(key)=='Task'">
+                  <i class="fas fa-tasks"> </i>
+                </span>
+                <span *ngIf="(key)=='Upload'">
+                  <i class="fa fa-upload"> </i>
+                </span>
+                <span *ngIf="(key)=='Download'">
+                  <i class="fa fa-download"> </i>
+                </span>
+                <span *ngIf="(key)=='Admin'">
+                  <i class="fa fa-user-cog"> </i>
+                </span>
+                <span> {{key}} </span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <div *ngFor='let obj of moduleData[key]'>
+                    <li>
+                      <a routerLink='{{ obj | split:"-":1 }}' routerLinkActive="active">
+                        <span *ngIf="(obj | split:'-':2) == 'task'">
+                          <i class="fas fa-tasks"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'search'">
+                          <i class="fas fa-search"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'download'">
+                          <i class="fa fa-download"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'exception'">
+                          <i class="fas fa-tasks"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'reallocate'">
+                          <i class="fa fa-cubes"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'tempallocate'">
+                          <i class="fa fa-cubes"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'upload'">
+                          <i class="fa fa-upload"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'user'">
+                          <i class="fa fa-users"></i>
+                        </span>
+                        <span *ngIf="(obj | split:'-':2) == 'role'">
+                          <i class="fa fa-user-tie"></i>
+                        </span>
+                        <span> {{ obj | split:"-":0 }} </span>
+                      </a>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

@@ -1,0 +1,213 @@
+<div class="container-fluid page-body-wrapper">
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="card mt-4">
+        <div class="card-title text-center">
+          <span>Create User </span>
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <form [formGroup]='userForm' (ngSubmit)="updateUser(userForm.value)">
+              <div class="row mt-2">
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">User Name</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="text" name="userName" id="userName" formControlName="userName" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.userName.errors }" autocomplete="off" (blur)="checkUserName($event.target.value)" />
+                  <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                    <div *ngIf="f.userName.errors.required" style="font-size: 17px;text-align: center;">
+                      Username is
+                      required</div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Password</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="password" name="password" id="password" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.password.errors }" formControlName="password"
+                    autocomplete="off" />
+                  <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required" style="font-size: 17px;text-align: center;">
+                      Password is
+                      required</div>
+                  </div>
+                </div>
+
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Employee Code</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="Employee Code" name="empCode" id="empCode" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.empCode.errors }" formControlName="empCode"
+                    autocomplete="off" />
+                  <div *ngIf="submitted && f.empCode.errors" class="invalid-feedback">
+                    <div *ngIf="f.empCode.errors.required" style="font-size: 17px;text-align: center;">
+                      Employee Code is
+                      required</div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">First Name</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="text" name="firstName" id="firstName" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.firstName.errors }" formControlName="firstName"
+                    autocomplete="off" />
+                  <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                    <div *ngIf="f.firstName.errors.required" style="font-size: 17px;text-align: center;">
+                      First Name is
+                      required</div>
+                  </div>
+                </div>
+
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Middle Name</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="text" name="middleName" id="middleName" class="form-control" formControlName="middleName"
+                    autocomplete="off" />
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Last Name</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="text" name="lastName" id="lastName" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.lastName.errors }" formControlName="lastName"
+                    autocomplete="off" />
+                  <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                    <div *ngIf="f.lastName.errors.required" style="font-size: 17px;text-align: center;">
+                      Last Name is
+                      required</div>
+                  </div>
+                </div>
+
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Email</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="text" name="emailId" id="emailId" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.emailId.errors }" formControlName="emailId"
+                    autocomplete="off" />
+                  <div *ngIf="submitted && f.emailId.errors" class="invalid-feedback">
+                    <div *ngIf="f.emailId.errors.required" style="font-size: 17px;text-align: center;">
+                      Email is
+                      required</div>
+                    <div *ngIf="f.emailId.errors.email" style="font-size: 17px;text-align: center;">
+                      Invalid Email Id </div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Mobile</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <input type="text" name="mobile" id="mobile" class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.mobile.errors }" formControlName="mobile"
+                    autocomplete="off" />
+                  <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                    <div *ngIf="f.mobile.errors.required" style="font-size: 17px;text-align: center;">
+                      Mobile No. is
+                      required</div>
+                      <div *ngIf="f.mobile.errors.pattern" style="font-size: 17px;text-align: center;">
+                       Invalid Mobile Number</div>
+                  </div>
+                </div>
+
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Role</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <select class="form-control" id="role" [ngClass]="{'is-invalid': submitted && f.role.errors }"
+                    formControlName="role"
+                    (change)="getModuleNamesByRoleName($event.target.value);cloudCallingToggle($event.target.value)">
+                    <option value="">Select</option>
+                    <option value="ROLE_TELECALLER">ROLE_TELECALLER</option>
+                    <option value="ROLE_MANAGER">ROLE_MANAGER</option>
+                    <option value="ROLE_TEAM_LEADER">ROLE_TEAM_LEADER</option>
+                  </select>
+                  <div *ngIf="submitted && f.role.errors" class="invalid-feedback">
+                    <div *ngIf="f.role.errors.required" style="font-size: 17px;text-align: center;">
+                      Role is
+                      required</div>
+                  </div>
+                </div>
+
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Channel</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <ng-multiselect-dropdown [placeholder]="'Select Channels'" [settings]="dropdownSettings"
+                    [data]="channelList" [disabled]="false" [ngClass]="{'is-invalid': submitted && f.channel.errors }"
+                    formControlName="channel">
+                  </ng-multiselect-dropdown>
+                  <div *ngIf="submitted && f.channel.errors" class="invalid-feedback">
+                    <div *ngIf="f.channel.errors.required" style="font-size: 17px;text-align: center;">
+                      Channel is
+                      required</div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Branch</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <ng-multiselect-dropdown [placeholder]="'Select Channels'" [settings]="dropdownSettings"
+                    [data]="branchList" [disabled]="false" [ngClass]="{'is-invalid': submitted && f.branch.errors }"
+                    formControlName="branch">
+                  </ng-multiselect-dropdown>
+                  <div *ngIf="submitted && f.branch.errors" class="invalid-feedback">
+                    <div *ngIf="f.branch.errors.required" style="font-size: 17px;text-align: center;">
+                      Branch is
+                      required</div>
+                  </div>
+                </div>
+
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Status</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <select class="form-control" id="status" [ngClass]="{'is-invalid': submitted && f.status.errors }"
+                    formControlName="status">
+                    <option value="">Select</option>
+                    <option value="ACTIVE">ACTIVE</option>
+                    <option value="INACTIVE">INACTIVE</option>
+                  </select>
+                  <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                    <div *ngIf="f.status.errors.required" style="font-size: 17px;text-align: center;">
+                      Status is
+                      required</div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3">Module</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                  <ng-multiselect-dropdown [placeholder]="'Select Modules'" [settings]="dropdownSettings"
+                    [data]="moduleList" [disabled]="false" [ngClass]="{'is-invalid': submitted && f.channel.errors }"
+                    formControlName="module">
+                  </ng-multiselect-dropdown>
+                  <div *ngIf="submitted && f.module.errors" class="invalid-feedback">
+                    <div *ngIf="f.module.errors.required" style="font-size: 17px;text-align: center;">
+                      Module is
+                      required</div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3" *ngIf="showCloudCalling">Cloud Calling</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3" *ngIf="showCloudCalling">
+                  <select class="form-control" id="cloudCalling"
+                    [ngClass]="{'is-invalid': submitted && f.cloudCalling.errors }" formControlName="cloudCalling">
+                    <option value="">Select</option>
+                    <option value="YES">YES</option>
+                    <option value="NO">NO</option>
+                  </select>
+                  <div *ngIf="submitted && f.cloudCalling.errors" class="invalid-feedback">
+                    <div *ngIf="f.cloudCalling.errors.required" style="font-size: 17px;text-align: center;">
+                      Cloud Calling is
+                      required</div>
+                  </div>
+                </div>
+                <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6 mb-3" *ngIf="showDataLimit">Data Limit</label>
+                <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3" *ngIf="showDataLimit">
+                  <select class="form-control" id="dataLimit" formControlName="dataLimit">
+                    <option value="">SELECT</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center mt-3 mb-3">
+                <button type="submit" class="btn effect effect-4 effect-primary effect-save"><i
+                    class="fa fa-check-circle"></i> Save</button>
+                <button type="reset" class="btn effect effect-4 effect-danger effect-cancel"><i
+                    class="fa fa-times-circle"></i> Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- main-panel ends -->
+</div>

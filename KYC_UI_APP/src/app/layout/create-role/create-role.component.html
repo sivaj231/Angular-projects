@@ -1,0 +1,93 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="card mt-4">
+          <div class="card-title text-center">
+            <span>Create Role </span> 
+          </div>
+          <div class="card-body">
+            <div class="container-fluid">
+              <form [formGroup]='roleForm' (ngSubmit)="updateRole(roleForm.value)">                                       
+                <div class="row mt-3">
+                  <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6">Role Code</label>
+                  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                    <input type="text" name="roleCode"  formControlName="roleCode"  class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.roleCode.errors }"
+                   autocomplete="off" />
+                   <div *ngIf="submitted && f.roleCode.errors" class="invalid-feedback">
+                    <div *ngIf="f.roleCode.errors.required" style="font-size: 17px;text-align: center;">
+                      Role Code is
+                      required</div>
+                    </div>
+                  </div>
+                  <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6">Role Name</label>
+                  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                    <input type="text" name="roleName"  formControlName="roleName"  class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.roleName.errors }"
+                   autocomplete="off" />
+                   <div *ngIf="submitted && f.roleName.errors" class="invalid-feedback">
+                    <div *ngIf="f.roleName.errors.required" style="font-size: 17px;text-align: center;">
+                      Role Name is
+                      required</div>
+                    </div>
+                  </div>                                       
+                </div> 
+                <div class="row mt-3">
+                  <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6">Effective Start Date</label>
+                  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                      <input type="text" name="effectiveStartDate" id="effectiveStartDate" placeholder="Pick date"   formControlName="effectiveStartDate"  class="form-control"
+                      (ngModelChange)="setToDate($event)" [ngClass]="{'is-invalid': submitted && f.effectiveStartDate.errors }" bsDatepicker
+                      [bsConfig]="{
+                        dateInputFormat: 'DD/MM/YYYY',
+                        isAnimated: true, containerClass: 'theme-dark-blue'
+                      }" readonly [minDate]="minFromDate" style="background-color:transparent;" />
+                      <div *ngIf="submitted && f.effectiveStartDate.errors" class="invalid-feedback">
+                        <div *ngIf="f.effectiveStartDate.errors.required" style="font-size: 17px;text-align: center;">
+                          Start Date is
+                          required</div>
+                        </div>
+                    </div>
+                  <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6">Effective End Date</label>
+                  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                    <input type="text" name="effectiveEndDate" id="effectiveEndDate" placeholder="Pick date" formControlName="effectiveEndDate"  class="form-control"
+                    [ngClass]="{'is-invalid': submitted && f.effectiveEndDate.errors }" bsDatepicker
+                    [bsConfig]="{
+                      dateInputFormat: 'DD/MM/YYYY',
+                      isAnimated: true, containerClass: 'theme-dark-blue'
+                    }" readonly [minDate]="minToDate" style="background-color:transparent;" />
+                    <div *ngIf="submitted && f.effectiveEndDate.errors" class="invalid-feedback">
+                      <div *ngIf="f.effectiveEndDate.errors.required" style="font-size: 17px;text-align: center;">
+                        End Date is
+                        required</div>
+                  </div>                                       
+                </div>
+                </div>          
+                <div class="row mt-3">                
+                  <label class="col-md-2 col-lg-2 col-sm-6 col-xs-6">Status</label>
+                  <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                    <select id="status" class="form-control" formControlName="status"
+                    [ngClass]="{'is-invalid': submitted && f.status.errors }">
+                      <option value="">Select</option>
+                      <option value="ACTIVE">ACTIVE</option>
+                      <option value="INACTIVE">INACTIVE</option>
+                    </select>
+                    <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                      <div *ngIf="f.status.errors.required" style="font-size: 17px;text-align: center;">
+                        Status is
+                        required</div>
+                  </div>
+                  </div>                                       
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center mt-3 mb-3">
+                  <button type="submit" class="btn effect effect-4 effect-primary effect-save"><i class="fa fa-check-circle"></i> Save</button>
+                  <button type="reset" class="btn effect effect-4 effect-danger effect-cancel"><i class="fa fa-times-circle"></i> Cancel</button>
+                </div>
+              </form> 
+            </div>
+          </div>                          
+        </div> 
+      </div>      
+    </div>  
+    <!-- main-panel ends -->
+  </div>
+  

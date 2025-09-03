@@ -1,0 +1,80 @@
+<div class="container">
+    <section class="signup-step-container">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-8">
+                    <div class="wizard">
+                        <div class="wizard-inner">
+                            <!-- <div class="connecting-line"></div> -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab"
+                                        aria-expanded="true"><span class="round-tab">1 </span> <i>Step 1</i></a>
+                                </li>
+                                <li role="presentation" class="">
+                                    <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab"
+                                        aria-expanded="true"><span class="round-tab">1 </span> <i>Step 1</i></a>
+                                </li>
+                                <li role="presentation" class="disabled">
+                                    <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab"
+                                        aria-expanded="false"><span class="round-tab">2</span> <i>Step 2</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <form role="form" action="" class="login-box">
+                            <div class="tab-content" id="main_form">
+                                <div class="tab-pane active" role="tabpanel" id="step1">
+                                    <div class="container">
+                                        <label for="yes" class="pl-4">
+                                            <input type="radio" name="radiobtn" id="otp" value="otp" /> OTP
+                                        </label>
+                                        <label for="no" class="pl-4">
+                                            <input type="radio" name="radiobtn" id="send_vertication_link"
+                                                value="sendLink" />
+                                            Send Vertication Link
+                                        </label>
+                                    </div>
+                                    <ul class="list-inline pull-right">
+                                        <li><button type="button" class="primary-btn next-step radioSubmit">Submit</button></li>
+                                        <li><button type="button" class="danger-btn cancel">Cancel</button></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" role="tabpanel" id="step2">
+                                    <!-- <h4 class="text-center">Step 1</h4>  -->
+                                    <div class="form-group">
+                                        <label> Enter Alternate Number </label>
+                                        <input id="mobile" [(ngModel)]="mobileNum" class="form-control" type="text" (keypress)="numberOnly($event)" name="mobile" placeholder="">
+                                    </div>
+                                    <ul class="list-inline pull-left">
+                                        <li><button type="button" class="btn-info prev-step">Back</button></li>
+                                    </ul>
+                                    <ul class="list-inline pull-right">
+                                        <li><button type="button" class="primary-btn next-step alternateNumberSubmit">Submit</button></li>
+                                        <li><button type="button" class="danger-btn cancel" (click)="closeModal()">Cancel</button></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" role="tabpanel" id="step3">
+                                    <!-- <h4 class="text-center">Step 2</h4> -->
+                                    <div class="form-group">
+                                        <label> Enter OTP </label>
+                                        <input id="otp" [(ngModel)]="otp" class="form-control" type="text" (keypress)="numberOnly($event)" name="name" placeholder="">
+                                    </div>
+                                    <ul class="list-inline pull-left">
+                                        <li><button type="button" class="btn-info prev-step">Back</button></li>
+                                    </ul>
+                                    <ul class="list-inline pull-right">
+                                        <li><button type="button" class="primary-btn next-step"
+                                                (click)="verifyOtp()">Submit</button></li>
+                                        <li><button type="button" class="danger-btn cancel">Cancel</button></li>
+                                    </ul>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

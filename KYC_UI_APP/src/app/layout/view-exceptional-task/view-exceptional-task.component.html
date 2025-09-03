@@ -1,0 +1,49 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+      <div class="content-wrapper">
+        <div class="card mt-4">
+          <div class="card-title text-center">
+            <span>Exceptional Task </span>
+          </div>
+          <div class="card-body">
+            <div class="container-fluid">
+              <form action="" method="" class="">
+                <div class="table-responsive">
+                  <table id="example" class="table table-striped table-hover table-bordered table-hover" datatable
+                    [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                    <thead>
+                      <tr>
+                        <th>Task ID</th>
+                        <th>Policy No</th>
+                        <th>Disposition Status</th>
+                        <th>Sub-Disposition Status </th> 
+                        <th>Campaign Name</th>
+                        <th>Line Of Business</th>
+                        <th>Action</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of taskData">
+                            <td>{{task.taskId}}</td>
+                            <td>{{task.policyNo}}</td>
+                            <td>{{task.taskStatus}}</td>
+                            <td>{{task.taskSubstatus}}</td>
+                            <td>{{task.campaignName}}</td>  
+                            <td>{{task.typeOfBusiness}}</td>
+                            <td>
+                              <button type="button" class="btn button2c" (click)="policyDetails(task.taskId, task.typeOfBusiness)">
+                                <div class="button2c-content"><i class="fa fa-eye"></i></div>
+                              </button>
+                            </td>                                     
+                        </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- main-panel ends -->
+  </div>

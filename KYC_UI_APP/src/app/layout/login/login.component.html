@@ -1,0 +1,63 @@
+<div class="overlay"></div>
+<div class="limiter main-bg">
+    <div class="container-login100">
+        <div class="wrap-login100 p-l-10 p-r-10 p-t-10 p-b-10 box">
+            <span class="line"></span>
+            <span class="line"></span>
+            <!-- <span class="line"></span>
+            <span class="line"></span> -->
+            <div class="content">
+                <form name="form" class="login100-form validate-form p-l-20 p-r-20" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <span class="login100-form-title p-b-10 p-t-10">
+                        <img src="assets/images/rs-logo.png" alt="" class="img-logo">
+                    </span>
+                    <div class="wrap-input100 validate-input m-t-20 m-b-23" data-validate = "Username is required">
+                        <span class="label-input100">Username</span>
+                        <input class="input100" type="text" name="username" [(ngModel)]="form.username"  #username="ngModel"  placeholder="Enter username" required autocomplete="off">
+                        <span class="focus-input100" data-symbol="&#xf007;"></span>
+                        <div class="error-msg error-msg-danger" role="alert" *ngIf="f.submitted && username.invalid">
+                            Username is required!
+                        </div>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        <input class="input100" type="password" name="password" [(ngModel)]="form.password"  #password="ngModel" placeholder="Enter password" required autocomplete="off">
+                        <span class="focus-input100" data-symbol="&#xf023;"></span>
+                        <div class="error-msg error-msg-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                            <div *ngIf="password.errors.required">Password is required!</div>
+                        </div>
+                    </div>
+                    <div class="container-login100-form-btn p-t-20">
+                        <div class="wrap-login100-form-btn text-center">
+                            <!-- <button type="submit" class="btn btn-rounded login100-form-btn btn-bg">LOGIN</button> -->
+                        <!-- <a href="../index.html"> -->
+                            <button type="submit" class="animated-button1 btn">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                LOGIN
+                            </button>
+                        <!-- </a>	 -->
+                        
+                        </div>
+                    </div>
+                    <!-- <div class="p-t-10">
+                        <a class="btn-link" href="">Forgot Password</a>					
+                    </div> -->
+                    <div class="error-msg error-msg-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                        Login failed: {{ errorMessage }}
+                    </div>
+                </form>
+                 <footer class="footers text-center p-t-20 p-b-10">  
+                    <div class="text-copyrights">© Royal Sundaram General Insurance Co.Limited All Rights Reserved.</div>
+                </footer>
+            </div>	         
+        </div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+        <div class="cube"></div>
+       <div class="cube"></div>
+    </div>   
+</div>

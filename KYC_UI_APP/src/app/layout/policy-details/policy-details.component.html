@@ -1,0 +1,371 @@
+<div class="container-fluid page-body-wrapper">
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="card mt-4">
+        <div class="card-title text-center">
+          <span>Policy Details </span>
+        </div>
+        <div class="card-body bg-light-2">
+          <div class="container-fluid">
+            <div *ngIf="isDataAvailable;else elseBlock3">
+              <div class="col-md-12 col-lg-12 col-sm-12 col-12 text-right mt-3 mb-3"
+                *ngIf="type === 'POLICY_DETAILS' && roles === 'ROLE_TELECALLER';else elseBlock1">
+                <div *ngIf="!isTaskTransfered && !isTaskVerified">
+                  <button type="button" (click)="modalPopup('TaskTransfer');"
+                    class="btn effect effect-4 effect-primary effect-save" style="width: 170px;"><i
+                      class="fa fa-check-circle"></i> Task
+                    Transfer</button>
+                  <button type="button" class="btn effect effect-4 effect-primary effect-save"
+                    (click)="modalPopup('OTP');" style="width: 280px;">Alternate Number Verification</button>
+                  <button type="button" (click)="clearTouchLogin()"
+                    class="btn effect effect-4 effect-primary effect-save"><i class="fa fa-check-circle"></i>
+                    Login</button>
+                </div>
+              </div>
+              <ng-template #elseBlock1>
+                <div *ngIf="type === 'POLICY_DETAILS' && cloudCalling==='YES' && !isTaskVerified"
+                  class="col-md-12 col-lg-12 col-sm-12 col-12 text-right mt-3 mb-3">
+                  <button type="button" class="btn effect effect-4 effect-primary effect-save"
+                    (click)="modalPopup('OTP');" style="width: 280px;">Alternate Number Verification</button>
+                  <button type="button" (click)="clearTouchLogin()"
+                    class="btn effect effect-4 effect-primary effect-save"><i class="fa fa-check-circle"></i>
+                    Login</button>
+                </div>
+              </ng-template>
+              <!-- <iframe width="100%" height="500vh" frameBorder="0" [src]=urlSafe></iframe> -->
+
+              <input type="hidden" name="taskId" id="taskId" value="{{taskId}}" />
+              <div *ngFor="let policyDetails of policyDetailsArr">
+                <div class="bg-grad-blue padding-grey-box mt-4">
+                  <form action="" method="" class="">
+                    <div class="policy-title">
+                      <h6>Policy No : {{policyDetails.policyNumber}}</h6>
+                    </div>
+                    <div class="row bg-grey-color">
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Task ID</label>
+                        <input type="text" name="" id="" class="form-control" value={{policyDetails.taskId}} readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Policy No</label>
+                        <input type="text" name="" id="" class="form-control" value={{policyDetails.policyNumber}}
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">First Name</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.firstName}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Last Name</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.lastName}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Middle Name</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.middleName}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Address 1</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.address1}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Address 2</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.address2}}" readonly />
+                      </div>
+
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Address 3</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.address3}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Address 4</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.address4}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">City</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.city}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">State</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.state}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Pincode</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.pinCode}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Date of Birth </label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.dateOfBirth}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Gender</label>
+                        <input type="text" name="" id="" class="form-control"
+                          value="{{policyDetails.proposerDetails.gender}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 checkBox">
+                        <label class="mt-2">Mobile Number</label>
+                        <div *ngIf="productionStatus==='UAT';else liveElseBlock" class="input-group">
+                          <input type="text" name="mobileNumber" id="mobileNum" class="form-control"
+                            [(ngModel)]="mobileNumber" />
+                          <div *ngIf="type === 'POLICY_DETAILS' && roles === 'ROLE_TELECALLER';else elseBlock2">
+                            <div class="input-group-append" *ngIf="!isTaskTransfered && !isTaskVerified">
+                              <span class="input-group-text">
+                                <span class="fa fa-phone fa-lg"
+                                  (click)="clearTouchCallFunction(policyDetails.taskId)"></span></span>
+                              <ng-template #elseBlock2>
+                                <div class="input-group-append"
+                                  *ngIf="type === 'POLICY_DETAILS' && cloudCalling==='YES' &&!isTaskVerified">
+                                  <span class="input-group-text">
+                                    <span class="fa fa-phone fa-lg"
+                                      (click)="clearTouchCallFunction(policyDetails.taskId)"></span>
+                                  </span>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </div>
+                        </div>
+                        <ng-template #liveElseBlock>
+                          <div class="input-group">
+                            <input type="text" name="mobileNumber" id="mobileNum" class="form-control"
+                              value="{{policyDetails.proposerDetails.mobile}}" readonly />
+                            <div *ngIf="type === 'POLICY_DETAILS' && roles === 'ROLE_TELECALLER';else elseBlock2">
+                              <div class="input-group-append" *ngIf="!isTaskTransfered && !isTaskVerified">
+                                <span class="input-group-text">
+                                  <span class="fa fa-phone fa-lg"
+                                    (click)="clearTouchCallFunctionLive(policyDetails.taskId, policyDetails.proposerDetails.mobile)"></span></span>
+                                <ng-template #elseBlock2>
+                                  <div *ngIf="type === 'POLICY_DETAILS' && cloudCalling==='YES' &&!isTaskVerified">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text">
+                                        <span class="fa fa-phone fa-lg"
+                                          (click)="clearTouchCallFunctionLive(policyDetails.taskId, policyDetails.proposerDetails.mobile)"></span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </ng-template>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Alternate Mobile Number</label>
+                        <div class="input-group mb-3 checkBox">
+                          <input type="text" name="alternateMobileNumber" id="alternateMobileNumber"
+                            class="form-control" value="{{policyDetails.alternateMobileNumber}}" readonly />
+                          <div *ngIf="type === 'POLICY_DETAILS' && roles === 'ROLE_TELECALLER';else elseBlock2">
+                            <div class="input-group-append" *ngIf="!isTaskTransfered && !isTaskVerified">
+                              <span class="input-group-text">
+                                <span class="fa fa-phone fa-lg"
+                                  (click)="clearTouchCallFunctionLive(policyDetails.taskId,policyDetails.alternateMobileNumber)"></span>
+                              </span>
+                            </div>
+                          </div>
+                          <app-tick-svg class="svg-tick-icon" *ngIf="policyDetails.isAlternateNumberVerified === 'YES'">
+                          </app-tick-svg>
+                          <ng-template #elseBlock2>
+                            <div *ngIf="type === 'POLICY_DETAILS' && cloudCalling==='YES' &&!isTaskVerified">
+                              <div class="input-group-append">
+                                <span class="input-group-text">
+                                  <span class="fa fa-phone fa-lg"
+                                    (click)="clearTouchCallFunctionLive(policyDetails.taskId, policyDetails.alternateMobileNumber)"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </ng-template>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Email</label>
+                        <input type="text" name="" id="email" class="form-control"
+                          value="{{policyDetails.proposerDetails.email}}" readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Campaign Code</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.campaignCode}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Transaction Type</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.transactionType}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Policy Duration</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.policyDuration}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Subline</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.subline}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Hr code</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.hrCode}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Hr Name</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.hrName}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Hr Mobile Number</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.hrMobileNumber}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6">
+                        <label class="mt-2">Hr Email id</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.hrEmailId}}"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                        <label class="mt-2">Net Premium</label>
+                        <input type="text" name="" id="" value="{{policyDetails.netPremium}}" class="form-control"
+                          readonly />
+                      </div>
+                      <div class="col-md-4 col-lg-4 col-sm-6 col-xs-6 mb-3">
+                        <label class="mt-2">Policy SI</label>
+                        <input type="text" name="" id="" class="form-control" value="{{policyDetails.policySi}}"
+                          readonly />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div *ngIf="type === 'POLICY_DETAILS' && roles === 'ROLE_TELECALLER';else elseBlock">
+                <tc-update *ngIf="!isTaskTransfered && !isTaskVerified"></tc-update>
+              </div>
+              <ng-template #elseBlock>
+                <tc-update *ngIf="cloudCalling=='YES' && !isTaskVerified"></tc-update>
+              </ng-template>
+            </div>
+            <ng-template #elseBlock3>
+              <div class="policy-title">
+                <h6>No Policy Details Available for this Task ID</h6>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- main-panel ends -->
+</div>
+
+<!-- AlterNumber Modal Box -->
+<div class="modal" id="alternateNumberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" [ngStyle]="{'display':display}">
+  <div class="modal-dialog modal-lg" role="document">
+    <form action="" method="">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onCloseHandled()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <app-send-otp></app-send-otp> -->
+          <div class="container" *ngIf="showOtpModal">
+            <section class="signup-step-container">
+              <div class="container">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-8">
+                    <div class="wizard">
+                      <form role="form" action="" class="login-box">
+                        <div class="tab-content" id="main_form">
+                          <div class="" id="step1" *ngIf="showstep1">
+                            <div class="container">
+                              <label for="yes" class="pl-4">
+                                <input type="radio" [(ngModel)]="radiobtn" name="radiobtn" id="otp" value="otp" /> OTP
+                              </label>
+                              <label for="no" class="pl-4">
+                                <input type="radio" [(ngModel)]="radiobtn" name="radiobtn" id="send_vertication_link"
+                                  value="sendLink" />
+                                Send Verification Link
+                              </label>
+                            </div>
+                            <ul class="list-inline pull-right">
+                              <li><button type="button" class="primary-btn next-step"
+                                  (click)="step1confirmation()">Submit</button></li>
+                              <li><button type="button" class="danger-btn cancel">Cancel</button></li>
+                            </ul>
+                          </div>
+                          <div id="step2" *ngIf="showstep2">
+                            <div class="form-group">
+                              <label> Enter Alternate Number </label>
+                              <input id="mobile" [(ngModel)]="mobileNum" class="form-control" type="text"
+                                (keypress)="numberOnly($event)" name="mobile" placeholder="">
+                            </div>
+                            <ul class="list-inline pull-left">
+                              <li><button type="button" class="btn-info prev-step" (click)="step1Back()">Back</button>
+                              </li>
+                            </ul>
+                            <ul class="list-inline pull-right">
+                              <li><button type="button" class="primary-btn next-step"
+                                  (click)="step2confirmation()">Submit</button></li>
+                              <li><button type="button" class="danger-btn cancel"
+                                  (click)="cancelAlternateNumber()">Cancel</button></li>
+                            </ul>
+                          </div>
+                          <div id="step3" *ngIf="showstep3">
+                            <div class="form-group">
+                              <label> Enter OTP </label>
+                              <input id="otp" [(ngModel)]="otp" class="form-control" type="text"
+                                (keypress)="numberOnly($event)" name="name" placeholder="">
+                            </div>
+                            <ul class="list-inline pull-left">
+                              <li><button type="button" class="btn-info prev-step" (click)="step2Back()">Back</button>
+                              </li>
+                            </ul>
+                            <ul class="list-inline pull-right">
+                              <li><button type="button" class="primary-btn next-step"
+                                  (click)="verifyOtp()">Submit</button></li>
+                              <li><button type="button" class="danger-btn cancel" (click)="cancelOtp()">Cancel</button>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="container" *ngIf="showTaskTransferModal">
+            <div class="row d-flex justify-content-center">
+              <div class="col-8">
+                <div class="form-group">
+                  <label> Enter Reason </label>
+                  <input id="reason" [(ngModel)]="reason" class="form-control" type="text" name="reason">
+                </div>
+                <ul class="list-inline pull-right">
+                  <li><button type="button" class="primary-btn next-step" (click)="taskTransfer()">Submit</button></li>
+                  <!-- <li><button type="button" class="danger-btn cancel" (click)="closeModal()">Cancel</button></li> -->
+                  <li><button type="button" class="danger-btn cancel" (click)="cancelReason()">Cancel</button></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-primary">Submit</button> -->
+          <button type="button" class="btn btn-secondary" (click)="onCloseHandled()">Close</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

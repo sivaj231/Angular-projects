@@ -1,0 +1,72 @@
+<div class="tc-btn-container">
+  <button type="button" class="tc-btn" (click)=" openTC($event)">TC Update</button>
+</div>
+<div class="menu bg-grey-color" [ngClass]="{ 'menu-hover' :selected }">
+  <!-- <div class="title">TC Update</div> -->
+  <div class="tc-title">
+    <h6>TC Update</h6>
+    <div class="close-container" (click)="closeTC($event)">
+      <div class="leftright"></div>
+      <div class="rightleft"></div>
+    </div>
+  </div>
+  <form [formGroup]='tcUpdateForm' (ngSubmit)="tcUpdate(tcUpdateForm.value)">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2">
+          <label>Disposition</label>
+          <select [ngClass]="{'is-invalid': submitted && f.dispositions.errors }" class="form-control"
+            (change)="subDisposition($event.target.value)" formControlName="dispositions">
+            <option value="">Select</option>
+            <option *ngFor="let disposition of dispositionArr" [value]="disposition">{{disposition}}</option>
+          </select>
+          <div *ngIf="submitted && f.dispositions.errors" class="invalid-feedback">
+            <div *ngIf="f.dispositions.errors.required" style="font-size: 17px;text-align: center;">
+              Disposition is
+              required</div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2">
+          <label>Sub Disposition</label>
+          <select [ngClass]="{'is-invalid': submitted && f.subDispositions.errors }" class="form-control"
+            name="subDispositions" formControlName="subDispositions" (change)="remarksValidation()">
+            <option value="">Select</option>
+            <option *ngFor="let sub of subDispositionArr">{{sub}}</option>
+          </select>
+          <div *ngIf="submitted && f.subDispositions.errors" class="invalid-feedback">
+            <div *ngIf="f.subDispositions.errors.required" style="font-size: 17px;text-align: center;">
+              Sub Disposition is
+              required</div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2">
+          <label>Remarks</label>
+          <textarea [ngClass]="{'is-invalid': submitted && f.remarks.errors }" class="form-control" formControlName="remarks"></textarea>
+          <div *ngIf="submitted && f.remarks.errors" class="invalid-feedback">
+            <div *ngIf="f.remarks.errors.required" style="font-size: 17px;text-align: center;">
+              Remarks is
+              required</div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2" *ngIf='showReminderDate'>
+          <label>Reminder</label>
+          <!-- <input type="text" value="" name="" class="form-control"  formControlName="reminder"/> -->
+          <input (ngModelChange)="showReminderTimeFunc($event)" type="text" name="reminderDate" id="reminderDate"
+            placeholder="Pick date" formControlName="reminderDate" class="form-control" bsDatepicker [bsConfig]="{
+                        dateInputFormat: 'DD/MM/YYYY',
+                        isAnimated: true, containerClass: 'theme-dark-blue'
+                      }" readonly [minDate]="minFromDate" style="background-color:transparent;" placement="auto" />
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 mb-2" *ngIf='showReminderTime'>
+          <label>Reminder Time</label>
+          <!-- <input type="text" value="" name="" class="form-control" /> -->
+          <timepicker formControlName="myTime"  [min]="minTime" [max]="maxTime"></timepicker>
+        </div>
+        <div class="col-md-12 col-lg-12 col-sm-12 col-12 text-center mt-2">
+          <button type="submit" class="btn btn-sm btn-primary mr-1"><i class="fa fa-check-circle"></i> Submit</button>
+          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i> Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

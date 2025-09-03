@@ -1,0 +1,28 @@
+<div class="container" *ngIf="showReminder">
+    <div class="notification">
+      <label class="text-secondary"><i class="fa fa-clock-o"></i> Reminder</label>
+      <div *ngFor="let reminders of reminderTaskList">
+      <div *ngIf = "reminders.colour==='RED'">
+        <div class="toast-reminder toast-red add-margin">
+          <div class="toast-icon">
+            <i class="fa fa-exclamation-circle"></i>
+          </div>
+          <div class="toast-content">                  
+            <a href="javascript:void(0)" class="toast-message" (click)="redirectToPolicyPage(reminders.taskId, reminders.typeOfBusiness)">{{reminders.taskId}} - {{reminders.taskStatus}}</a>
+          </div>                 
+        </div>
+      </div>
+      <div *ngIf = "reminders.colour === 'GREEN'">
+        <div class="toast-reminder toast-green add-margin">
+          <div class="toast-icon">
+            <i class="fa fa-exclamation-circle"></i>
+          </div>
+          <div class="toast-content">                  
+            <a href="javascript:void(0)" class="toast-message" (click)="redirectToPolicyPage(reminders.taskId, reminders.typeOfBusiness)">{{reminders.taskId}} - {{reminders.taskStatus}}</a>
+          </div>                 
+        </div>
+      </div>
+      </div>   
+    </div>
+  </div>
+  

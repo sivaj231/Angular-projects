@@ -1,0 +1,109 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="card mt-4">
+                <div class="card-title text-center">
+                    <span>Download </span>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <form [formGroup]='SearchUploadStatusForm'
+                            (ngSubmit)='searchFileUploadStatus(SearchUploadStatusForm.value)' class="bg-white">
+                            <div class="container">
+                                <div class="row">
+                                    <label for="from_date" class="col-lg-2 col-md-2 col-sm-6 col-6">From Date</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                        <input type="text" id="startDate" class="form-control"
+                                            formControlName="startDate" name="startDate"
+                                            (ngModelChange)="setToDate($event)" bsDatepicker [bsConfig]="{
+                                        dateInputFormat: 'DD/MM/YYYY',
+                                        isAnimated: true,containerClass: 'theme-dark-blue'
+                                      }" readonly style="background-color:transparent;" placeholder="DD/MM/YYYY" />
+                                    </div>
+                                    <label for="to_date" class="col-lg-2 col-md-2 col-sm-6 col-6">To Date</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                        <input type="text" class="form-control" id="endDate" formControlName="endDate"
+                                            name="endDate" bsDatepicker [bsConfig]="{
+                                        dateInputFormat: 'DD/MM/YYYY',
+                                        isAnimated: true,containerClass: 'theme-dark-blue'
+                                      }" readonly [minDate]="minToDate" style="background-color:transparent;"
+                                            placeholder="DD/MM/YYYY" />
+                                    </div>
+                                    <label for="to_date" class="col-lg-2 col-md-2 col-sm-6 col-6 mt-4">Batch
+                                        Number</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+                                        <input type="text" id="batchNumber" class="form-control"
+                                            formControlName="batchNumber" name="batchNumber" autocomplete="off" />
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-3 text-center">
+                                        <button type="submit"
+                                            class="btn effect effect-4 effect-primary effect-submit btn-getdetails"
+                                            >Search</button>
+                                        <button class="btn effect effect-4 effect-danger effect-cancel"
+                                        (click)="clearFormData()" type="button">Cancel</button>
+                                    </div>
+                                </div>
+                                <div class="table-responsive mt-3" [hidden]= "!show">
+                                    <table id="example" class="table table-striped table-bordered table-hover" datatable
+                                        [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                        <thead>
+                                            <tr>
+                                                <th>Batch Number</th>
+                                                <th>File Type</th>
+                                                <th>Valid Count</th>
+                                                <th>Invalid Count</th>
+                                                <th>Total Count</th>
+                                                <th>Valid File</th>
+                                                <th>Invalid File</th>
+                                                <th>Uploaded File</th>
+                                                <th>Uploaded Date</th>
+                                                <th>Uploaded Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let x of searchResltData">
+                                                <td>{{x.batchNo}}</td>
+                                                <td>{{x.uploadType}}</td>
+                                                <td>{{x.validCount}}</td>
+                                                <td>{{x.invalidCount}}</td>
+                                                <td>{{x.totalCount}}</td>
+                                                <td>
+                                                    <p *ngIf="x.validCount!=0">
+                                                        <a (click)="downloadFile(x.id,x.fileName,validFile)"><i
+                                                                class="fa fa-download" aria-hidden="true"
+                                                                style="color: green;cursor: pointer"></i></a>
+                                                    </p>
+                                                    <p *ngIf="x.validCount==0">
+                                                        NA
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p *ngIf="x.inValidCount!=0">
+                                                        <a (click)="downloadFile(x.id,x.fileName,inValidFile)"><i
+                                                                class="fa fa-download" aria-hidden="true"
+                                                                style="color: red;cursor: pointer"></i></a>
+                                                    </p>
+                                                    <p *ngIf="x.inValidCount==0">
+                                                        NA
+                                                    </p>
+                                                </td>
+                                                <td><a (click)="downloadFile(x.id,x.fileName,uploadedFile)"><i
+                                                            class="fa fa-download" aria-hidden="true"
+                                                            style="color: blue;cursor: pointer"></i></a>
+                                                </td>
+                                                <td>{{x.uploadedDate}}</td>
+                                                <td>{{x.fileStatus}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a class="download-zip-link" #downloadZipLink></a>
+            </div>
+        </div>
+    </div>
+    <!-- main-panel ends -->
+</div>

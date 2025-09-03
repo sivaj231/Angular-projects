@@ -1,0 +1,103 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="card mt-4">
+                <div class="card-title text-center">
+                    <span>Search</span>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <form [formGroup]='globalSearchForm' (ngSubmit)="globalSearch(globalSearchForm.value)">
+                            <div class="row mt-3">
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6">Search Type <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <select class="form-control"
+                                        [ngClass]="{'is-invalid': submitted && f.searchType.errors }"
+                                        formControlName="searchType">
+                                        <option value="">Select</option>
+                                        <option value="mobileNumber">Mobile Number</option>
+                                        <option value="customerName">Customer Name</option>
+                                        <option value="taskId">Task ID</option>
+                                        <option value="policyNo">Policy No</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.searchType.errors" class="invalid-feedback"
+                                        style="font-size: 17px;text-align: center;">
+                                        Search Type is
+                                        required
+                                    </div>
+                                </div>
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6">Search Value <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <input type="searchValue" class="form-control"
+                                        [ngClass]="{'is-invalid': submitted && f.searchValue.errors }"
+                                        formControlName="searchValue">
+                                    <div *ngIf="submitted && f.searchValue.errors" class="invalid-feedback"
+                                        style="font-size: 17px;text-align: center;">
+                                        Search Value is
+                                        required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6">Select Year <span
+                                        style="color: red;">*</span></label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <select class="form-control" [ngClass]="{'is-invalid': submitted && f.year.errors }"
+                                        formControlName="year">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let i of year" [ngValue]="i">{{i}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.year.errors" class="invalid-feedback"
+                                        style="font-size: 17px;text-align: center;">
+                                        Year is
+                                        required
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-12 text-center mt-3 mb-3">
+                                <button type="submit"
+                                    class="btn effect effect-4 effect-primary effect-submit btn-getdetails"><i class="fa fa-arrow-alt-circle-right"></i> Get
+                                    Details</button>
+                                <button type="reset" class="btn effect effect-4 effect-danger effect-cancel"><i
+                                        class="fa fa-times-circle"></i> Cancel</button>
+                            </div>
+                        </form>
+                        <div class="table-responsive" [hidden]= "!show">
+                        <table #table1 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger">
+                            <thead class="bg-info text-light">
+                            <tr>
+                                <th>Task ID</th>
+                                <th>Policy No</th>
+                                <th>Disposition Status</th>
+                                <th>Sub-Disposition Status </th> 
+                                <th>Campaign Name</th>
+                                <th>Line Of Business</th>
+                                <th>Action</th>                                                         
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let task of taskData">
+                                <td>{{task.taskId}}</td>
+                                <td>{{task.policyNo}}</td>
+                                <td>{{task.taskStatus}}</td>
+                                <td>{{task.taskSubstatus}}</td>
+                                <td>{{task.campaignName}}</td>  
+                                <td>{{task.typeOfBusiness}}</td>
+                                <td>
+                                  <button type="button" class="btn button2c" (click)="policyDetails(task.taskId, task.typeOfBusiness)">
+                                    <div class="button2c-content" ><i class="fa fa-eye"></i></div>
+                                  </button>
+                                </td>                                     
+                            </tr>   
+                          </tbody>
+                        </table>                                                                          
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main-panel ends -->
+</div>

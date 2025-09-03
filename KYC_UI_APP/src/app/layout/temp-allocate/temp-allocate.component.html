@@ -1,0 +1,156 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="card mt-4">
+                <div class="card-title text-center">
+                    <span>Temporary Allocation</span>
+                </div>
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <form [formGroup]='tempAllocateForm' (ngSubmit)="getDetails(tempAllocateForm.value)">
+                            <div class="row mt-3">
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6" for="channel">Channel</label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <ng-select (change)="getTeleCallers()" formControlName="selectedChannel"
+                                        [ngClass]="{'is-invalid': submitted && f.selectedChannel.errors }"
+                                        [items]="channels" [multiple]="false" placeholder="Select Channel">
+                                    </ng-select>
+                                    <div *ngIf="submitted && f.selectedChannel.errors" class="invalid-feedback">
+                                        <div *ngIf="f.selectedChannel.errors.required"
+                                            style="font-size: 17px;text-align: center;">
+                                            Channel is
+                                            required</div>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6" for="branch">Branch</label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <ng-select (change)="getTeleCallers()"
+                                        [ngClass]="{'is-invalid': submitted && f.selectedBranch.errors }"
+                                        [items]="branches" [multiple]="false" placeholder="Select Branch"
+                                        formControlName="selectedBranch">
+                                    </ng-select>
+                                    <div *ngIf="submitted && f.selectedBranch.errors" class="invalid-feedback">
+                                        <div *ngIf="f.selectedBranch.errors.required"
+                                            style="font-size: 17px;text-align: center;">
+                                            Branch is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6" for="teleCallers">From
+                                    Tele-Caller</label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <ng-select [items]="teleCallers" formControlName="teleCaller" [(ngModel)]="event_type"
+                                        [ngClass]="{'is-invalid': submitted && f.teleCaller.errors }" [multiple]="false"
+                                        placeholder="Select TeleCaller">
+                                    </ng-select>
+                                    <div *ngIf="submitted && f.teleCaller.errors" class="invalid-feedback">
+                                        <div *ngIf="f.teleCaller.errors.required"
+                                            style="font-size: 17px;text-align: center;">
+                                            From Tele-Caller is
+                                            required</div>
+                                    </div>
+                                </div>
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6">Branch
+                                    Transfer</label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6">
+                                    <select class="form-control" id="branchTransfer" formControlName="branchTransfer"
+                                        (change)="branchTransferToggle($event.target.value)"
+                                        [ngClass]="{'is-invalid': submitted && f.branchTransfer.errors }">
+                                        <option value="">Select</option>
+                                        <option value="YES">YES</option>
+                                        <option value="NO">NO</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.branchTransfer.errors" class="invalid-feedback">
+                                        <div *ngIf="f.branchTransfer.errors"
+                                            style="font-size: 17px;text-align: center;">
+                                            Branch Transfer is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <label class="col-md-2 col-lg-2 col-sm-6 col-6" for="teleCallers"
+                                    *ngIf="showGeneralBranch">Transfer Branch
+                                </label>
+                                <div class="col-md-4 col-lg-4 col-sm-6 col-6" *ngIf="showGeneralBranch">
+                                    <ng-select [items]="overAllBranches"
+                                        [ngClass]="{'is-invalid': submitted && f.transferBranch.errors }"
+                                        [multiple]="false" placeholder="Select Branch" formControlName="transferBranch">
+                                    </ng-select>
+                                    <div *ngIf="submitted && f.transferBranch.errors" class="invalid-feedback">
+                                        <div *ngIf="f.transferBranch.errors.required"
+                                            style="font-size: 17px;text-align: center;">
+                                            Tranfer Branch is
+                                            required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-12 text-center mt-3 mb-3">
+                                <button type="submit"
+                                    class="btn effect effect-4 effect-primary effect-submit btn-getdetails"><i
+                                        class="fa fa-arrow-alt-circle-right"></i> Get
+                                    Details</button>
+                                <button type="reset" class="btn effect effect-4 effect-danger effect-cancel"><i
+                                        class="fa fa-times-circle"></i> Cancel</button>
+                            </div>
+                            <div class="table-responsive" [hidden]="!show">
+                                <table id="example" class="table table-striped table-hover table-bordered" datatable
+                                    [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                                    <thead class="bg-info text-light">
+                                        <tr>
+                                            <th class="text-center"><input type="checkbox" class="text-center"
+                                                    (change)="checkAllCheckBox($event)" /></th>
+                                            <th>Task ID</th>
+                                            <th>Disposition Status</th>
+                                            <th>Sub-Disposition Status </th>
+                                            <th>To Tele-Caller</th>
+                                            <th>Temporary Date</th>
+                                            <th>Reasons</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let t of taskData; let i=index;">
+                                            <td class="text-center"><input type="checkbox" class="text-center"
+                                                    [checked]="taskData[i].checked" (change)="checkCheckBox($event,i)">
+                                            </td>
+                                            <td>{{t.taskId}}</td>
+                                            <td>{{t.dispositionStatus}}</td>
+                                            <td>{{t.subDispositionStatus}}</td>
+                                            <td>
+                                                <select class="form-control" (change)="changeFunction($event,i)">
+                                                    <option value="">SELECT</option>
+                                                    <option *ngFor="let tele of toTeleCallers">{{tele}}</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="text" (bsValueChange)="getDate($event,i)" placeholder="Daterangepicker" class="form-control"
+                                                [bsConfig]="{
+                                                    dateInputFormat: 'DD/MM/YYYY',
+                                                    isAnimated: true, containerClass: 'theme-dark-blue'
+                                                  }" readonly [minDate]="minFromDate" placement="auto" bsDaterangepicker>
+                                            </td>
+                                            <td>
+                                                <input class="form-control" (blur)="updateComments($event,i)"
+                                                    type="text" value="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <button type="button"
+                                        class="btn effect effect-4 effect-info effect-reallocate btn-large"
+                                        (click)="tempAllocateTask()"><i class="fa fa-exchange-alt"></i> Temporary
+                                        Allocate</button>
+                                    <!-- <button type="reset" class="btn effect effect-4 effect-danger effect-cancel"><i
+                                            class="fa fa-times-circle"></i> Clear</button> -->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

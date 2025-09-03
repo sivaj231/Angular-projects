@@ -1,0 +1,48 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="card mt-4">
+                <div class="card-title text-center">
+                    <span>Download </span> 
+                </div>                
+                <div class="card-body">
+                    <div class="container-fluid">
+                        <form [formGroup]='downloadInvalidForm' (ngSubmit)="download(downloadInvalidForm.value)">                  
+                            <div class="container">
+                                <div class="row">
+                                    <label for="from_date" class="col-lg-2 col-md-2 col-sm-6 col-6">From Date</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                        <input type="text" id="startDate" class="form-control"
+                                            formControlName="startDate" name="startDate"
+                                            (ngModelChange)="setToDate($event)" bsDatepicker [bsConfig]="{
+                                        dateInputFormat: 'DD/MM/YYYY',
+                                        isAnimated: true,containerClass: 'theme-dark-blue'
+                                      }" readonly style="background-color:transparent;" placeholder="DD/MM/YYYY" />
+                                    </div>
+                                    <label for="to_date" class="col-lg-2 col-md-2 col-sm-6 col-6">To Date</label>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                                        <input type="text" class="form-control" id="endDate" formControlName="endDate"
+                                            name="endDate" bsDatepicker [bsConfig]="{
+                                        dateInputFormat: 'DD/MM/YYYY',
+                                        isAnimated: true,containerClass: 'theme-dark-blue'
+                                      }" readonly [minDate]="minToDate" style="background-color:transparent;"
+                                            placeholder="DD/MM/YYYY" />
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12 mt-3 text-center">
+                                        <button type="submit"
+                                            class="btn effect effect-4 effect-primary effect-submit btn-getdetails"
+                                            >Search</button>
+                                        <button class="btn effect effect-4 effect-danger effect-cancel"
+                                        (click)="clearFormData()" type="button">Cancel</button>
+                                    </div>
+                                </div>                                                                                                    
+                            </div>
+                        </form> 
+                    </div>
+                </div>                          
+            </div> 
+        </div>
+        <a class="download-zip-link" #downloadZipLink></a>      
+    </div>  
+    <!-- main-panel ends -->
+</div>

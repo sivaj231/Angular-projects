@@ -1,0 +1,290 @@
+<div class="container-fluid page-body-wrapper">
+    <div class="main-panel">   
+      <div class="content-wrapper">
+        <ul class="nav nav-tabs tabs-top" role="tablist">
+          <li class="nav-item"><a class="nav-link active" href="#new_business" (click)="bindData('NB')" role="tab" data-toggle="tab">New Business</a></li>
+          <li class="nav-item"><a class="nav-link" href="#renewal" role="tab" (click)="bindData('RN')" data-toggle="tab">Renewal</a></li>        
+        </ul>
+        <div class="wrap mt-3">
+          <ul class="nav nav-tabs tabs group" role="tablist">
+            <li class="nav-item"><a class="nav-link active" href="#fresh" role="tab" data-toggle="tab">Fresh</a></li>
+            <li class="nav-item"><a class="nav-link" href="#not_contactable" role="tab" data-toggle="tab">Not Contactable</a></li>
+            <li class="nav-item"><a class="nav-link" href="#not_responding" role="tab" data-toggle="tab">Not Responding</a></li>
+            <li class="nav-item"><a class="nav-link" href="#call_back" role="tab" data-toggle="tab">Call Back</a></li>
+            <li class="nav-item"><a class="nav-link" href="#alternate_number" role="tab" data-toggle="tab">Alternate Number</a></li>
+            <li class="nav-item"><a class="nav-link" href="#alternate_number_verified" role="tab" data-toggle="tab">Alternate Number Verified</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Other" role="tab" data-toggle="tab">Other</a></li>
+            <li class="nav-item"><a class="nav-link" href="#verified" role="tab" data-toggle="tab">Verified</a></li>
+          </ul>              
+          <div class="tab-content" id="content">
+            <div role="tabpanel" class="tab-pane fade in active show" id="fresh">
+              <div class="tab-title"><span>Fresh</span></div>
+              <div class="table-responsive">
+                <table #table1 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger1">
+                    <thead class="bg-info text-light">
+                    <tr>
+                        <th>Task ID</th>
+                        <th>Policy No</th>
+                        <th>Disposition Status</th>
+                        <th>Sub-Disposition Status </th> 
+                        <th>Campaign Name</th>
+                        <th>Line Of Business</th>
+                        <th>Action</th>                                                         
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let fresh of freshList">
+                        <td>{{fresh.taskId}}</td>
+                        <td>{{fresh.policyNo}}</td>
+                        <td>{{fresh.taskStatus}}</td>
+                        <td>{{fresh.taskSubstatus}}</td>
+                        <td>{{fresh.campaignName}}</td>  
+                        <td>{{fresh.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(fresh.taskId, fresh.typeOfBusiness)">
+                            <div class="button2c-content"><i class="fa fa-eye"></i></div>
+                          </button>
+                        </td>                                     
+                    </tr>   
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="not_contactable">
+              <div class="tab-title"><span>Not Contactable</span></div>
+              <div class="table-responsive">
+                <table #table2 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger2">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let nc of notContactable">
+                        <td>{{nc.taskId}}</td>
+                        <td>{{nc.policyNo}}</td>
+                        <td>{{nc.taskStatus}}</td>
+                        <td>{{nc.taskSubstatus}}</td>
+                        <td>{{nc.campaignName}}</td>  
+                        <td>{{nc.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(nc.taskId, nc.typeOfBusiness)">
+                            <div class="button2c-content"><i class="fa fa-eye"></i></div>
+                          </button>
+                        </td>                                     
+                    </tr>        
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="not_responding">
+              <div class="tab-title"><span>Not Responding</span></div>
+              <div class="table-responsive">
+                <table #table3 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger3">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                         
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let notResponsding of notRespondingList">
+                        <td>{{notResponsding.taskId}}</td>
+                        <td>{{notResponsding.policyNo}}</td>
+                        <td>{{notResponsding.taskStatus}}</td>
+                        <td>{{notResponsding.taskSubstatus}}</td>
+                        <td>{{notResponsding.campaignName}}</td>  
+                        <td>{{notResponsding.typeOfBusiness}}</td>
+                        <td>
+                         <a>
+                          <button type="button" class="btn button2c" (click)="policyDetails(notResponsding.taskId, notResponsding.typeOfBusiness)">
+                            <div class="button2c-content" ><i class="fa fa-eye"></i></div>
+                          </button>
+                        </a> 
+                        </td>                                     
+                    </tr>
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="call_back">
+              <div class="tab-title"><span>Call Back</span></div>
+              <div class="table-responsive">
+                <table #table4 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger4">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                       
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let callBack of callBackList">
+                        <td>{{callBack.taskId}}</td>
+                        <td>{{callBack.policyNo}}</td>
+                        <td>{{callBack.taskStatus}}</td>
+                        <td>{{callBack.taskSubstatus}}</td>
+                        <td>{{callBack.campaignName}}</td>  
+                        <td>{{callBack.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(callBack.taskId, callBack.typeOfBusiness)">
+                            <div class="button2c-content"><i class="fa fa-eye"></i></div>
+                          </button>
+                        </td>                                     
+                    </tr>  
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="verified">
+              <div class="tab-title"><span>Verified</span></div>
+              <div class="table-responsive">
+                <table #table5 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger5">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let verified of verifiedList">
+                        <td>{{verified.taskId}}</td>
+                        <td>{{verified.policyNo}}</td>
+                        <td>{{verified.taskStatus}}</td>
+                        <td>{{verified.taskSubstatus}}</td>
+                        <td>{{verified.campaignName}}</td>  
+                        <td>{{verified.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(verified.taskId, verified.typeOfBusiness)">
+                            <div class="button2c-content" ><i class="fa fa-eye"></i></div>
+                          </button>
+                        </td>                                     
+                    </tr>
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="alternate_number">
+              <div class="tab-title"><span>Alternate Number Verification Pending</span></div>
+              <div class="table-responsive">
+                <table #table6 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger6">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let alternateNum of alternateNumList">
+                        <td>{{alternateNum.taskId}}</td>
+                        <td>{{alternateNum.policyNo}}</td>
+                        <td>{{alternateNum.taskStatus}}</td>
+                        <td>{{alternateNum.taskSubstatus}}</td>
+                        <td>{{alternateNum.campaignName}}</td>  
+                        <td>{{alternateNum.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(alternateNum.taskId, alternateNum.typeOfBusiness)">
+                            <div class="button2c-content" ><i class="fa fa-eye"></i></div>
+                          </button> 
+                        </td>                                     
+                    </tr>
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="alternate_number_verified">
+              <div class="tab-title"><span>Alternate Number Verified</span></div>
+              <div class="table-responsive">
+                <table #table6 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger6">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let alternateNumVer of alternateNumVerList">
+                        <td>{{alternateNumVer.taskId}}</td>
+                        <td>{{alternateNumVer.policyNo}}</td>
+                        <td>{{alternateNumVer.taskStatus}}</td>
+                        <td>{{alternateNumVer.taskSubstatus}}</td>
+                        <td>{{alternateNumVer.campaignName}}</td>  
+                        <td>{{alternateNumVer.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(alternateNumVer.taskId, alternateNumVer.typeOfBusiness)">
+                            <div class="button2c-content" ><i class="fa fa-eye"></i></div>
+                          </button> 
+                        </td>                                     
+                    </tr>
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade in" id="Other">
+              <div class="tab-title"><span>Invalid Number</span></div>
+              <div class="table-responsive">
+                <table #table7 class="table table-striped table-hover table-bordered table-hover" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger7">
+                    <thead class="bg-info text-light">
+                    <tr>
+                      <th>Task ID</th>
+                      <th>Policy No</th>
+                      <th>Disposition Status</th>
+                      <th>Sub-Disposition Status </th> 
+                      <th>Campaign Name</th>
+                      <th>Line Of Business</th>
+                      <th>Action</th>                                                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let otherLists of otherList">
+                        <td>{{otherLists.taskId}}</td>
+                        <td>{{otherLists.policyNo}}</td>
+                        <td>{{otherLists.taskStatus}}</td>
+                        <td>{{otherLists.taskSubstatus}}</td>
+                        <td>{{otherLists.campaignName}}</td>  
+                        <td>{{otherLists.typeOfBusiness}}</td>
+                        <td>
+                          <button type="button" class="btn button2c" (click)="policyDetails(otherLists.taskId, otherLists.typeOfBusiness)">
+                            <div class="button2c-content" ><i class="fa fa-eye"></i></div>
+                          </button>
+                        </td>                                     
+                    </tr>
+                  </tbody>
+                </table>                                                                          
+              </div>
+            </div>
+          </div>              
+        </div> 
+      </div>      
+    </div>  
+</div>
