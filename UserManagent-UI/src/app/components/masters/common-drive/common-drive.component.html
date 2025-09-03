@@ -1,0 +1,209 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Common Drive</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Master > <b>Common Drive</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <div class="clearfix">
+                    <span class="float-left"></span>
+                    <span class="float-right"><button type="button" (click)="showForm()" class="btn btn-success">Add
+                            New Drive</button></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row" *ngIf="addEditForm">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>Add / Update Common Drive</b></p>
+
+                <hr>
+                <form [formGroup]="commonDriveForm" #ngForm="ngForm" (ngSubmit)="saveCommonDrive()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Path</label>
+                                <input type="text" class="form-control" formControlName="path" placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.path.errors?.required">
+                                        Path is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Object Name</label>
+                                <input type="text" class="form-control" formControlName="objectName" placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.objectName.errors?.required">
+                                        objectName is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Ou Name</label>
+                                <input type="text" class="form-control" formControlName="ouName" placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.ouName.errors?.required">
+                                        ouName is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Owner EmpId</label>
+                                <!-- <input type="text" class="form-control" formControlName="ownerEmpId" placeholder=""> -->
+                                <select class="form-control" formControlName="ownerempId" (change)="getAllEmpDetails($event.target.value)">
+                                    <option value="">Choose</option>
+                                    <option *ngFor="let item of empDataList;let i=index;"
+                                        value="{{item.empId}}">{{item.empId}}</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.ownerempId.errors?.required">
+                                        OwnerEmpId is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Owner Emp Name</label>
+                                <!-- <input type="text" class="form-control" formControlName="ownerEmpName" placeholder=""> -->
+                                <select class="form-control" formControlName="ownerEmpName" (change)="getAllEmpDetails($event.target.value)">
+                                    <option value="">Choose</option>
+                                    <option *ngFor="let item of empDataList;let i=index;"
+                                        value="{{item.empName}}">{{item.empName}}</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.ownerEmpName.errors?.required">
+                                        OwnerEmpName is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Owner Emp Department</label>
+                                <input type="text" class="form-control" formControlName="ownerEmpDepartment" placeholder="" readonly>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.ownerEmpDepartment.errors?.required">
+                                        OwnerEmpDepartment is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group" *ngIf="commonDriveForm.get('action').value != 'NEW'">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <div class="table-responsive">
+
+                    <br>
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Path</th>
+                                <th>ObjectName</th>
+                                <th>OuName</th>
+                                <th>OwnerEmpId</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of commonDriveList; let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.path}}</td>
+                                <td>{{item.objectName}}</td>
+                                <td>{{item.ouName}}</td>
+                                <td>{{item.ownerempId}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editCommonDrive(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

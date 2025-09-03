@@ -1,0 +1,236 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>AUP Policy</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right"><a routerLink="/dashboard"> Dashboard </a> > 
+                        <b>Aup Policy</b> 
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <form [formGroup]="aupFormFilter">
+
+                    <div class="col-md-12 form_filter">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Policy. No</label>
+                                    <input type="text" class="form-control" formControlName="fillterPolicyNo" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Effective Date</label>
+                                    <input type="date" class="form-control" formControlName="filterEffectiveDate" placeholder="">
+                                </div>
+                            </div>                          
+                          
+
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <i  class="fa fa-filter form_filter_search_icon cursor_icon"
+                                    aria-hidden="true"></i>
+                                <i 
+                                    class="fa fa-refresh form_filter_reset_icon cursor_icon" aria-hidden="true"></i>
+                            </div>
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <button type="button" (click)="showForm()"  class="btn btn-success add_new btn-block">
+                                   New Aup Policy.
+                                </button>
+                            </div>
+                            
+                        </div>
+                                             
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="row" *ngIf="viewAup">
+
+        <div id="accordion" class="row">
+
+            <div class="col-md-3">
+
+                <div class="col-md-12 content h-100">
+
+
+                    <ul class="list-group list-group-flush category_panel" style="background: #F1F6FB;">
+                        <li class="list-group-item" data-toggle="collapse" href="#aupPolicyInfo"><i
+                                class="fa fa-user" aria-hidden="true"></i> 
+                                Policy Information</li>                       
+                    </ul>
+
+
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="col-md-12 content h-100">
+
+                <div id="aupPolicyInfo" class="collapse show" data-parent="#accordion">
+
+                    <p><b>Aup Policy</b></p>
+
+                    <hr>         
+
+
+                    <form [formGroup]="aupFormDetails" *ngIf="addEditAupView" #ngForm="ngForm"
+                        (ngSubmit)="save(aupFormDetails.valid)">
+
+                        <div class="row">                         
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>Aup Policy. No</label>
+                                    <input type="text" class="form-control" formControlName="aupPolicyId"
+                                        placeholder="" [readonly]="readOnly">
+
+                                    <div *ngIf="ngForm.submitted">
+                                        <div class="alert alert-danger"
+                                            *ngIf="validate_form.aupPolicyId.errors?.required">
+                                            Aup Policy Id is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>Effective Date</label>
+                                    <input type="date"  class="form-control" formControlName="effectiveDate"
+                                        placeholder="" charOnly >
+                                    <div *ngIf="ngForm.submitted">
+                                        <div class="alert alert-danger"
+                                            *ngIf="validate_form.effectiveDate.errors?.required">
+                                            Effective Date is required
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>                      
+
+                           <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label>Policy Upload</label>
+                                    <input type="file" class="form-control" formControlName="policyUpload"
+                                        placeholder="" readonly (change)="fileChange($event)">
+                                    <div *ngIf="ngForm.submitted">
+                                        <div class="alert alert-danger"
+                                            *ngIf="validate_form.policyUpload.errors?.required">
+                                            Policy Upload File is required</div>
+                                    </div>
+                                </div>
+
+                            </div>                          
+
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <!-- <input type="text" class="form-control" formControlName="policyContent" placeholder=""> -->
+                                    <textarea class="form-control policyDescription" rows="5"
+                                        formControlName="policyDescription"></textarea>
+                                    <div *ngIf="ngForm.submitted">
+                                        <div class="alert alert-danger"
+                                            *ngIf="validate_form.policyDescription.errors?.required">
+                                            Policy Content is required</div>
+                                    </div>
+                                </div>
+    
+                                <div class="form-check-inline d-block text-right">
+                                    <label class="form-check-label">
+                                        <input type="checkbox" [(ngModel)]="isChecked"
+                                            (change)="aupFormDetails.controls['agreementStatus'].setValue(isChecked?'A':'')"
+                                            class="form-check-input" formControlName="agreementStatus">
+                                            I agree to the Terms and Conditions
+                                    </label>
+                                </div>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.agreementStatus.errors?.required">
+                                        Please accept Terms and Conditions to continue </div>
+                                </div>
+    
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="row justify-content-center">
+
+                            <!-- <button type="button" (click)="showGrid()"
+                                class="btn btn-primary btn-reset">Back</button>&nbsp; -->
+                            <button type="submit" class="btn btn-primary bg-blue">Save</button>
+                            &nbsp;
+                            <button type="button" (click)="showGrid()"
+                                class="btn btn-primary btn-reset">Back</button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+             </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+

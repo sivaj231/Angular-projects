@@ -1,0 +1,319 @@
+<div class="container-fluid"
+    style="background: linear-gradient(to bottom, white 0%,white 50%,#ffffff 82%,#F1F6FB 50%,#F1F6FB 100%);">
+
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="col-md-12">
+
+                <div class="body_content">
+
+                    <br>
+                    <div class="row">
+
+                        <div class="col-md-6" style="background: #fff;">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <a class=""><img src="assets/images/logo.png" class="navbar_logo"></a>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <p class="application_name">User Management System</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6" style="background: #fff;">
+
+                            <ul class="nav navbar-nav header_logout">
+
+                                <li class="dropdown user user-menu open">
+                                    <a class="dropdown-toggle" style="cursor: pointer;" data-toggle="dropdown" aria-expanded="true">
+                                        <i class="fa fa-user" aria-hidden="true"></i> &nbsp;
+                                        <span class="hidden-xs">{{loginDetails?.userName}}</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <!-- User image -->
+                                        <li class="user-header">
+                                            <i class="fa fa-user-circle-o user_logo" aria-hidden="true"></i>
+                                            <div class="">
+                                                <p class="text-center">
+                                                    {{loginDetails?.userName}} <br>
+                                                    {{loginDetails?.roleName}}
+                                                </p>
+                                            </div>
+                                            <hr>
+                                        </li>
+
+                                        <li class="user-footer">
+                                            <!-- <div class="">
+                                                <a routerLink="/login" class="btn btn-default btn-flat"><i
+                                                        class="fa fa-lock" aria-hidden="true"></i> &nbsp;Change
+                                                    Password</a>
+                                            </div> -->
+                                            <div class="">
+                                                <a (click)="logout()" class="btn btn-default btn-flat"><i
+                                                        class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Logout </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+                    </div>
+
+                    <br>
+                    <div class="row">
+
+                        <div class="col-md-12"
+                            style="background: linear-gradient(to bottom, white 0%,white 50%,#ffffff 50%,#F1F6FB 50%,#F1F6FB 100%);">
+
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light navbar_bg">
+                                <!-- <a class="navbar-brand" href="#"><img src="assets/images/logo.png" class="navbar_logo"></a> -->
+                                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent"
+                                    *ngIf="loginDetails?.roleName == 'ADMIN'">
+                                    <ul class=" navbar-nav mr-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="./" routerLinkActive="active"><i
+                                                    class="fa fa-home" aria-hidden="true"></i> Dashboard </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="emp" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i> Employee
+                                                Management</a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fa fa-delicious" aria-hidden="true"></i> Masters
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" routerLink="branch"
+                                                    routerLinkActive="active">Branch
+                                                    Master</a>
+                                                <a class="dropdown-item" routerLink="department"
+                                                    routerLinkActive="active">Department
+                                                    Master</a>
+                                                <a class="dropdown-item" routerLink="designation"
+                                                    routerLinkActive="active">Designation</a>
+                                                <a class="dropdown-item" routerLink="app-master"
+                                                    routerLinkActive="active">Application
+                                                    Master</a>
+                                                <a class="dropdown-item" routerLink="app-owner"
+                                                    routerLinkActive="active">App
+                                                    Owner
+                                                    Mapping</a>
+                                                <a class="dropdown-item" routerLink="app-role"
+                                                    routerLinkActive="active">App
+                                                    Role
+                                                    Mapping</a>
+                                                    <a class="dropdown-item" routerLink="it-support"
+                                                    routerLinkActive="active">IT Support Mapping
+                                                    </a>
+                                                    <a class="dropdown-item" routerLink="asset-master"
+                                                    routerLinkActive="active">IT Assert Master
+                                                    </a>
+                                                    <a class="dropdown-item" routerLink="asset-mapping"
+                                                    routerLinkActive="active">Assert Mapping Master
+                                                    </a>
+                                                    <a class="dropdown-item" routerLink="common-drive"
+                                                    routerLinkActive="active">Common Drive
+                                                    </a> 
+                                                    
+                                                <a class="dropdown-item" routerLink="app-compliance"
+                                                    routerLinkActive="active">Company Policy Master  
+                                                    </a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fa fa-user-plus" aria-hidden="true"></i> Admin
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" routerLink="user_mgmt"
+                                                    routerLinkActive="active">User
+                                                    Management</a>
+                                                <a class="dropdown-item" routerLink="role_mgmt"
+                                                    routerLinkActive="active">Role
+                                                    Management</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fa fa-user-plus" aria-hidden="true"></i> Company Policy
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" routerLink="compliance"
+                                                    routerLinkActive="active">Upload Company Policy
+                                                </a>
+                                                <a class="dropdown-item" routerLink="view-policy-status"
+                                                    routerLinkActive="active"> View Policy Status
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link" routerLink="compliance" routerLinkActive="active"><i
+                                                    class="fa fa-shield" aria-hidden="true"></i> 
+                                                    Company Policy
+                                            </a>
+                                        </li> -->
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link" routerLink="companyPolicy" routerLinkActive="active"><i
+                                                    class="fa fa-shield" aria-hidden="true"></i> Company Policy</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="aupPolicy" routerLinkActive="active"><i
+                                                    class="fa fa-shield" aria-hidden="true"></i> AUP Policy</a>
+                                        </li> -->
+                                    </ul>
+
+                                </div>
+
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent"
+                                    *ngIf="loginDetails?.roleName == 'MANAGER'">
+                                    <ul class=" navbar-nav mr-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="./mg-dashboard" routerLinkActive="active"><i
+                                                    class="fa fa-home" aria-hidden="true"></i> Dashboard <span
+                                                    class="sr-only">(current)</span></a>
+                                        </li>
+                                        <!-- <li class="nav-item active">
+                                            <a class="nav-link" routerLink="./my-profile" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i>
+                                                My Profile <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="companyPolicy" routerLinkActive="active"><i
+                                                    class="fa fa-shield" aria-hidden="true"></i> Company Policy</a>
+                                        </li> -->
+                                        <li class="nav-item">
+                                            <div class="badge-block">
+                                                <span class="badge badge-danger badge-pill" *ngIf="this.policyCount?.count !== 0">
+                                                    {{ this.policyCount?.count }}
+                                                </span>
+                                            </div>
+                                            <a class="nav-link" routerLink="./policies" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i>
+                                               Policy 
+                                            </a>
+                                        </li>    
+                                    </ul>
+                                </div>
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent"
+                                    *ngIf="loginDetails?.roleName == 'USER'">
+                                    <ul class=" navbar-nav mr-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="./user-dashboard"
+                                                routerLinkActive="active"><i class="fa fa-home" aria-hidden="true"></i>
+                                                Dashboard <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item active">
+                                            <a class="nav-link" routerLink="./my-profile" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i>
+                                                My Profile <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="badge-block">
+                                                <span class="badge badge-danger badge-pill" *ngIf="this.policyCount?.count !== 0">
+                                                    {{ this.policyCount?.count }}
+                                                </span>
+                                            </div>
+                                            <a class="nav-link" routerLink="./policies" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i>
+                                               Policy 
+                                            </a>
+                                        </li>    
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link" routerLink="companyPolicy" routerLinkActive="active"><i
+                                                    class="fa fa-shield" aria-hidden="true"></i> Company Policy</a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+
+
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent"
+                                    *ngIf="loginDetails?.roleName == 'IT SUPPORT'">
+                                    <ul class=" navbar-nav mr-auto">
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="./it-support-dashboard"
+                                                routerLinkActive="active"><i class="fa fa-home" aria-hidden="true"></i>
+                                                Dashboard <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" id="navbarDropdown"
+                                                role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fa fa-delicious" aria-hidden="true"></i> Masters
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <a class="dropdown-item" routerLink="it-support"
+                                                    routerLinkActive="active">IT
+                                                    Support
+                                                    Mapping</a>
+                                                <a class="dropdown-item" routerLink="asset-master"
+                                                    routerLinkActive="active">IT
+                                                    Asset Master</a>
+                                                <a class="dropdown-item" routerLink="asset-mapping"
+                                                    routerLinkActive="active">Asset
+                                                    Mapping Master</a>
+                                                <a class="dropdown-item" routerLink="common-drive"
+                                                    routerLinkActive="active">Common Drive</a>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" routerLink="./my-profile" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i>
+                                                My Profile <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <div class="badge-block">
+                                                <span class="badge badge-danger badge-pill">
+                                                    {{ this.policyCount?.count }}
+                                                </span>
+                                            </div>
+                                            <a class="nav-link" routerLink="./policies" routerLinkActive="active"><i
+                                                    class="fa fa-user" aria-hidden="true"></i>
+                                               Policy 
+                                            </a>
+                                        </li>
+                                        <!-- <li class="nav-item">
+                                            <a class="nav-link" routerLink="companyPolicy" routerLinkActive="active"><i
+                                                    class="fa fa-shield" aria-hidden="true"></i> Company Policy</a>
+                                        </li> -->
+                                    </ul>
+                                </div>
+
+                            </nav>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

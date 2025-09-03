@@ -1,0 +1,250 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Roles</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > <b>Role Management</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+                <hr>
+                <form [formGroup]="formDetails" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>RoleCode</label>
+                                <select class="form-control"  formControlName="roleCode" (change)="onChanged($event.target.value)">
+                                    <option value="" disabled>--Select Status --</option>
+                                    <option *ngFor="let item of roleList" value="{{item.roleCode}}">{{item.roleCode}}
+                                    </option>
+                                </select>
+                                <!-- <input type="text" class="form-control" formControlName="roleCode" placeholder="" readonly> -->
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.roleCode.errors?.required">
+                                        RoleCode is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>RoleName</label>
+                                <input type="text" class="form-control" formControlName="roleName" placeholder="" [readonly]="readOnly">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.roleName.errors?.required">
+                                        RoleName is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="" ng-selected="--Select Status --" >--Select Status --</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.status.errors?.required">
+                                        Status is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+                <div class="row" *ngIf="tableGrid">
+
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="roleSearchForm" (ngSubmit)="searchRole()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Role Code</label>
+                                            <input type="text" class="form-control" formControlName="roleCode"
+                                            placeholder="" (change)="getAllData()">
+                                            <!-- <select class="form-control" formControlName="roleCode">
+                                                <option value="">--Select RoleCode --</option>
+                                                <option *ngFor="let item of roleList">{{item.roleCode}} </option>
+                                            </select> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Role Name</label>
+                                            <input type="text" class="form-control" formControlName="roleName"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status" (change)="getAllData()">
+                                                <option value="">--Select Status --</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchRole()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchRoleReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()" class="btn btn-success btn-block">Add
+                                            New Role</button>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="table-responsive" *ngIf="tableGrid">
+
+                    <br>
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>RoleCode</th>
+                                <th>RoleName</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{item.id}}</td>
+                                <td>{{item.roleCode}}</td>
+                                <td>{{item.roleName}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center">
+                                    <i (click)="viewUserByRole(item)" data-toggle="modal" data-target="#myModal"
+                                        class="fa fa-eye view_icon" aria-hidden="true"></i> &nbsp;
+                                    <i (click)="editRole(item)" class="fa fa-pencil-square-o edit_icon"
+                                        aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+
+                <!-- The Modal -->
+                <div class="modal" id="myModal">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Users List - {{selectedRole}}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Emp Id</th>
+                                                <th>User Name</th>
+                                                <th>Branch Name</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of usersList;let i = index;">
+                                                <td>{{i+1}}</td>
+                                                <td>{{item.empId}}</td>
+                                                <td>{{item.userName}}</td>
+                                                <td>{{item.branchName}}</td>
+                                                <td>{{item.status}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

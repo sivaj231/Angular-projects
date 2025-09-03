@@ -1,0 +1,685 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+  }
+
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    font-size: 11px;
+    background: #F1F6FB;
+    font-family: 'Mulish';
+    font-style: normal;
+    font-weight: normal;
+  }
+
+.bg-blue{background: #004990;}
+
+.navbar_logo{
+    width: 40%;
+}
+
+th, td {
+    padding: 7px !important;
+  }
+
+.application_name{
+
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 0px 0px 0px;
+    color: #26639f;
+
+}
+
+.logo{
+    width: 12%;
+    margin-top: 15px;
+}
+
+.bg-login-form{
+
+    background: #001427;
+    border-radius: 12px;
+    padding: 20px;
+
+}
+
+.text-white{
+    color: #fff;
+    border-radius: 12px;
+}
+
+.navbar_bg{
+    background: #26639f !important;
+    border-radius: 5px;
+}
+
+.navbar_bg .nav-link {
+    color: #fff !important;
+    font-size: 13px;
+}
+
+.content-wrapper{
+
+    margin-top: 15px;
+    max-height: calc(100% - 120px);
+}
+
+.footer_text{
+    font-size: 13px;
+}
+
+
+.content{
+    background: #fff;
+    padding: 15px;
+}
+
+.btn-reset{
+    background: #BDC3C7;
+}
+
+.btn{
+    border: none;
+    font-size: inherit;
+    // padding: 7px 25px 7px 25px;
+}
+
+table.dataTable.no-footer{
+    border-bottom: none !important;
+}
+
+.footer{
+    position: relative;
+    bottom: 0px;
+}
+
+.edit_icon{
+    cursor: pointer;
+}
+
+.cursor_icon{
+    cursor: pointer;
+}
+
+.dataTables_empty{
+    display: none;
+}
+
+.dash_count{
+    border: 1px solid #eee;
+    padding: 7px 0px 0px 10px;
+}
+
+.navbar .nav-item{
+padding: 0px 15px 0px 15px !important;
+}
+
+.navbar .dropdown-menu{
+
+border-radius: 0px !important;
+    margin-top: 7px;
+}
+
+.application_bg{
+
+    background: #F1F6FB;
+    padding: 7px 0px 0px 0px;
+    margin-bottom: 10px;
+
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color:  #F1F6FB !important;
+}
+
+.table .thead-light th {
+    color: #000;
+    background-color: #fff;
+    border-color: #F1F6FB;
+}
+
+.form_filter{
+
+    background-color:  #F1F6FB !important;
+
+    padding: 10px 20px 10px 20px;
+
+}
+
+.form_filter .form-group{
+
+margin-bottom: 0px !important;
+
+}
+
+.form_filter_search_icon{
+    background: #26639f;
+    color: #fff;
+    padding: 12px;
+    border-radius: 5px;
+    margin-right: 7px;
+}
+
+.form_filter_reset_icon{
+    background: #BDC3C7;
+    color: #fff;
+    padding: 12px;
+    border-radius: 5px;
+    margin-right: 7px;
+}
+
+.active_status{
+    background: #0be50b14;
+    padding: 0px 10px 2px 10px;
+    color: #2ECC71;
+    border-radius: 3px;
+    opacity: 0.9;
+    width: 100px;
+    display: block;
+    margin: auto;
+}
+
+.in_active_status{
+    background: #d00f0f1c;
+    padding: 0px 10px 2px 10px;
+    color: #E74C3C;
+    border-radius: 3px;
+    opacity: 0.9;
+    width: 100px;
+    display: block;
+    margin: auto;
+}
+
+
+.emp_app_icon{
+
+    background: #208fdf;
+    color: #fff;
+    padding: 16px;
+    border-radius: 3px;
+
+}
+
+
+.app_status{
+
+    padding: 3px 10px 3px 10px;
+
+}
+
+.app_name_list{
+
+    padding: 20px 0px 20px 0px;
+
+}
+
+// .active{
+    // color: #2bf52b;
+// }
+
+.in_active{
+    color:#ff3329;
+}
+
+.add_icon{
+    color: #fff;
+    background: #15e915;
+    padding: 8px;
+    font-size: 17px;
+}
+
+.remove_icon{
+    color: #fff;
+    background: #f31818;
+    padding: 8px;
+    font-size: 17px;
+}
+
+form .alert{
+    padding: 5px;
+}
+
+.auto-height{
+
+    height: auto;
+    min-height: calc(100vh - 70px);
+
+}
+
+.user_logo{
+
+    text-align: center;
+    display: block;
+    font-size: 52px;
+
+}
+
+.header_logout{
+    text-align: right;
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.header_logout a {
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.header_logout p {
+    font-size: 14px;
+}
+
+.confirm{
+    color: #18cc18;
+    font-size: 16px;
+    padding: 0px;
+}
+
+.app_btn_view:nth-child(even){
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+    position: relative;
+}
+
+.app_btn_view{
+    border-bottom-right-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.app_btn_view{
+  border: none !important;
+  outline: none !important;
+  width: 100%;
+    max-width: 170px;
+}
+
+.app_btn_view:nth-child(even)::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 0px 50px 50px 0px;
+    width: 20%;
+    background: #fff;
+}
+
+.navbar .nav-item:hover{
+    background: #fdb827;
+    text-align: center;
+    border-radius: 8px;
+
+}
+
+.navbar_bg ul li a.active ,
+.navbar_bg ul li a:active {
+    background: #fdb827;
+    border-radius: 5px;
+}
+
+.login_continue{
+    color: #4F7294;
+}
+
+.mytable{
+    color: #45627D;
+}
+
+.dataTables_wrapper .dataTables_length {
+    padding-top: 7px;
+    padding-right: 15px;
+}
+
+.dataTables_wrapper .dataTables_info {
+    clear: initial;
+}
+
+
+.dataTables_wrapper .dataTables_length select{
+
+    background: #F1F6FB;
+    border: none;
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+
+    background: #F1F6FB;
+    color: #0010d6 !important;
+    font-weight: bold;
+    border: none;
+
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+
+    background: #26639f !important;
+    color: #fff !important;
+    font-weight: bold;
+    border: none;
+    
+}
+
+.view_icon
+{
+    color: #C0D0DE;
+    font-size: 15px;
+}
+.edit_icon
+{
+    color: #C0D0DE;
+    font-size: 15px;
+}
+
+.view_icon:hover
+{
+    color:#004990;
+}
+.edit_icon:hover
+{
+    color: #F39C12;
+}
+
+.add_new{
+    width: 80%;
+    float: right;
+}
+
+// .table-responsive{
+    // border: 1px solid  #f3f3f3;
+    // border-radius: 8px;
+// }
+
+.form-group label {
+    color: #45627D;
+}
+
+.form-group .form-control {
+    font-weight: bold;
+    font-size: inherit;
+}
+
+input[type=text]:focus {
+    box-shadow :(0 0 5px rgb(38, 99, 159));
+    
+    border: 1px solid rgb(38, 99, 159);
+  }
+
+  button:focus {
+    box-shadow :none !important;
+    
+    border: none !important;
+  }
+
+  .category_panel .list-group-item{
+    background: #F1F6FB;
+    color: #84A0BB;
+    padding: 15px;
+    cursor: pointer;
+  }
+
+  .category_panel .fa{
+    color: #84A0BB;
+    font-size: 16px;
+    padding-right: 10px;
+  }
+
+  .policyContent{
+    height: 300px !important;
+    max-height: 280px !important;
+    min-height: 280px !important;
+    overflow-y: scroll;
+  }
+
+  
+.policyContent::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.policyContent::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+.policyContent::-webkit-scrollbar-thumb
+{
+	background-color: #263a94;
+	border: 1px solid #555555;
+}
+
+body::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb
+{
+	background-color: #263a94;
+	border: 1px solid #555555;
+}
+
+.role_name_style{
+    background: #eee;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 5px;
+}
+
+.not-selected{
+
+    background: #eee;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 5px;
+
+}
+
+.selected{
+
+    background: #26639f;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 5px;
+    color: #fff;
+
+}
+
+.selected:after {
+    font-family: FontAwesome;
+    content:"\f00c";
+    padding-right: 5px;
+}
+
+.mapped_role{
+
+    background: #26639f;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 5px;
+    color: #fff;
+
+}
+
+.role_body_bg{
+    border-left: 5px solid #004990;
+    background: #F1F6FB;
+    padding: 5px 0px 0px 0px;
+}
+
+.role_header_bg{
+    background: #fff;
+}
+
+.app_role_card{
+    margin-bottom: 12px;
+}
+
+[data-toggle="collapse"] .role_arrow:before {   
+    content: "\f139";
+    font-size: 15px;
+    font-weight: bold;
+}
+  
+[data-toggle="collapse"].collapsed .role_arrow:before {
+    content: "\f13a";
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.edit_role_pencil{
+    font-size: 15px;
+    color: #fff;
+}
+
+
+.app_quarter .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #ffffff;
+    background-color: #26639f;
+    border-color: #dee2e6 #dee2e6 #fff;
+    border-radius: 0px;
+}
+
+.category_panel li[aria-expanded=true] {
+    color: #fff;
+    background-color: #26639f;
+    }
+
+.asset_icon{
+    font-size: 15px;
+    padding: 6px;
+    background: #fdb827;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.asset_table tr {
+    transition: box-shadow 0.5s ease;
+}
+
+.asset_table tr:hover{
+    background: #dfe6e9;
+    padding: 15px;
+    color: #26639f;
+    font-weight: bold;
+    // box-shadow: 15px 15px 15px 15px rgba(136, 155, 166, 0.4);
+}
+
+.asset_table td, .asset_table th {
+     vertical-align: inherit; 
+}
+
+.active_bg{
+
+    background: #9bf89b6e;
+    color: #008b00;
+    border-radius: 5px;
+    padding: 2px 7px 2px 7px;
+    font-weight: bold;
+
+}
+
+.confirm_btn_bg{
+    background: #00cec9;
+    color: white;
+    border-radius: 3px;
+    padding: 4px 7px 4px 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reject_btn_bg{
+
+    background: #f60000b0;
+    color: white;
+    border-radius: 3px;
+    padding: 4px 7px 4px 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.in_active_bg{
+    
+    background: #f7a4a461;
+    color: red;
+    border-radius: 5px;
+    padding: 2px 7px 2px 7px;
+    font-weight: bold;
+
+}
+
+
+.confirmed_bg{
+
+    background: #cfe7fe6e;
+    color: #26639f;
+    border-radius: 5px;
+    padding: 2px 7px 2px 7px;
+    font-weight: bold;
+
+}
+
+.rejected_bg{
+
+    background: #cfe7fe6e;
+    color: #ff7675;
+    border-radius: 5px;
+    padding: 2px 7px 2px 7px;
+    font-weight: bold;
+
+}
+
+.branch-icon{
+    color: #26639f;
+    font-size: 40px;
+}
+
+.branch-card{
+    padding: 10px 0px 10px 10px;
+}
+
+.branch-right-arrow{
+    background: #f4a10a;
+    font-size: 10px;
+}
+.badge-block {
+    position: relative;
+}
+.badge-block > .badge-pill {
+    position: absolute;
+    top: 2px;
+    right: -5px;
+}
+.accordian-block {
+    border-radius: 5px;
+    display: block;
+    margin: 0.15rem;
+    padding: 0.5rem;
+    background-color: #ffffff;
+}

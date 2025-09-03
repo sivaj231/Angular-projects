@@ -1,0 +1,88 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>Company Policy</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right"><a routerLink="/dashboard"> Dashboard </a> > <b>Company Policy</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>Company Policy</b></p>
+
+                <hr>
+                <form [formGroup]="policyForm" #ngForm="ngForm">
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label>Company Policy</label>
+                                <!-- <input type="text" class="form-control" formControlName="policyContent" placeholder=""> -->
+                                <textarea class="form-control policyContent" rows="5"
+                                    formControlName="policyContent"></textarea>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_policy_form.policyContent.errors?.required">
+                                        Policy Content is required</div>
+                                </div>
+                            </div>
+
+                            <div class="form-check-inline d-block text-right">
+                                <label class="form-check-label">
+                                    <input type="checkbox" [(ngModel)]="isChecked"
+                                        (change)="policyForm.controls['agreementStatus'].setValue(isChecked?'A':'')"
+                                        class="form-check-input" formControlName="agreementStatus">I
+                                    agree to
+                                    the Terms and Conditions
+                                </label>
+                            </div>
+                            <div *ngIf="ngForm.submitted">
+                                <div class="alert alert-danger"
+                                    *ngIf="validate_policy_form.agreementStatus.errors?.required">
+                                    Please accept Terms and Conditions to continue </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-block text-right">
+
+                        <br>
+                        <!-- <button type="submit" (click)="save('save')" class="btn btn-primary bg-blue">Save</button> &nbsp;-->
+                        <button type="submit" (click)="save('Accept')" class="btn btn-danger">Accept</button>
+
+                    </div>
+
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

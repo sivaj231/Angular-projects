@@ -1,0 +1,1259 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Application</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > <b>Application</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <div class="col-md-12 dash_count">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <img src="assets/images/total_emp.png">
+
+                                </div>
+                                <div class="col-md-9">
+
+                                    <p>Total No. of Reportees </p>
+                                    <p><b>{{tableGridData.length}}</b></p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <!-- <div class="col-md-12 dash_count">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <img src="assets/images/active_emp.png">
+
+                                </div>
+                                <div class="col-md-9">
+
+                                    <p>Pending Role for Confirm </p>
+                                    <p><b>{{dashboardCount.pendingCount}}</b></p>
+
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <!-- <div class="col-md-12 dash_count">
+                            <div class="row">
+                                <div class="col-md-3">
+
+                                    <img src="assets/images/inactive_emp.png">
+
+                                </div>
+                                <div class="col-md-9">
+
+                                    <p>Overdue Role for Confirm</p>
+                                    <p><b>0</b></p>
+
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <!-- <button class="btn btn-primary" (click)="mapApplication()">Start</button> -->
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <br>
+
+    <div class="row" *ngIf="form">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>Emp ID</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" [(ngModel)]="empId">
+                                <div class="input-group-append">
+                                    <span class="input-group-text cursor_icon" (click)="getEmpById(empId)"> <i
+                                            class="fa fa-search" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>Emp. Name</label>
+                            <input type="text" class="form-control" [(ngModel)]="empFormDetails.empName" readonly>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>Email. ID</label>
+                            <input type="text" class="form-control" [(ngModel)]="empFormDetails.emailId" readonly>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <label>Mobile No</label>
+                            <input type="text" class="form-control" [(ngModel)]="empFormDetails.mobileNo" readonly>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="content">
+
+
+                        <form [formGroup]="formDetails" *ngIf="form" (ngSubmit)="save()">
+
+                            <p><b>Add New Asset Information</b></p>
+
+                            <hr>
+
+                            <div formArrayName="itassetDto" class="col-md-12">
+
+                                <div *ngFor="let item of app.controls;let i =index" [formGroupName]="i"
+                                    class="row application_bg">
+
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Asset Type</label>
+                                            <select class="form-control" formControlName="assetType">
+                                                <option *ngFor="let item of itAssetMaster;let i =index;"
+                                                    value="{{item.assetType}}">{{item.assetType}}</option>
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Asset Id</label>
+                                            <input type="text" class="form-control" formControlName="assetId">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Date of Issue</label>
+                                            <input type="date" class="form-control" formControlName="dateOfIssue">
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <label>&nbsp;</label>
+
+                                        <p class="text-right"><i class="fa fa-plus-circle cursor_icon add_icon"
+                                                (click)="addApp()" aria-hidden="true"></i>&nbsp;
+
+                                            <i class="fa fa-minus-circle cursor_icon remove_icon" (click)="remove(i)"
+                                                aria-hidden="true"></i>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row justify-content-center">
+
+                                <button type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button>&nbsp;
+                                <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+
+                <div class="row" *ngIf="tableGrid">
+
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="itassetSearchForm" (ngSubmit)="searchItAsset()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Emp ID</label>
+                                            <!-- <select  class="form-control" formControlName="designationCode">  
+                                                <option>Choose</option>
+                                                <option *ngFor="let item of designationList">{{item.designationCode}} </option>  
+                                        </select>   -->
+                                            <input type="text" class="form-control" formControlName="empId"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Emp Name</label>
+                                            <input type="text" class="form-control" formControlName="empName"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Role Name</label>
+                                            <input type="text" class="form-control" formControlName="roleName"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Branch Name</label>
+                                            <input type="text" class="form-control" formControlName="branchName"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status">
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchItAsset()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchItAssetReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+                <div class="table-responsive" *ngIf="tableGrid">
+
+                    <br>
+                    <table [dtOptions]="dtOptions" datatable [dtTrigger]="dtTrigger"
+                        class="mytable table table-borderless table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">S No.</th>
+                                <th>Emp. ID</th>
+                                <th>Emp. Name</th>
+                                <th>Branch Name</th>
+                                <th>Department Name</th>
+                                <th class="text-center">Employee Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td class="text-center">{{i + 1}}</td>
+                                <td>{{item.empId}}</td>
+                                <td>{{item.empName}}</td>
+                                <td>{{item.branchName}}</td>
+                                <td>{{item.department}}</td>
+                                <td class="text-center">{{item.status}}</td>
+                                <td class="text-center">
+                                    <!-- <i (click)="viewAssetDetailsByEmpId(item.empId)"
+                                        class="fa fa-eye view_icon cursor_icon" aria-hidden="true"></i>&nbsp;&nbsp; -->
+                                    <i (click)="editAssetDetails(item.empId)" class="fa fa-eye edit_icon cursor_icon"
+                                        aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <div class="row" *ngIf="viewAssetDetails">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>Basic Information</b></p>
+
+                <hr>
+
+                <div class="table-responsive">
+
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Emp. ID</td>
+                                <td><b>{{this.empDetails?.empId}}</b></td>
+                                <td>Emp. Name</td>
+                                <td><b>{{this.empDetails?.empName}}</b></td>
+                                <td>Email. ID</td>
+                                <td><b>{{this.empDetails?.emailId}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Number</td>
+                                <td><b>{{this.empDetails?.mobileNo}}</b></td>
+                                <td>Department</td>
+                                <td><b>{{this.empDetails?.department}}</b></td>
+                                <td>Created Date</td>
+                                <td><b>{{this.empDetails?.createdDate}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Created By</td>
+                                <td><b>{{this.empDetails?.createdBy}}</b></td>
+                                <td>Branch Code</td>
+                                <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                <td>Branch Name</td>
+                                <td><b>{{this.empDetails?.branchName}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Reporting User ID</td>
+                                <td><b>{{this.empDetails?.reportUserId}}</b></td>
+                                <td>Reporting Person Name</td>
+                                <td><b>{{this.empDetails?.reportPersonName}}</b></td>
+                                <td>Reporting Branch Code</td>
+                                <td><b>{{this.empDetails?.branchCode}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Reporting Branch Name</td>
+                                <td><b>{{this.empDetails?.branchName}}</b></td>
+                                <td>Status</td>
+                                <td><b>{{this.empDetails?.status}}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <div class="row" *ngIf="viewAssetDetails">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>Asset Detail</b></p>
+
+                <hr>
+
+                <div class="row">
+
+                    <div class="col-md-3" *ngFor="let item of empDetails.itAssetDto;let i=index;">
+
+                        <div class="card">
+                            <div class="card-header app_name_list">
+
+                                <div class="row">
+
+                                    <div class="col-md-3  text-center align-self-center">
+
+                                        <i class="fa fa-keyboard-o emp_app_icon" aria-hidden="true"></i>
+
+                                    </div>
+
+                                    <div class="col-md-9">
+
+                                        <span><b>{{item.assetType}}</b> </span>
+                                        <span class="d-block">{{item.assetId}}</span>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="card-body app_status">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <span>Role : {{item.dateOfIssue}}</span>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <span class="d-block text-right">Returned 09-12-2020</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </div>
+
+                <br>
+                <button type="button" (click)="showGrid()"
+                    class="d-block mx-auto btn btn-primary btn-reset">Back</button>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- edit -->
+    <div class="row" *ngIf="vieweditAssetDetails">
+
+
+        <div class="col-md-12">
+
+            <div id="accordion" class="row">
+
+                <div class="col-md-3">
+
+
+                    <div class="col-md-12 content h-100">
+
+                        <ul class="list-group list-group-flush category_panel" style="background: #F1F6FB;">
+                            <li class="list-group-item" data-toggle="collapse" href="#empBasicInfo"><i
+                                    class="fa fa-user" aria-hidden="true"></i> Employee
+                                Information</li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empAppInfo"><i
+                                    class="fa fa-tachometer" aria-hidden="true"></i> Application
+                                Information</li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empAppFYInfo"><i
+                                    class="fa fa-check-circle-o" aria-hidden="true"></i> Approval
+                            </li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empAssetInfo"><i
+                                    class="fa fa-laptop" aria-hidden="true"></i> Asset Information
+                            </li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empCommonDrive">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> Common Drive Information
+                            </li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empCliqViewReports">
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> QliKView Reports
+                            </li>
+                        </ul>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-9">
+
+
+                    <div class="col-md-12 content h-100">
+
+                        <div id="empBasicInfo" class="collapse show" data-parent="#accordion">
+
+                            <p><b>Basic Information</b></p>
+
+                            <hr>
+
+                            <div class="table-responsive">
+
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>Emp. ID</td>
+                                            <td><b>{{this.empDetails?.empId}}</b></td>
+                                            <td>Emp. Name</td>
+                                            <td><b>{{this.empDetails?.empName}}</b></td>
+                                            <td>Email. ID</td>
+                                            <td><b>{{this.empDetails?.emailId}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile Number</td>
+                                            <td><b>{{this.empDetails?.mobileNo}}</b></td>
+                                            <td>Department</td>
+                                            <td><b>{{this.empDetails?.department}}</b></td>
+                                            <td>Created Date</td>
+                                            <td><b>{{this.empDetails?.createdDate}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Created By</td>
+                                            <td><b>{{this.empDetails?.createdBy}}</b></td>
+                                            <td>Branch Code</td>
+                                            <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                            <td>Branch Name</td>
+                                            <td><b>{{this.empDetails?.branchName}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reporting User ID</td>
+                                            <td><b>{{this.empDetails?.reportUserId}}</b></td>
+                                            <td>Reporting Person Name</td>
+                                            <td><b>{{this.empDetails?.reportPersonName}}</b></td>
+                                            <td>Reporting Branch Code</td>
+                                            <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reporting Branch Name</td>
+                                            <td><b>{{this.empDetails?.branchName}}</b></td>
+                                            <td>Status</td>
+                                            <td><b>{{this.empDetails?.status}}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="empAppInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Application Information</b></p>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="table-responsive">
+
+                                        <table class="mytable table asset_table">
+
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Application Name</th>
+                                                    <th>Application Code</th>
+                                                    <th>Roles</th>
+                                                    <th class="text-center">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of empDetails.appDetailsDto;let i=index;">
+                                                    <td>
+                                                        <i class="fa fa-tasks asset_icon" aria-hidden="true"></i>
+                                                        &nbsp;{{item.applicationName}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.applicationCode}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="" data-toggle="modal" data-target="#myModal"
+                                                            (click)='viewMappedRoles(item)'>Click to View
+                                                            ({{item.roleName.split(',').length}})</a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span *ngIf="item.status == 'ACTIVE' " class="active_bg">
+                                                            ACTIVE </span>
+                                                        <span *ngIf="item.status == 'IN ACTIVE' " class="in_active_bg">
+                                                            IN ACTIVE </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div id="empAppFYInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Approval</b></p>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div id="accordion1">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i> Current Financial
+                                                    Year
+                                                    ( <b> {{currentAppData[0]?.financialYear}} </b>)
+                                                </a>
+                                            </div>
+                                            <div id="collapseOne" class="collapse show" data-parent="#accordion1">
+                                                <div class="card-body">
+
+
+                                                    <!-- Nav tabs -->
+                                                    <ul class="nav nav-tabs app_quarter">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link active" data-toggle="tab"
+                                                                href="#apr-jun">Quarter 1 ( Apr-Jun )
+                                                            </a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#jul-sep">
+                                                                Quarter 2 ( Jul-Sep )</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#oct-dec">
+                                                                Quarter 3 ( Oct-Dec )</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" data-toggle="tab" href="#jan-mar">
+                                                                Quarter 4 ( Jan-Mar )</a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <!-- Tab panes -->
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane active" id="apr-jun">
+
+                                                            <div class="card bg-light text-dark">
+                                                                <div class="card-body">
+
+                                                                    <div class="table-responsive">
+
+                                                                        <table class="mytable table asset_table">
+
+                                                                            <thead class="thead-light">
+                                                                                <tr>
+                                                                                    <th>Application Name</th>
+                                                                                    <th>Application Code</th>
+                                                                                    <th>Financial Year</th>
+                                                                                    <th>Roles</th>
+                                                                                    <th class="text-center">Status</th>
+                                                                                    <th class="text-center">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <ng-container
+                                                                                    *ngFor="let item of empDetails.appDataMaintenanceDtos;let i=index;">
+
+                                                                                    <tr
+                                                                                        *ngIf="item.period == 'Apr-Jun'">
+                                                                                        <td>
+                                                                                            <i class="fa fa-tasks asset_icon"
+                                                                                                aria-hidden="true"></i>
+                                                                                            &nbsp;{{item.applicationName}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.applicationCode}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.financialYear}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a href=""
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#myModal"
+                                                                                                (click)='viewMappedRoles(item)'>Click
+                                                                                                to View
+                                                                                                ({{item.roleName.split(',').length}})</a>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'ACTIVE' "
+                                                                                                class="active_bg">
+                                                                                                ACTIVE </span>
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'IN ACTIVE' "
+                                                                                                class="in_active_bg">
+                                                                                                IN ACTIVE </span>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'ACTIVE' "
+                                                                                                (click)="confirmApp(item,i)"
+                                                                                                class="confirm_btn_bg">
+                                                                                                CONFIRM
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'CONFIRMED' "
+                                                                                                class="confirmed_bg">
+                                                                                                Confirmed
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'REJECTED' "
+                                                                                                class="rejected_bg">
+                                                                                                Rejected
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus != 'CONFIRMED' "
+                                                                                                class="reject_btn_bg">
+                                                                                                REJECT </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </ng-container>
+                                                                            </tbody>
+
+                                                                        </table>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="tab-pane fade" id="jul-sep">
+
+                                                            <div class="card bg-light text-dark">
+                                                                <div class="card-body">
+
+                                                                    <div class="table-responsive">
+
+                                                                        <table class="mytable table asset_table">
+
+                                                                            <thead class="thead-light">
+                                                                                <tr>
+                                                                                    <th>Application Name</th>
+                                                                                    <th>Application Code</th>
+                                                                                    <th>Financial Year</th>
+                                                                                    <th>Roles</th>
+                                                                                    <th class="text-center">Status</th>
+                                                                                    <th class="text-center">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <ng-container
+                                                                                    *ngFor="let item of empDetails.appDataMaintenanceDtos;let i=index;">
+
+                                                                                    <tr
+                                                                                        *ngIf="item.period == 'Jul-Sep'">
+                                                                                        <td>
+                                                                                            <i class="fa fa-tasks asset_icon"
+                                                                                                aria-hidden="true"></i>
+                                                                                            &nbsp;{{item.applicationName}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.applicationCode}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.financialYear}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a href=""
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#myModal"
+                                                                                                (click)='viewMappedRoles(item)'>Click
+                                                                                                to View
+                                                                                                ({{item.roleName.split(',').length}})</a>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'ACTIVE' "
+                                                                                                class="active_bg">
+                                                                                                ACTIVE </span>
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'IN ACTIVE' "
+                                                                                                class="in_active_bg">
+                                                                                                IN ACTIVE </span>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'ACTIVE' "
+                                                                                                (click)="confirmApp(item,i)"
+                                                                                                class="confirm_btn_bg">
+                                                                                                CONFIRM
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'CONFIRMED' "
+                                                                                                class="confirmed_bg">
+                                                                                                Confirmed
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'REJECTED' "
+                                                                                                class="rejected_bg">
+                                                                                                Rejected
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus != 'CONFIRMED' "
+                                                                                                class="reject_btn_bg">
+                                                                                                REJECT </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </ng-container>
+                                                                            </tbody>
+
+                                                                        </table>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="tab-pane fade" id="oct-dec">
+
+                                                            <div class="card bg-light text-dark">
+                                                                <div class="card-body">
+
+                                                                    <div class="table-responsive">
+
+                                                                        <table class="mytable table asset_table">
+
+                                                                            <thead class="thead-light">
+                                                                                <tr>
+                                                                                    <th>Application Name</th>
+                                                                                    <th>Application Code</th>
+                                                                                    <th>Financial Year</th>
+                                                                                    <th>Roles</th>
+                                                                                    <th class="text-center">Status</th>
+                                                                                    <th class="text-center">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <ng-container
+                                                                                    *ngFor="let item of empDetails.appDataMaintenanceDtos;let i=index;">
+
+                                                                                    <tr
+                                                                                        *ngIf="item.period == 'Oct-Dec'">
+                                                                                        <td>
+                                                                                            <i class="fa fa-tasks asset_icon"
+                                                                                                aria-hidden="true"></i>
+                                                                                            &nbsp;{{item.applicationName}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.applicationCode}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.financialYear}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a href=""
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#myModal"
+                                                                                                (click)='viewMappedRoles(item)'>Click
+                                                                                                to View
+                                                                                                ({{item.roleName.split(',').length}})</a>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'ACTIVE' "
+                                                                                                class="active_bg">
+                                                                                                ACTIVE </span>
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'IN ACTIVE' "
+                                                                                                class="in_active_bg">
+                                                                                                IN ACTIVE </span>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'ACTIVE' "
+                                                                                                (click)="confirmApp(item,i)"
+                                                                                                class="confirm_btn_bg">
+                                                                                                CONFIRM
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'CONFIRMED' "
+                                                                                                class="confirmed_bg">
+                                                                                                Confirmed
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'REJECTED' "
+                                                                                                class="rejected_bg">
+                                                                                                Rejected
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus != 'CONFIRMED' "
+                                                                                                class="reject_btn_bg">
+                                                                                                REJECT </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </ng-container>
+                                                                            </tbody>
+
+                                                                        </table>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <div class="tab-pane fade" id="jan-mar">
+
+
+                                                            <div class="card bg-light text-dark">
+                                                                <div class="card-body">
+
+                                                                    <div class="table-responsive">
+
+                                                                        <table class="mytable table asset_table">
+
+                                                                            <thead class="thead-light">
+                                                                                <tr>
+                                                                                    <th>Application Name</th>
+                                                                                    <th>Application Code</th>
+                                                                                    <th>Financial Year</th>
+                                                                                    <th>Roles</th>
+                                                                                    <th class="text-center">Status</th>
+                                                                                    <th class="text-center">Action</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <ng-container
+                                                                                    *ngFor="let item of empDetails.appDataMaintenanceDtos;let i=index;">
+
+                                                                                    <tr
+                                                                                        *ngIf="item.period == 'Jan-Mar'">
+                                                                                        <td>
+                                                                                            <i class="fa fa-tasks asset_icon"
+                                                                                                aria-hidden="true"></i>
+                                                                                            &nbsp;{{item.applicationName}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.applicationCode}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{item.financialYear}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <a href=""
+                                                                                                data-toggle="modal"
+                                                                                                data-target="#myModal"
+                                                                                                (click)='viewMappedRoles(item)'>Click
+                                                                                                to View
+                                                                                                ({{item.roleName.split(',').length}})</a>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'ACTIVE' "
+                                                                                                class="active_bg">
+                                                                                                ACTIVE </span>
+                                                                                            <span
+                                                                                                *ngIf="item.status == 'IN ACTIVE' "
+                                                                                                class="in_active_bg">
+                                                                                                IN ACTIVE </span>
+                                                                                        </td>
+                                                                                        <td class="text-center">
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'ACTIVE' "
+                                                                                                (click)="confirmApp(item,i)"
+                                                                                                class="confirm_btn_bg">
+                                                                                                CONFIRM
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'CONFIRMED' "
+                                                                                                class="confirmed_bg">
+                                                                                                Confirmed
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus == 'REJECTED' "
+                                                                                                class="rejected_bg">
+                                                                                                Rejected
+                                                                                            </span>&nbsp;
+                                                                                            <span
+                                                                                                *ngIf="item.appActiveStatus != 'CONFIRMED' "
+                                                                                                class="reject_btn_bg">
+                                                                                                REJECT </span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </ng-container>
+                                                                            </tbody>
+
+                                                                        </table>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div id="empAssetInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Asset Information</b></p>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="table-responsive">
+
+                                    <table class="mytable table asset_table">
+
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Asset ID</th>
+                                                <th>Asset Type</th>
+                                                <th>Make</th>
+                                                <th>Model No.</th>
+                                                <th>Serial No.</th>
+                                                <th>Issued</th>
+                                                <th>Returned</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of empDetails.itAssetDto;let i=index;">
+                                                <td>
+                                                    <i class="fa fa-desktop asset_icon" aria-hidden="true"></i>
+                                                    &nbsp;{{item.assetId}}
+                                                </td>
+                                                <td>
+                                                    {{item.assetType}}
+                                                </td>
+                                                <td>{{item.make}}</td>
+                                                <td>{{item.model}}</td>
+                                                <td>{{item.serialNo}}</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td class="text-center">
+                                                    <span *ngIf="item.status == 'ACTIVE' " class="active_bg">
+                                                        {{item.status}} </span>
+                                                    <span *ngIf="item.status == 'IN ACTIVE' " class="in_active_bg">
+                                                        {{item.status}} </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="empCommonDrive" class="collapse" data-parent="#accordion">
+
+                            <p><b>Common Drive Information</b></p>
+                            <hr>
+
+                            <div class="table-responsive">
+
+                                <table class="mytable table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                            <th>PATH</th>
+                                            <th style="width: 135px;" class="text-center">READ</th>
+                                            <th style="width: 135px;" class="text-center">WRITE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of empDetails.commonDriveMappingDtos;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a> {{x.pathName}}</a></td>
+                                            <td class="text-center" style="background: #dcdcdc21;">
+                                                <span *ngIf="x.permission === '1' || x.permission !== '2'"> <i
+                                                        class="fa fa-check-square-o"></i>
+                                                </span>
+                                                <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                </span>
+                                            </td>
+                                            <td class="text-center" style="background: #f0f8ff91;">
+                                                <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                </span>
+                                                <span *ngIf="x.permission === '1'"> <i class="fa fa-square-o"
+                                                        aria-hidden="true"></i>
+
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                        <div id="empCliqViewReports" class="collapse" data-parent="#accordion">
+
+                            <p><b>QliKView Reports</b></p>
+                            <hr>
+
+                            <div class="table-responsive">
+
+                                <table class="mytable table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                            <th>Dashboard Name</th>
+                                            <th style="width: 135px;" class="text-center">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of empDetails.reportDashboardMappingDtos;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a> {{x.dashboardName}}</a></td>
+                                            <td class="text-center">{{x.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                        <br>
+                        <button type="button" (click)="showGrid()"
+                            class="d-block mx-auto btn btn-primary btn-reset">Back</button>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Roles</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+
+                    <label class="mapped_role" *ngFor="let item1 of mappedRoles.split(',');let i =index; ">
+                        {{item1}}
+                    </label>
+
+                </div>
+            </div>
+        </div>
+    </div>

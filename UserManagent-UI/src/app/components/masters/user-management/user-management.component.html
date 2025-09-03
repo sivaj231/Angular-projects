@@ -1,0 +1,254 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Users</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Admin <b>User Management</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+
+                <hr>
+                <form [formGroup]="formDeatils" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Emp ID</label>
+                                <select class="form-control"  formControlName="empId" (change)="onChanged($event.target.value)">
+                                    <option value="">--Select EmpId --</option>
+                                    <option *ngFor="let item of employeeList" value="{{item.empId}}">{{item.empId}}
+                                    </option>
+                                </select>
+                                <!-- <input type="text" class="form-control" [readonly]="readOnly" formControlName="userId"
+                                    placeholder=""> -->
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.empId.errors?.required">
+                                        Emp Id is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>User Name</label>
+                                <input type="text" class="form-control" [readonly]="readOnly" formControlName="userName"
+                                    placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.userName.errors?.required">
+                                        UserName is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="col-md-3" *ngIf="formDeatils.get('action').value == 'NEW'">
+
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" class="form-control" formControlName="password" placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.password.errors?.required">
+                                        Password is required</div>
+                                </div>
+                            </div>
+
+                        </div> -->
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Role Name</label>
+                                <select class="form-control" formControlName="roleName">
+                                    <option value="">--Select Role --</option>
+                                    <option *ngFor="let item of roleList" value="{{item.roleName}}">{{item.roleName}}
+                                    </option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.roleName.errors?.required">
+                                        Role Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Branch Name</label>
+                                <select class="form-control" formControlName="branchName">
+                                    <option value="">--Select Branch --</option>
+                                    <option *ngFor="let item of branchList" value="{{item.branchName}}">
+                                        {{item.branchName}}
+                                    </option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.branchName.errors?.required">
+                                        Branch is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group" *ngIf="formDeatils.get('action').value != 'NEW'">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="">--Select Status --</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.status.errors?.required">
+                                        Branch is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+
+                <div class="row" *ngIf="tableGrid">
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="userSearchForm"  (ngSubmit)="searchEmployee()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>EMP. ID</label>
+                                            <input type="text" class="form-control" formControlName="empId"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>User. Name</label>
+                                            <input type="text" class="form-control" formControlName="userName"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Role Name</label>
+                                            <input type="text" class="form-control" formControlName="roleName"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status" (change)="getAllData()">
+                                                <option value="">--Select Status --</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchEmployee()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchEmployeeReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()" class="btn btn-success btn-block">Add
+                                            New User</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <br>
+
+                <div class="table-responsive" *ngIf="tableGrid">
+
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Emp ID</th>
+                                <th>User Name</th>
+                                <th>Role Name</th>
+                                <th>Branch Name</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.empId}}</td>
+                                <td>{{item.userName}}</td>
+                                <td>{{item.roleName}}</td>
+                                <td>{{item.branchName}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editUser(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

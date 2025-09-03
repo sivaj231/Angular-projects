@@ -1,0 +1,198 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>Policy</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard  >
+                        <b>Policy</b> 
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <div class="content" *ngIf="tableGrid">
+
+                    <div class="table-responsive">
+            
+                        <br>
+                        <table id="" class="mydatatable mytable table table-borderless table-striped">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="text-center">S No.</th>
+                                    <th>Policy Id</th>
+                                    <th>Policy Name</th>
+                                    <th class="text-center">Due Date</th>
+                                    <th class="text-center">Status</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                           
+                            <tbody>  
+                                <ng-container *ngFor="let item of policyList; let i=index;">                          
+                                <tr >                                 
+                                    <td class="text-center">{{i + 1}}</td>
+                                    <td>{{item.policyId}}</td>
+                                    <td>{{item.policyName}}</td>
+                                    <!-- <td>{{item.dueDate}}</td> -->
+                                    <td class="text-center">
+                                        <span *ngIf="item.expired === null">  {{item.dueDate}} </span>
+                                        <span class="in_active_status" *ngIf="item.expired !== null">  {{item.dueDate}} </span>
+                                    </td>
+                                    <!-- <td class="text-center font-weight-bold" *ngFor="let a of acceptList;">                                     
+                                        <span class="active_status" *ngIf="item.policyId === a.policyId"> 
+                                            <span *ngIf="a.policyStatus === 'ACCEPT'">
+                                                {{ a.policyStatus }}
+                                            </span>                                          
+                                        </span>
+                                        
+                                    </td> -->
+                                    <td class="text-center font-weight-bold">
+                                        <span class="active_status" *ngIf="item.policyStatus == 'ACCEPTED'"> 
+                                            {{item.policyStatus}}
+                                        </span>
+                                        <span class="in_active_status" *ngIf="item.policyStatus != 'ACCEPTED'">
+                                            {{item.policyStatus}}
+                                        </span>                                   
+                                       
+                                    </td>
+                                    <td class="text-center">
+            
+                                        <i (click)="policyDetail(item.policyId)" class="fa fa-eye view_icon cursor_icon"
+                                            aria-hidden="true"></i>
+                                        &nbsp;
+            
+                                        <!-- <i (click)="editCompliances(item)" class="fa fa-pencil edit_icon cursor_icon"
+                                            aria-hidden="true"></i> -->
+                                    </td>
+                               
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                       
+                        </table>
+            
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="viewPolicy">
+        <div class="col-md-12">
+            <div id="accordion" class="row">
+
+                <div class="col-md-12">
+    
+                    <div class="col-md-12 content h-100">
+    
+                    <div id="aupPolicyInfo" class="collapse show" data-parent="#accordion">
+    
+                        <p><b>Policy Information</b></p>
+    
+                        <hr>         
+                        
+                        <div class="table-responsive" *ngIf="nonEditView">
+
+                            <input type="hidden" value="{{this.polciyDetails?.policyId}}">
+                            <input type="hidden" value="{{this.polciyDetails?.policyType}}">
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="pdf-block">
+                                            <pdf-viewer [src]="myPdf"
+                                                style="display: block;"
+                                                [zoom]="0.65"
+                                                [original-size]="false"                                              
+                                                [fit-to-page]="true"
+                                                [autoresize]="true"
+                                                
+                                             >                    
+                                            </pdf-viewer>
+                                            <hr>
+                                            <form [formGroup]="policyFormDetails" *ngIf="buttonEnable == true"  #ngForm="ngForm" (ngSubmit)="save(policyFormDetails.value)">
+                                                <input type="hidden" formControlName="policyIds" >
+                                                <input type="hidden" formControlName="policyNames">
+        
+                                                <div class="form-check-inline d-block text-right" *ngIf="!expired">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" [(ngModel)]="isChecked"
+                                                            (change)="policyFormDetails.controls['agreementStatus'].setValue(isChecked?'ACCEPT':'')"
+                                                            class="form-check-input" formControlName="agreementStatus" >
+                                                            I agree to the Terms and Conditions
+                                                    </label>
+                                                </div>
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="validate_form.agreementStatus.errors?.required">
+                                                        Please accept Terms and Conditions to continue </div>
+                                                </div>
+                                                <div class="row justify-content-center" *ngIf="!expired">                                      
+                                                   
+                                                     <button type="button" (click)="showGrid()"
+                                                        class="btn btn-primary btn-reset">Back</button>  &nbsp;  
+                                                    <button type="submit" class="btn btn-primary bg-blue">Submit</button>
+                                                                   
+                                                </div>
+                                            </form>
+                                            <div class="row justify-content-center" *ngIf="!buttonEnable || expired == true">                                       
+                                                <button type="button" (click)="showGrid()"
+                                                    class="btn btn-primary btn-reset">Back</button>                   
+                                            </div> 
+                                        </div>
+                                       
+                                    </div>
+                                    
+                                        
+
+                                        
+                                       
+                                   
+        
+                                </div>  
+                            </div>
+                            <hr *ngIf="nonEditView">
+
+                    </div>
+
+
+    
+                 </div>
+    
+                </div>
+    
+            </div>
+
+        </div>
+        </div>
+
+    </div>
+
+</div>

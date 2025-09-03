@@ -1,0 +1,279 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>Company Policy Master</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right"><a routerLink="/dashboard"> Dashboard </a> > 
+                        <b>Company Policy Master</b> 
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <form [formGroup]="complianceSearchForm" (ngSubmit)="searchCompliance()">
+
+                    <div class="col-md-12 form_filter">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Policy. Type</label>
+                                    <select class="form-control" formControlName="policyType">
+                                        <option selected>Choose</option>
+                                        <option *ngFor="let item of parentcomplianceDetails"
+                                            value="{{item.policyType}}">
+                                            {{item.policyType}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" formControlName="status">
+                                        <option selected>Choose</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="IN ACTIVE">IN ACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>                       
+                          
+
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <i  (click)="searchCompliance()" class="fa fa-filter form_filter_search_icon cursor_icon"
+                                    aria-hidden="true"></i>
+                                <i (click)="searchComplianceReset()"
+                                    class="fa fa-refresh form_filter_reset_icon cursor_icon" aria-hidden="true"></i>
+                            </div>
+
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <button type="button" (click)="showForm()"  class="btn btn-success add_new btn-block">
+                                   New Policy
+                                </button>
+                            </div>
+                            
+                        </div>
+                                             
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <div class="content" *ngIf="tableGrid">
+
+        <div class="table-responsive">
+
+            <br>
+            <table id="" class="mydatatable mytable table table-borderless table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">S No.</th>
+                        <th>Policy ID</th>
+                        <th>Policy Type</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of complianceList; let i=index;">
+                        <td class="text-center">{{i + 1}}</td>
+                        <td>{{item.policyId}}</td>
+                        <td>{{item.policyType}}</td>
+                        <td class="text-center font-weight-bold">
+                            <span class="active_status" *ngIf="item.status == 'ACTIVE'"> {{item.status}}</span>
+                            <span class="in_active_status" *ngIf="item.status != 'ACTIVE'">
+                                {{item.status}}</span>
+                        </td>
+                        <td class="text-center">
+
+                            <i (click)="viewComplianceDetailsById(item.policyId)" class="fa fa-eye view_icon cursor_icon"
+                                aria-hidden="true"></i>
+                            &nbsp;
+
+                            <i (click)="editCompliance(item)" class="fa fa-pencil edit_icon cursor_icon"
+                                aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <div class="row" *ngIf="viewCompliance">
+        <div class="col-md-12">
+            <div id="accordion" class="row">
+
+                <div class="col-md-3">
+    
+                    <div class="col-md-12 content h-100">
+    
+    
+                        <ul class="list-group list-group-flush category_panel" style="background: #F1F6FB;">
+                            <li class="list-group-item" data-toggle="collapse" href="#complianceInfo"><i
+                                    class="fa fa-user" aria-hidden="true"></i> 
+                                    Company Policy Master </li>                       
+                        </ul>
+    
+    
+                    </div>
+    
+                </div>
+    
+                <div class="col-md-9">
+    
+                    <div class="col-md-12 content h-100">
+    
+                    <div id="complianceInfo" class="collapse show" data-parent="#accordion">
+    
+                        <p><b>Company Policy</b></p>
+    
+                        <hr>         
+                        
+                        <div class="table-responsive" *ngIf="nonEditView">
+    
+                            <table datatable class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>Policy ID</td>
+                                        <td><b>{{this.complianceDetails?.policyId}}</b></td>
+                                        <td>Policy Type</td>
+                                        <td><b>{{this.complianceDetails?.policyType}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Created By</td>
+                                        <td><b>{{this.complianceDetails?.createdBy}}</b></td>
+                                        <td>Created Date</td>
+                                        <td><b>{{this.complianceDetails?.createdDate}}</b></td>
+                                        <td>Status</td>
+                                        <td><b>{{this.complianceDetails?.status}}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+    
+    
+                            <hr *ngIf="nonEditView">
+                            <p class="d-block text-center"><button *ngIf="nonEditView" type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button></p>
+    
+                        </div>
+    
+                        <form [formGroup]="complianceFormDetails" *ngIf="addEditComplianceView" #ngForm="ngForm"
+                            (ngSubmit)="save(complianceFormDetails.valid)">
+    
+                            <div class="row">                         
+    
+                                <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>Policy Id</label>
+                                        <input type="text" class="form-control" formControlName="policyId"
+                                            placeholder="" [readonly]="readOnly">
+    
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.policyId.errors?.required">
+                                               Policy Id is required
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>    
+                                
+                                <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>Policy Name</label>
+                                        <input type="text" class="form-control" formControlName="policyType"
+                                            placeholder="" [readonly]="readOnly">
+    
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.policyType.errors?.required">
+                                                Policy Name is required
+                                            </div>
+                                        </div>
+                                    </div>
+    
+    
+                                </div> 
+    
+                                <div class="col-md-4">
+    
+                                    <div class="form-group" *ngIf="complianceFormDetails.get('action').value != 'NEW'">
+                                        <label>Status</label>
+                                        <select class="form-control" formControlName="status">
+                                            <option value="ACTIVE">ACTIVE</option>
+                                            <option value="IN ACTIVE">IN ACTIVE</option>
+                                        </select>
+                                    </div>
+        
+                                </div>
+    
+                            </div>
+    
+    
+                            <hr>
+    
+                            <div class="row justify-content-center">
+    
+                                <!-- <button type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button>&nbsp; -->                               
+                                <button type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button> &nbsp;
+                                <button type="submit" class="btn btn-primary bg-blue">Save</button>
+                                   
+    
+                            </div>
+    
+                        </form>
+    
+                    </div>
+    
+                 </div>
+    
+                </div>
+    
+            </div>
+        </div>
+
+    </div>
+
+</div>

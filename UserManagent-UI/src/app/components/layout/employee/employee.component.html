@@ -1,0 +1,1344 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+
+                    <p><b>Employee Management </b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right"><a routerLink="/dashboard"> Dashboard </a> > Master >
+                        <b>{{breadCrumbleft}}</b>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <form [formGroup]="empSearchForm" (ngSubmit)="searchEmployee()">
+
+                    <div class="col-md-12 form_filter">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Emp. ID</label>
+                                    <input type="text" class="form-control" formControlName="empId" placeholder="" (change)="getAllData()" (keypress)="omit_special_char($event)">
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Emp. Name</label>
+                                    <input type="text" class="form-control" formControlName="empName" placeholder="" (change)="getAllData()" (keypress)="omit_special_char($event)">
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Branch Name</label>
+                                    <select class="form-control" formControlName="branchName">
+                                        <option>--Select Branch --</option>
+                                        <option *ngFor="let item of branchList">{{item.branchName}} </option>
+                                    </select>
+                                </div>
+                            </div> -->
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Department</label>
+                                    <select class="form-control" formControlName="department" (change)="getAllData()">
+                                        <option value="">--Select Department --</option>
+                                        <option *ngFor="let item of departmentList">{{item.departmentName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" formControlName="status" (change)="getAllData()">
+                                        <option value="">--Select Status --</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="IN ACTIVE">IN ACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <i (click)="searchEmployee()" class="fa fa-filter form_filter_search_icon cursor_icon"
+                                    aria-hidden="true"></i>
+                                <i (click)="searchEmployeeReset()"
+                                    class="fa fa-refresh form_filter_reset_icon cursor_icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <button type="button" (click)="showForm()" class="btn btn-success add_new btn-block">Add
+                                    New
+                                    Emp.</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="content" *ngIf="tableGrid">
+
+        <div class="table-responsive">
+
+            <br>
+            <table id="" class="mydatatable mytable table table-borderless table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">S No.</th>
+                        <th>Emp. ID</th>
+                        <th>Emp Type</th>
+                        <th>Emp. Name</th>
+                        <th>Branch Name</th>
+                        <th>Department</th>
+                        <th>Reporting Person</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of employeeList; let i=index;">
+                        <td class="text-center">{{i + 1}}</td>
+                        <td>{{item.empId}}</td>
+                        <td>{{item.empType}}</td>
+                        <td>{{item.empName}}</td>
+                        <td>{{item.branchName}}</td>
+                        <td>{{item.department}}</td>
+                        <td>{{item.reportPersonName}}</td>
+                        <td class="text-center font-weight-bold">
+                            <span class="active_status" *ngIf="item.status == 'ACTIVE'"> {{item.status}}</span>
+                            <span class="in_active_status" *ngIf="item.status != 'ACTIVE'">
+                                {{item.status}}</span>
+                        </td>
+                        <td class="text-center">
+
+                            <i (click)="viewEmpDetailsById(item.empId)" class="fa fa-eye view_icon cursor_icon"
+                                aria-hidden="true"></i>
+                            &nbsp;
+
+                            <i (click)="editEmp(item)" class="fa fa-pencil edit_icon cursor_icon"
+                                aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row" *ngIf="viewEmployee">
+
+        <div class="col-md-12">
+
+            <div id="accordion" class="row">
+
+                <div class="col-md-3">
+
+                    <div class="col-md-12 content h-100">
+
+
+                        <ul class="list-group list-group-flush category_panel" style="background: #F1F6FB;">
+                            <li class="list-group-item" data-toggle="collapse" href="#empBasicInfo"><i
+                                    class="fa fa-user" aria-hidden="true"></i> Employee
+                                Information</li>
+
+                            <li *ngIf="EditView" class="list-group-item" data-toggle="collapse" href="#empAppInfo"><i
+                                    class="fa fa-tachometer" aria-hidden="true"></i> Application
+                                Information</li>
+                            <li *ngIf="EditView" class="list-group-item" data-toggle="collapse" href="#empAssetInfo"><i
+                                    class="fa fa-laptop" aria-hidden="true"></i> Asset Information
+                            </li>
+                            <li *ngIf="EditView" class="list-group-item" data-toggle="collapse" href="#empCommonDrive">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> Common Drive Information
+                            </li>
+                            <li *ngIf="EditView" class="list-group-item" data-toggle="collapse"
+                                href="#empCliqViewReports">
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> QliKView Reports
+                            </li>
+                        </ul>
+
+
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+
+                    <div class="col-md-12 content h-100">
+
+                        <div id="empBasicInfo" class="collapse show" data-parent="#accordion">
+
+                            <p><b>Basic Information</b></p>
+
+                            <hr>
+
+                            <div class="table-responsive" *ngIf="nonEditView">
+
+                                <table datatable class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>Emp. ID</td>
+                                            <td><b>{{this.empDetails?.empId}}</b></td>
+                                            <td>Emp. Name</td>
+                                            <td><b>{{this.empDetails?.empName}}</b></td>
+                                            <td>Email. ID</td>
+                                            <td><b>{{this.empDetails?.emailId}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile Number</td>
+                                            <td><b>{{this.empDetails?.mobileNo}}</b></td>
+                                            <td>Department</td>
+                                            <td><b>{{this.empDetails?.department}}</b></td>
+                                            <td>Created Date</td>
+                                            <td><b>{{this.empDetails?.createdDate}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Created By</td>
+                                            <td><b>{{this.empDetails?.createdBy}}</b></td>
+                                            <td>Branch Code</td>
+                                            <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                            <td>Branch Name</td>
+                                            <td><b>{{this.empDetails?.branchName}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reporting User ID</td>
+                                            <td><b>{{this.empDetails?.reportUserId}}</b></td>
+                                            <td>Reporting Person Name</td>
+                                            <td><b>{{this.empDetails?.reportPersonName}}</b></td>
+                                            <td>Reporting Branch Code</td>
+                                            <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reporting Branch Name</td>
+                                            <td><b>{{this.empDetails?.branchName}}</b></td>
+                                            <td>Status</td>
+                                            <td><b>{{this.empDetails?.status}}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+
+                            <form [formGroup]="formDeatils" *ngIf="addEditView" #ngForm="ngForm"
+                                (ngSubmit)="save(formDeatils.valid)">
+
+                                <div class="row">
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Emp Type</label>
+                                            <select class="form-control" formControlName="empType">
+                                                <option value="ON ROLE">ON ROLE</option>
+                                                <option value="OFF ROLE">OFF ROLE</option>
+                                            </select>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.empType.errors?.required">
+                                                    Employee Type is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Emp. ID</label>
+                                            <input type="text" class="form-control" formControlName="empId"
+                                                placeholder="" [readonly]="readOnly">
+
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.empId.errors?.required">First
+                                                    Name is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Emp. Name</label>
+                                            <input type="text" class="form-control" formControlName="empName"
+                                                placeholder="" charOnly>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.empName.errors?.required">Emp
+                                                    Name is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Email ID</label>
+                                            <input type="text" class="form-control" formControlName="emailId"
+                                                placeholder="">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.emailId.errors?.required">Email
+                                                    Id is required</div>
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.emailId.errors?.pattern">Email
+                                                    Id Invalid</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Mobile Number</label>
+                                            <input type="text" class="form-control" formControlName="mobileNo"
+                                                placeholder="" maxlength="10" numbersOnly>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.mobileNo.errors?.required">
+                                                    Mobile No is required</div>
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.mobileNo.errors?.minlength">
+                                                    Mobile number Must be 10 digits</div>
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.mobileNo.errors?.maxlength">
+                                                    Mobile number Must be 10 digits</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Department</label>
+                                            <select class="form-control" formControlName="department">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of departmentList;let i=index;"
+                                                    value="{{item.departmentName}}">
+                                                    {{item.departmentName}}</option>
+                                            </select>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.department.errors?.required">
+                                                    Department Name is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Branch Code</label>
+                                            <select class="form-control"
+                                                (change)="getBranchNameByCode($event.target.value)"
+                                                formControlName="branchCode">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of branchList;let i=index;"
+                                                    value="{{item.branchName}}">
+                                                    {{item.branchCode}}</option>
+                                            </select>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.branchCode.errors?.required">
+                                                    Branch Code is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Branch Name</label>
+                                            <input type="text" class="form-control" readonly
+                                                formControlName="branchName" placeholder="">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.branchName.errors?.required">
+                                                    Branch Name is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Reporting Emp ID</label>
+                                            <select class="form-control" (change)="getEmpById($event.target.value)"
+                                                formControlName="reportUserId">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of employeeList;let i=index;"
+                                                    value="{{item.empId}}">
+                                                    {{item.empId}}</option>
+                                            </select>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.reportUserId.errors?.required">
+                                                    Reporting User Id is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Reporting Person Name</label>
+                                            <input type="text" class="form-control" formControlName="reportPersonName"
+                                                placeholder="" readonly>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.reportPersonName.errors?.required">
+                                                    Reporting Person Name is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Reporting Branch Code</label>
+                                            <input type="text" class="form-control" formControlName="reportBranchCode"
+                                                placeholder="" readonly>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.reportBranchCode.errors?.required">
+                                                    Reporting Branch Code is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group">
+                                            <label>Reporting Branch Name</label>
+                                            <input type="text" class="form-control" formControlName="reportBranchName"
+                                                placeholder="" readonly>
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="validate_form.reportBranchName.errors?.required">
+                                                    Reporting Branch Name is required</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-group" *ngIf="formDeatils.get('action').value != 'NEW'">
+                                            <label>status</label>
+                                            <select class="form-control" formControlName="status">
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                                <hr>
+
+                                <div class="row justify-content-center">
+
+                                    <!-- <button type="button" (click)="showGrid()"
+                                        class="btn btn-primary btn-reset">Back</button>&nbsp; -->
+                                    <button type="submit" class="btn btn-primary bg-blue">Save</button>
+                                    &nbsp;
+                                    <button type="button" (click)="showGrid()"
+                                        class="btn btn-primary btn-reset">Back</button>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                        <div id="empAppInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Application Information</b></p>
+
+                            <hr>
+                            <div id="accordion-3"> 
+                                
+                            </div>
+                            <div class="row" *ngIf="nonEditView">
+                               
+                                <div class="col-md-12">
+                                    <div id="accordion-1-1">
+                                        <div class="card app_role_card"
+                                        *ngFor="let item of empDetails.appDetailsDto;let i =index;">
+                                            <div class="card-header role_header_bg">
+                                                <div class="row">
+
+                                                    <div class="col-md-3 border-right">
+
+                                                        <a>
+                                                            Application :<b>{{item.applicationName}}</b>
+                                                        </a>
+
+                                                    </div>
+                                                    <div class="col-md-3 text-center border-right">
+
+                                                            <div 
+                                                                 *ngIf="item.appRoleDtos && item.appRoleDtos?.length>0">
+                                                                <a class="">Role :
+                                                                    <b>{{item.appRoleDtos.length}}</b></a>
+                                                               </div>
+
+                                                    </div>
+                                                    <div class="col-md-3 text-center border-right">
+
+                                                        <a class="">Status : <b>{{item.status}}</b></a>
+
+                                                    </div>
+                                                    <div class="col-md-3 text-right">
+
+                                                        <a data-toggle="collapse"
+                                                            href="#collapseOneByOne-{{i+1}}-{{i+1}}"><i
+                                                                class="fa fa-pencil role_arrow"
+                                                                aria-hidden="true"></i></a>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div id="collapseOneByOne-{{i+1}}-{{i+1}}" class="collapse"
+                                                data-parent="#accordion-1-1">
+                                                <div class="card-body role_body_bg">
+                                                    <div class="container-fluid p-3">
+                                                        <div 
+                                                        *ngIf="item.appRoleDtos && item.appRoleDtos?.length>0">
+                                                        <div class="row">
+                                                            <div class="accordian-block col-lg-3 col-md-3 col-sm-6 col-12" *ngFor="let roledata of item.appRoleDtos;let j =index;">
+                                                                <a class="">Role :
+                                                                    <b>{{roledata.roleName}}</b>
+                                                                 <p>
+                                                                 {{roledata.roleDescription}}</p></a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                      
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                
+
+                            </div>
+
+                            <form [formGroup]="applicationForm" #ngForm="ngForm" *ngIf="addEditView"
+                                (ngSubmit)="addApp()">
+
+                                <div class="col-md-12">
+
+                                    <div class="row application_bg">
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Application Name</label>
+
+                                                <select class="form-control"
+                                                    (change)="getRoleByApplicationCode($event.target.value);applicationForm.controls['applicationName'].setValue($event.target.options[$event.target.options.selectedIndex].text)"
+                                                    formControlName="applicationCode">
+                                                    <option value="" selected>-- Select Application --</option>
+                                                    <option *ngFor="let item of mappedApplicationList;let j=index"
+                                                        value="{{item.applicationCode}}">{{item.applicationName}}
+                                                    </option>
+                                                </select>
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="validate_app_form.applicationCode.errors?.required">
+                                                        Application Code is required</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+
+                                                <label class="d-block">&nbsp;</label> 
+                                                <!-- Button to Open the Modal -->
+                                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#myModal">
+                                                    Select Role
+                                                </button>
+
+                                               
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="validate_app_form.roleCode.errors?.required">
+                                                        Role is required</div>
+                                                </div> 
+                                            </div>
+
+                                        </div>
+
+                                        
+
+                                    </div>
+
+                                    <div class="row">
+
+                                       
+                                        <div class="col-md-12">
+                                            <div id="accordion-1">
+                                                <div class="card app_role_card"
+                                                    *ngFor="let item of selectedApplication;let i =index;">
+                                                    <div class="card-header role_header_bg">
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-3 col-lg-3 col-sm-6 col-12 border-right">
+
+                                                                <a>
+                                                                    Application : <b>{{item.applicationName}}</b>
+                                                                </a>
+
+                                                            </div>
+                                                            <div class="col-md-3 text-center border-right" >
+                                                               
+                                                               <div 
+                                                                 *ngIf="item.appRoleDtos && item.appRoleDtos?.length>0">
+                                                                <a class="">Role :
+                                                                    <b>{{item.appRoleDtos.length}}</b></a>
+                                                               </div> 
+                                                               
+                                                               
+                                                            </div>
+                                                            <div class="col-md-3 text-center border-right">
+
+                                                                <a class="">Status : <b>{{item.status}}</b></a>
+
+                                                            </div>
+                                                            <div class="col-md-3 text-right">
+
+                                                                <a data-toggle="collapse"
+                                                                    href="#collapseOneByOne-{{i+1}}-{{i+1}}"><i
+                                                                        class="fa fa-pencil role_arrow"
+                                                                        aria-hidden="true"></i></a>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div id="collapseOneByOne-{{i+1}}-{{i+1}}" class="collapse"
+                                                        data-parent="#accordion-1">
+                                                        <div class="card-body role_body_bg">
+                                                            <div class="container-fluid p-3">
+                                                                <div 
+                                                                *ngIf="item.appRoleDtos && item.appRoleDtos?.length>0">
+                                                                <div class="row">
+                                                                    <div *ngFor="let roledata of item.appRoleDtos;let j =index;" class="accordian-block col-md-3 col-lg-3 col-sm-6 col-12">
+                                                                        <!-- <div *ngFor="let item of selectedApplication;let i =index;"> -->
+                                                                            <a class="">Role :
+                                                                                <b>{{roledata.roleName}}</b>
+                                                                             <p>
+                                                                             {{roledata.roleDescription}}</p></a>
+                                                                        </div>
+                                                                </div>
+
+                                                                </div>
+  
+                                                           
+
+                                                            <div class="text-right">
+                                                                <button class="btn btn-warning btn-sm"
+                                                                    data-toggle="modal" data-target="#myModal1"
+                                                                    (click)="getRoleByApplicationCodeEdit(item)"> <i
+                                                                         class="fa fa-pencil edit_role_pencil"
+                                                                        aria-hidden="true"></i></button>
+                                                            </div>
+                                                     
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         </div>
+                                   </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <p class="d-block text-center">
+            
+                                    <button type="button" (click)="showGrid()"
+                                        class="btn btn-primary btn-reset">Back</button>
+                                </p>
+
+                            </form>
+
+
+
+
+                        </div>
+
+
+                        <div id="empAssetInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Asset Information</b></p>
+
+                            <hr>
+
+                            <div class="row" *ngIf="nonEditView">
+
+                                <div class="col-md-4" *ngFor="let item of empDetails.itAssetDto;let i=index;">
+
+                                    <div class="card">
+                                        <div class="card-header app_name_list">
+
+                                            <div class="row">
+
+                                                <div class="col-md-3  text-center align-self-center">
+
+                                                    <i class="fa fa-keyboard-o emp_app_icon" aria-hidden="true"></i>
+
+                                                </div>
+
+                                                <div class="col-md-9">
+
+                                                    <span><b>{{item.assetType}}</b> </span>
+                                                    <span class="d-block">{{item.assetId}}</span>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="card-body app_status">
+
+                                            <div class="row">
+
+                                                <div class="col-md-6">
+
+                                                    <span>Date of Issue : {{item.dateOfIssue}}</span>
+
+                                                </div>
+                                                <!-- <div class="col-md-6">
+
+                                                    <span class="d-block text-right">Returned 09-12-2020</span>
+
+                                                </div> -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                </div>
+
+                            </div>
+
+
+                            <form [formGroup]="formAsset" #ngForm="ngForm" *ngIf="addEditView" (ngSubmit)="addAsset()">
+
+                                <div class="col-md-12">
+
+                                    <div class="row application_bg">
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Asset Type</label>
+                                                <select class="form-control"
+                                                    (change)="getAssetIdList($event.target.value)"
+                                                    formControlName="assetType">
+                                                    <option *ngFor="let item of itAssetMaster;let i =index;"
+                                                        value="{{item.assetType}}">{{item.assetType}}</option>
+
+                                                </select>
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="asset_validate_form.assetType.errors?.required">
+                                                        Asset Type is required</div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Asset Id</label>
+                                                <select class="form-control"
+                                                    (change)="getAssetDetailsByAssetId($event.target.value)"
+                                                    formControlName="assetId">
+                                                    <option value="">--Select Asset ID--</option>
+                                                    <option *ngFor="let item of assetIdList;let i =index;"
+                                                        value="{{item.assetId}}">
+                                                        {{item.assetId}}</option>
+
+                                                </select>
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="asset_validate_form.assetId.errors?.required">
+                                                        Asset Id is required</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Serial No</label>
+                                                <input type="text" class="form-control" readonly
+                                                    formControlName="serialNo">
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="asset_validate_form.serialNo.errors?.required">
+                                                        Serial No is required</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Make</label>
+                                                <input type="text" class="form-control" readonly formControlName="make">
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="asset_validate_form.make.errors?.required">
+                                                        Make is required</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Model</label>
+                                                <input type="text" class="form-control" readonly
+                                                    formControlName="model">
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="asset_validate_form.model.errors?.required">
+                                                        Model is required</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>MAC Address</label>
+                                                <input type="text" class="form-control" formControlName="macAddress" readonly>
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                    *ngIf="asset_validate_form.macAddress.errors?.required">
+                                                    MAC Address is required</div>
+    
+                                            </div>
+                                            </div>
+    
+                                        </div>
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Date of Issue</label>
+                                                <input type="date" class="form-control" formControlName="dateOfIssue">
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                        *ngIf="asset_validate_form.dateOfIssue.errors?.required">
+                                                        Date of Issue is required</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-3">
+
+                                            <label>&nbsp;</label>
+                                            <div>
+
+                                                <button type="submit" class="btn btn-success">Add</button>&nbsp;
+                                                <button type="reset" class="btn btn-danger">Reset</button>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <br>
+                                <div class="table-responsive">
+
+                                    <table class="table table-borderless">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No</th>
+                                                <th>Asset Type</th>
+                                                <th>Asset Id</th>
+                                                <th>Serial No</th>
+                                                <th>Make</th>
+                                                <th>Model</th>
+                                                <th>MAC Address</th>
+                                                <th>Date of Issue</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of assetRequestDetails;let i = index;">
+
+                                                <td>{{i + 1}}</td>
+                                                <td>{{item.assetType}}</td>
+                                                <td>{{item.assetId}}</td>
+                                                <td>{{item.serialNo}}</td>
+                                                <td>{{item.make}}</td>
+                                                <td>{{item.model}}</td>
+                                                <td>{{item.macAddress}}</td>
+                                                <td>{{item.dateOfIssue}}</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-sm"
+                                                        (click)="removeAsset(i,item)">Remove</button>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+                                <hr>
+
+                                <p class="d-block text-center"><button type="button"
+                                        (click)="save(assetRequestDetails.length > 0 )"
+                                        class="btn btn-primary bg-blue">Save</button>&nbsp;
+                                    <button type="button" (click)="showGrid()"
+                                        class="btn btn-primary btn-reset">Back</button>
+                                </p>
+
+                            </form>
+
+
+                        </div>
+
+
+
+                        <div id="empCommonDrive" class="collapse" data-parent="#accordion">
+
+                           
+                            <div class="row" *ngIf="nonEditView">
+                                <p><b>Common Drive Information</b></p> 
+                                <hr>
+                            <div class="table-responsive">
+
+                                <table id="empCommonDrive01"*ngIf="nonEditView" class="mydatatable mytable table table-bordered table-striped">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                        
+                                            <th>path</th>
+                                             <th>Object Name</th>
+                                            <th>Ou Name</th>
+                                            <th>Owner EmpId</th>
+                                            <th style="width: 135px;" class="text-center">READ</th>
+                                            <th style="width: 135px;" class="text-center">WRITE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of commonDriveList;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a (click)="editCommonDrive(x)"> {{x.path}}</a></td>
+                                            <td>{{x.objectName}}</td>
+                                            <td>{{x.ouName}}</td>
+                                            <td>{{x.ownerempId}}</td>
+                                            <td class="text-center" style="background: #dcdcdc21;">
+                                                <span *ngIf="x.permission === '1' || x.permission !== '2'"> <i
+                                                        class="fa fa-check-square-o"></i>
+                                                </span>
+                                                <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                </span>
+                                            </td>
+                                            <td class="text-center" style="background: #f0f8ff91;">
+                                                <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                </span>
+                                                <span *ngIf="x.permission === '1'"> <i class="fa fa-square-o"
+                                                        aria-hidden="true"></i>
+
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            </div>
+                            <div *ngIf="addEditView">
+                                <p><b>Common Drive Information</b></p>
+                                <hr>
+                                <form [formGroup]="commonDriveForm" #ngForm="ngForm" (ngSubmit)="addCommonDrive()">
+
+                                    <div class="col-md-12">
+    
+                                        <div class="row application_bg">
+    
+                                            <div class="col-md-3">
+    
+                                                <div class="form-group">
+                                                    <label>Common Drive</label>
+                                                    <select class="form-control" formControlName="pathName" (change)="getAllCommonDrivePath($event.target.value)">
+                                                        <option value="">SELECT</option>
+                                                        <option *ngFor="let x of commonDriveMasterList;let i=index;"
+                                                            value="{{x.path}}"> {{x.path}}</option>
+                                                    </select>
+                                                </div>
+    
+                                            </div>
+                                        
+                                            <div class="col-md-3">
+    
+                                                <div class="form-group">
+                                                    <label>Object Name</label>
+                                                    <input type="text" class="form-control" formControlName="objectName" placeholder="" readonly>
+                                                    <div *ngIf="ngForm.submitted">
+                                                        <div class="alert alert-danger" *ngIf="commonDrive_validate_form.objectName.errors?.required">
+                                                            Object Name is required</div>
+                                                    </div>
+                                                </div>
+    
+                                            </div>
+                                            <div class="col-md-3">
+    
+                                                <div class="form-group">
+                                                    <label>Ou Name</label>
+                                                    <input type="text" class="form-control" formControlName="ouName" placeholder="" readonly>
+                                                <div *ngIf="ngForm.submitted">
+                                                        <div class="alert alert-danger" *ngIf="commonDrive_validate_form.ouName.errors?.required">
+                                                            Ou Name is required</div>
+                                                    </div> 
+                                                </div>
+    
+                                            </div>
+
+                                            <div class="col-md-3">
+    
+                                                <div class="form-group">
+                                                    <label>Owner Emp ID</label>
+                                                    <input type="text" class="form-control" formControlName="ownerempId" placeholder="" readonly>
+                                                <div *ngIf="ngForm.submitted">
+                                                        <div class="alert alert-danger" *ngIf="commonDrive_validate_form.ownerempId.errors?.required">
+                                                            Owner Emp Id is required</div>
+                                                    </div> 
+                                                </div>
+    
+                                            </div>
+                                        
+                                            <div class="col-md-3">
+    
+                                                <div class="form-group">
+                                                    <label>Permission</label>
+                                                    <select class="form-control" formControlName="permission">
+                                                        <option value="1"> Read</option>
+                                                        <option value="2"> Read / Write</option>
+                                                    </select>
+                                                </div>
+    
+                                            </div>
+    
+    
+                                            <div class="col-md-3">
+    
+                                                <div class="form-group">
+                                                    <label class="d-block">&nbsp;</label>
+                                                    <button type="submit" class="btn btn-primary">Add</button>
+                                                </div>
+    
+                                            </div>
+    
+                                        </div>
+                                    </div>
+    
+                                </form>
+                                <div class="table-responsive">
+    
+                                    <table id="empCommonDrive02" class="mydatatable mytable table table-bordered table-striped">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th style="width: 80px;">SL NO</th>
+                                            
+                                                <th>path</th>
+                                                <th>Object Name</th>
+                                                <th>Ou Name</th>
+                                                <th>Owner Emp Id</th> 
+                                                <th style="width: 135px;" class="text-center">READ</th>
+                                                <th style="width: 135px;" class="text-center">WRITE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let x of commonDriveList;let i = index;">
+                                                <td>{{i+1}}</td>
+                                                <td><a (click)="editCommonDrive(x)"> {{x.path}}</a></td>
+                                                <td>{{x.objectName}}</td>
+                                                <td>{{x.ouName}}</td>
+                                                <td>{{x.ownerempId}}</td>
+                                                <td class="text-center" style="background: #dcdcdc21;">
+                                                    <span *ngIf="x.permission === '1' || x.permission !== '2'"> <i
+                                                            class="fa fa-check-square-o"></i>
+                                                    </span>
+                                                    <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                    </span>
+                                                </td>
+                                                <td class="text-center" style="background: #f0f8ff91;">
+                                                    <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                    </span>
+                                                    <span *ngIf="x.permission === '1'"> <i class="fa fa-square-o"
+                                                            aria-hidden="true"></i>
+    
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+    
+                                </div>
+                            </div>
+                          
+         
+                            <hr *ngIf="addEditView">
+                            <p class="d-block text-center"><button *ngIf="addEditView" type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button></p>
+                        </div>
+
+
+                        <div id="empCliqViewReports" class="collapse" data-parent="#accordion">
+
+                            
+                            <div class="row" *ngIf="nonEditView">
+                                <p><b>QliKView Reports</b></p>
+
+                            <hr>
+                            <div class="table-responsive">
+
+                                <table class="mytable table table-bordered" *ngIf="nonEditView">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                            <th>Dashboard Name</th>
+                                            <th style="width: 135px;" class="text-center">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of reportsDashboardMappingList;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a (click)="editCommonDrive(x)"> {{x.dashboardName}}</a></td>
+                                            <td>{{x.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            
+                            </div>
+                           
+                        <div *ngIf="addEditView">
+                            <p><b>QliKView Reports</b></p>
+                            <hr>
+                            <form [formGroup]="cliqViewReportForm" #ngForm="ngForm" (ngSubmit)="mapReportToEmp()">
+
+                                <div class="col-md-12">
+
+                                    <div class="row application_bg">
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label>Dashboard Name</label>
+                                                <select class="form-control" formControlName="dashboardName">
+                                                    <option *ngFor="let x of reportsDashboardMasterList;let i=index;"
+                                                        value="{{x.dashboardName}}"> {{x.dashboardName}}</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+
+                                        </div>
+
+
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+                                                <label class="d-block">&nbsp;</label>
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+
+                            <div class="table-responsive">
+
+                                <table id="empCliqViewReports01" class="mytable table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                            <th>Dashboard Name</th>
+                                            <th style="width: 135px;" class="text-center">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of reportsDashboardMappingList;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a (click)="editCommonDrive(x)"> {{x.dashboardName}}</a></td>
+                                            <td>{{x.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                          
+
+                    </div>
+
+                        <hr *ngIf="nonEditView">
+                        <p class="d-block text-center"><button *ngIf="nonEditView" type="button" (click)="showGrid()"
+                                class="btn btn-primary btn-reset">Back</button></p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h6 class="modal-title">{{applicationForm.get('applicationName').value}}</h6>
+                    <button type="button" class="close" data-dismiss="modal" #closeAddExpenseModal>&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <label *ngFor="let item of mappedRoleList;let k=index" (click)="addRole(item,$event)" [ngClass]="
+                    checkroleName(item.roleName) != -1 ? 'selected' : 'not-selected'
+                    ">{{item?.roleName}}
+                    </label>
+
+
+                    <div class="text-center">
+                        <br>
+                        <button class="btn btn-primary" (click)="map_app_role()"> Add Role </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- The Modal -->
+    <div class="modal" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h6 class="modal-title">{{applicationForm.get('applicationName').value}}</h6>
+                    <button type="button" #closeAddExpenseModal class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+                    <label *ngFor="let item of mappedRoleList;let k=index" (click)="addRoleEdit(item,$event)" [ngClass]="
+                    checkroleNameEdit(item.roleName) != -1 ? 'selected' : 'not-selected'
+                    ">{{item?.roleName}}
+                    </label>
+
+
+                    <div class="text-center">
+                        <br>
+                        <button class="btn btn-primary" (click)="map_app_role_update()"> Update Role </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

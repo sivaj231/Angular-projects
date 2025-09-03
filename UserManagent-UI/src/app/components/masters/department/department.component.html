@@ -1,0 +1,215 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Department Master</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Master > <b>Department Master</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+
+                <hr>
+                <form [formGroup]="formDetails" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Department Code</label>
+                                <input type="text" class="form-control" formControlName="departmentCode"
+                                    [readonly]="readOnly" placeholder="" (change)="onChanged($event.target.value)">
+                                    <!-- <select class="form-control" formControlName="departmentCode" (change)="onChanged($event.target.value)">
+                                        <option value="">Choose</option>
+                                        <option *ngFor="let item of departmentList">{{item.departmentCode}}
+                                        </option>
+                                    </select> -->
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.departmentCode.errors?.required">
+                                        Department Code is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Department Name</label>
+                                <input type="text" class="form-control" formControlName="departmentName" placeholder="" [readonly]="readOnly">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.departmentName.errors?.required">
+                                        Department Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="">Choose</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.status.errors?.required">
+                                        Status is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+
+
+                <div class="row" *ngIf="tableGrid">
+
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="deptSearchForm" (ngSubmit)="searchDepartment()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Department Code</label>
+                                            <select class="form-control" formControlName="departmentCode" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of departmentList">{{item.departmentCode}}
+                                                </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" formControlName="empId"
+                                                placeholder=""> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Department Name</label>
+                                            <input type="text" class="form-control" formControlName="departmentName" 
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchDepartment()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchDepartmentReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-md-3">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()" class="btn btn-success add_new btn-block">Add
+                                            New Department</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+                <!-- <div class="row" *ngIf="tableGrid">
+                    <div class="col-md-12">
+                        <div class="text-right">
+                            <button type="button" (click)="showForm()" class="btn btn-success">Add New
+                                Department</button><br><br>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="table-responsive" *ngIf="tableGrid">
+                    <br>
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Department Code</th>
+                                <th>Department Name</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.departmentCode}}</td>
+                                <td>{{item.departmentName}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editDepartment(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

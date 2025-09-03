@@ -1,0 +1,227 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Designations</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Master > <b>Designation </b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+
+                <hr>
+                <form [formGroup]="formDetails" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Designation Code</label>
+                                <input type="text" class="form-control" formControlName="designationCode"
+                                    placeholder="" (change)="onChanged($event.target.value)">
+                                    <!-- <select class="form-control" formControlName="designationCode" (change)="onChanged($event.target.value)">
+                                        <option value="" disabled selected>Choose</option>
+                                        <option *ngFor="let item of designationList">{{item.designationCode}}
+                                        </option>
+                                    </select> -->
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.designationCode.errors?.required">
+                                        Designation Code is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Designation</label>
+                                <input type="text" class="form-control" [readonly]="readOnly" formControlName="designation" placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.designation.errors?.required">
+                                        Designation Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Reporting Designation</label>
+                                <select class="form-control" formControlName="reportdesignation">
+                                    <option value="" disabled selected>Choose</option>
+                                    <option *ngFor="let item of empList; let i=index;" value="{{item.empId}}">{{item.empId}}</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.reportdesignation.errors?.required">
+                                        Report Designation Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group" >
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="" disabled selected>Choose</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.status.errors?.required">
+                                        Status is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+                <div class="row" *ngIf="tableGrid">
+
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="designationSearchForm" (ngSubmit)="searchDesignation()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Designation Code</label>
+                                            <select class="form-control" formControlName="designationCode" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of designationList">{{item.designationCode}}
+                                                </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" formControlName="empId"
+                                                placeholder=""> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Designation</label>
+                                            <input type="text" class="form-control" formControlName="designation"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status" (change)="getAllData()">
+                                                <option value="" >Choose</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchDesignation()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchDesignationReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()"
+                                            class="btn btn-success add_new btn-block">Add
+                                            New Designation</button>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="table-responsive" *ngIf="tableGrid">
+                    <br>
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Designation Code</th>
+                                <th>Designation</th>
+                                <!-- <th>Parent Branch Code</th> -->
+                                <th>Reporting Designation</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.designationCode}}</td>
+                                <td>{{item.designation}}</td>
+                                <td>{{item.reportdesignation}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editDesignation(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

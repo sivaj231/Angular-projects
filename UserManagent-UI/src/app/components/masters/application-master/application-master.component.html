@@ -1,0 +1,219 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Application Master</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Master > <b>Application Master</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+
+                <hr>
+                <form [formGroup]="formDetails" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Application Code</label>
+                                <input type="text" class="form-control" [readonly]="readOnly"
+                                    formControlName="applicationCode" placeholder="" (change)="onChanged($event.target.value)">
+                                    <!-- <select class="form-control" formControlName="applicationCode" (change)="onChanged($event.target.value)">
+                                         <option value="" >Choose</option>   
+                                        <option *ngFor="let item of appList">{{item.applicationCode}} </option>
+                                    </select> -->
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.applicationCode.errors?.required">
+                                        Application Code is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Application Name</label>
+                                <input type="text" class="form-control" formControlName="applicationName"
+                                    placeholder="" [readonly] = "readOnly">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.applicationName.errors?.required">
+                                        Application Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="">Choose</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.status.errors?.required">
+                                        Status is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+
+                <div class="row" *ngIf="tableGrid">
+
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="applicationSearchForm" (ngSubmit)="searchAppMaster()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Application Code</label>
+                                            <select class="form-control" formControlName="applicationCode" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of appList">{{item.applicationCode}} </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" formControlName="empId"
+                                                placeholder=""> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Application Name</label>
+                                            <input type="text" class="form-control" formControlName="applicationName"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchAppMaster()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchAppMasterReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()"
+                                            class="btn btn-success add_new btn-block">Add
+                                            New Application</button>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+                <!-- <div class="row" *ngIf="tableGrid">
+                    <div class="col-md-12">
+                        <div class="text-right">
+                            <button type="button" (click)="showForm()" class="btn btn-success">Add New
+                                Application</button><br><br>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="table-responsive" *ngIf="tableGrid">
+
+                    <br>
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Application Code</th>
+                                <th>Application Name</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.applicationCode}}</td>
+                                <td>{{item.applicationName}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editApplication(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

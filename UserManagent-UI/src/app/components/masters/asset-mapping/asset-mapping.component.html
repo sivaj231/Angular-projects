@@ -1,0 +1,388 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of IT Asset Map</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right"><a routerLink="/dashboard"> Dashboard </a> > <b>Asset Mapping</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="form">
+
+        <div class="col-md-12">
+
+
+            <br>
+
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <div class="content">
+
+
+                        <form [formGroup]="formDetails" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                            <p><b>Add New Asset Information</b></p>
+
+                            <hr>
+
+                            <div formArrayName="itassetDto" class="col-md-12">
+
+                                <div *ngFor="let item of app.controls;let i =index" [formGroupName]="i"
+                                    class="row application_bg">
+
+
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>Asset Type</label>
+                                            <select class="form-control" formControlName="assetType">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of itAssetMaster;let i =index;"
+                                                    value="{{item.assetType}}">{{item.assetType}}</option>
+                                            </select>
+                                            
+                                                <div *ngIf="ngForm.submitted">
+                                                    <div class="alert alert-danger"
+                                                    *ngIf="app.controls[i].get('assetType').errors?.required">
+                                                    assetType is required</div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>Asset Id</label>
+                                            <input type="text" class="form-control" formControlName="assetId">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                *ngIf="app.controls[i].get('assetId').errors?.required">
+                                                assetId is required</div>
+
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>Serial Number</label>
+                                            <input type="text" class="form-control" formControlName="serialNo">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                *ngIf="app.controls[i].get('serialNo').errors?.required">
+                                                serialNo is required</div>
+
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>Make</label>
+                                            <input type="text" class="form-control" formControlName="make">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                *ngIf="app.controls[i].get('make').errors?.required">
+                                                make is required</div>
+
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>Model</label>
+                                            <input type="text" class="form-control" formControlName="model">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                *ngIf="app.controls[i].get('model').errors?.required">
+                                                model is required</div>
+
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <div class="form-group">
+                                            <label>MAC Address</label>
+                                            <input type="text" class="form-control" formControlName="macAddress">
+                                            <div *ngIf="ngForm.submitted">
+                                                <div class="alert alert-danger"
+                                                *ngIf="app.controls[i].get('macAddress').errors?.required">
+                                                MAC Address is required</div>
+
+                                        </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2" *ngIf="app.at(0).get('action').value == 'EDIT'">
+
+                                        <div class="form-group" >
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status">
+                                                <option value="" disabled>Choose</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+            
+                                    </div>
+                                    <!-- *ngIf="itassetDto.get('action').value != 'NEW'" -->
+                                    <div class="col-md-2" *ngIf="change">
+
+                                        <p class="text-right"><i class="fa fa-plus-circle cursor_icon add_icon"
+                                                (click)="addApp()" aria-hidden="true"></i>&nbsp;
+
+                                            <i class="fa fa-minus-circle cursor_icon remove_icon" (click)="remove(i)"
+                                                aria-hidden="true"></i>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row justify-content-center">
+
+                                <button type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button>&nbsp;
+                                <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                            </div>
+
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-right">
+                            <button type="button" (click)="showForm()" class="btn btn-success">Add New
+                                Asset</button><br><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive" *ngIf="tableGrid">
+
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Asset Type</th>
+                                <th>Asset ID</th>
+                                <th>Serial Number</th>
+                                <th>Make</th>
+                                <th>Model</th>
+                                <th>MAC Address</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.assetType}}</td>
+                                <td>{{item.assetId}}</td>
+                                <td>{{item.serialNo}}</td>
+                                <td>{{item.make}}</td>
+                                <td>{{item.model}}</td>
+                                <td>{{item.macAddress}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center">
+                                    <i (click)="editAssetMappping(item)"
+                                        class="fa fa-pencil-square-o edit_icon cursor_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <div class="row" *ngIf="viewAssetDetails">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>Basic Information</b></p>
+
+                <hr>
+
+                <div class="table-responsive">
+
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Emp. ID</td>
+                                <td><b>{{this.empDetails?.empId}}</b></td>
+                                <td>Emp. Name</td>
+                                <td><b>{{this.empDetails?.empName}}</b></td>
+                                <td>Email. ID</td>
+                                <td><b>{{this.empDetails?.emailId}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Number</td>
+                                <td><b>{{this.empDetails?.mobileNo}}</b></td>
+                                <td>Department</td>
+                                <td><b>{{this.empDetails?.department}}</b></td>
+                                <td>Created Date</td>
+                                <td><b>{{this.empDetails?.createdDate}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Created By</td>
+                                <td><b>{{this.empDetails?.createdBy}}</b></td>
+                                <td>Branch Code</td>
+                                <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                <td>Branch Name</td>
+                                <td><b>{{this.empDetails?.branchName}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Reporting User ID</td>
+                                <td><b>{{this.empDetails?.reportUserId}}</b></td>
+                                <td>Reporting Person Name</td>
+                                <td><b>{{this.empDetails?.reportPersonName}}</b></td>
+                                <td>Reporting Branch Code</td>
+                                <td><b>{{this.empDetails?.branchCode}}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Reporting Branch Name</td>
+                                <td><b>{{this.empDetails?.branchName}}</b></td>
+                                <td>Status</td>
+                                <td><b>{{this.empDetails?.status}}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+    <div class="row" *ngIf="viewAssetDetails">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>Asset Detail</b></p>
+
+                <hr>
+
+                <div class="row">
+
+                    <div class="col-md-3" *ngFor="let item of empDetails.itAssetDto;let i=index;">
+
+                        <div class="card">
+                            <div class="card-header app_name_list">
+
+                                <div class="row">
+
+                                    <div class="col-md-3  text-center align-self-center">
+
+                                        <i class="fa fa-keyboard-o emp_app_icon" aria-hidden="true"></i>
+
+                                    </div>
+
+                                    <div class="col-md-9">
+
+                                        <span><b>{{item.assetType}}</b> </span>
+                                        <span class="d-block">{{item.assetId}}</span>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="card-body app_status">
+
+                                <div class="row">
+
+                                    <div class="col-md-6">
+
+                                        <span>Role : {{item.dateOfIssue}}</span>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <span class="d-block text-right">Returned 09-12-2020</span>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </div>
+
+                <br>
+                <button type="button" (click)="showGrid()"
+                    class="d-block mx-auto btn btn-primary btn-reset">Back</button>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

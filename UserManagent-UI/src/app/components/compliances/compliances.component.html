@@ -1,0 +1,413 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>Company Policy</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right"><a routerLink="/dashboard"> Dashboard </a> > 
+                        <b>Company Policy</b> 
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row" *ngIf="tableGrid">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <form [formGroup]="compliancesFormFilter">
+
+                    <div class="col-md-12 form_filter">
+
+                        <div class="row">
+
+                            <!-- <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Policy Id</label>
+                                    <input type="text" class="form-control" formControlName="fillterPolicyId" placeholder="">
+                                </div>
+                            </div>   -->
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Policy Type</label>
+                                    <select class="form-control" formControlName="policyType">
+                                        <!-- <option selected>Choose</option> -->
+                                        <option *ngFor="let item of allPolicyType"
+                                            value="{{item.policyType}}">
+                                            {{item.policyType}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>                                                  
+                          
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="text" class="form-control" placeholder="Pick Start Date"
+                                    value="" bsDatepicker placement="auto" bsDatepicker 
+                                    [bsConfig]="{dateInputFormat:'DD-MM-YYYY', isAnimated: true,containerClass:'theme-dark-blue'}"
+                                    formControlName="startDate" readonly />                                  
+                                 
+                                </div>
+                            </div> 
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="text"  class="form-control" formControlName="endDate" placeholder="Pick End Date"
+                                    bsDatepicker placement="auto" bsDatepicker 
+                                    [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true,containerClass: 'theme-dark-blue'}" readonly/>
+                                </div>
+                            </div>  
+
+                            <!-- <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date"  class="form-control" formControlName="endDate" placeholder="">
+                                </div>
+                            </div>  -->
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" formControlName="status">
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="IN ACTIVE">IN ACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <i  (click)="searchCompliances()" class="fa fa-filter form_filter_search_icon cursor_icon"
+                                    aria-hidden="true"></i>
+                                <i (click)="searchCompliancesReset()"
+                                    class="fa fa-refresh form_filter_reset_icon cursor_icon" aria-hidden="true"></i>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="d-block">&nbsp;</label>
+                                <button type="button" (click)="showForm()"  class="btn btn-success add_new btn-block">
+                                   New Policy
+                                </button>
+                            </div>
+                            
+                        </div>
+                                             
+                        <!-- <div class="row" *ngIf="formFillterStatus">
+                            <div class="col-md-12 alert alert-danger">
+                                <p class="text-center"><b>Select One Fillter..</b></p>
+                            </div>
+                        </div> -->
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="content" *ngIf="tableGrid">
+
+        <div class="table-responsive">
+
+            <br>
+            <table id="" class="mydatatable mytable table table-borderless table-striped">
+                <thead class="thead-light">
+                    <tr>
+                        <th class="text-center">S No.</th>
+                        <th>Policy ID</th>
+                        <th>Policy Type</th>
+                        <th>File Name</th>
+                        <th>Start Date</th>
+                        <th class="text-center">End Date</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of compliancesList; let i=index;">
+                        <td class="text-center">{{i + 1}}</td>
+                        <td>{{item.policyId}}</td>
+                        <td>{{item.policyType}}</td>
+                        <td>{{item.policyFileName}}</td>
+                        <td>{{item.startDate}}</td>
+                        <!-- <td>{{item.endDate}}  <span *ngIf="item.expired !== null"><p><b> {{ item.expired }}</b></p></span></td> -->
+                        <td class="text-center">                
+                            <span *ngIf="item.expired === null">  {{item.endDate}} </span>
+                            <span class="in_active_status" *ngIf="item.expired !== null">  {{item.endDate}} </span>
+                        </td>
+                        <td class="text-center font-weight-bold">
+                            <span class="active_status" *ngIf="item.status == 'ACTIVE'"> {{item.status}}</span>
+                            <span class="in_active_status" *ngIf="item.status != 'ACTIVE'">{{item.status}}</span>
+                        </td>
+                        <td class="text-center">
+
+                            <i (click)="viewCompliancesDetailsById(item.policyId)" class="fa fa-eye view_icon cursor_icon"
+                                aria-hidden="true"></i>
+                            &nbsp;
+
+                            <i (click)="editCompliances(item)" class="fa fa-pencil edit_icon cursor_icon"
+                                aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="row" *ngIf="viewCom">
+        <div class="col-md-12">
+            <div id="accordion" class="row">
+
+                <div class="col-md-3">
+    
+                    <div class="col-md-12 content h-100">
+    
+    
+                        <ul class="list-group list-group-flush category_panel" style="background: #F1F6FB;">
+                            <li class="list-group-item" data-toggle="collapse" href="#aupPolicyInfo"><i
+                                    class="fa fa-user" aria-hidden="true"></i> 
+                                    Policy Information</li>                       
+                        </ul>
+    
+    
+                    </div>
+    
+                </div>
+    
+                <div class="col-md-9">
+    
+                    <div class="col-md-12 content h-100">
+    
+                    <div id="aupPolicyInfo" class="collapse show" data-parent="#accordion">
+    
+                        <p><b>Company Policy</b></p>
+    
+                        <hr>         
+                        
+                        <div class="table-responsive" *ngIf="nonEditView">
+    
+                            <table datatable class="table table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td>Policy ID</td>
+                                        <td><b>{{this.compliancesDetails?.policyId}}</b></td>
+                                        <td>Policy Type</td>
+                                        <td><b>{{this.compliancesDetails?.policyType}}</b></td>
+                                        <td>Policy Name</td>
+                                        <td (click)="viewFile(this.compliancesDetails?.policyId)"><b style="cursor: pointer;"><u>{{this.compliancesDetails?.policyFileName}}</u></b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status</td>
+                                        <td><b>{{this.compliancesDetails?.status}}</b></td>
+                                        <td>Start Date</td>
+                                        <td><b>{{this.compliancesDetails?.startDate}}</b></td>
+                                        <td>End Date</td>
+                                        <td><b>{{this.compliancesDetails?.endDate }}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Created By</td>
+                                        <td><b>{{this.compliancesDetails?.createdBy}}</b></td>
+                                        <td>Created Date</td>
+                                        <td><b>{{this.compliancesDetails?.createdDate}}</b></td>                                        
+                                    </tr>                                    
+                                </tbody>
+                            </table>
+    
+    
+                            <hr *ngIf="nonEditView">
+                            <p class="d-block text-center"><button *ngIf="nonEditView" type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button></p>
+    
+                        </div>
+    
+    
+                        <form [formGroup]="compliancesFormDetails" *ngIf="addEditComView" #ngForm="ngForm"
+                            (ngSubmit)="save(compliancesFormDetails.valid)">
+    
+                            <div class="row">                         
+    
+                                <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>Policy. Id</label>
+                                        <input type="text" class="form-control" formControlName="policyId"
+                                            placeholder="" [readonly]="readOnly">
+    
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.policyId.errors?.required">
+                                                 Policy Id is required
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+
+                                <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>Policy Type</label>
+                                        <select class="form-control" formControlName="policyType">
+                                            <option selected>Choose</option>
+                                            <option *ngFor="let item of fillterPolicyType"
+                                                value="{{item.policyType}}">
+                                                {{item.policyType}}
+                                            </option>
+                                        </select>
+    
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.policyType.errors?.required">
+                                                 Policy Type is required
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>
+    
+                                <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>Start Date</label>                                      
+                                        <input type="text" class="form-control" placeholder="Pick Start Date"
+                                                value="" bsDatepicker placement="auto" bsDatepicker 
+                                                [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true,containerClass:'theme-dark-blue'}"
+                                                formControlName="startDate" readonly />                                  
+                                             
+                                            
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.startDate.errors?.required">
+                                                Start Date is required
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>    
+                                
+                                <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>End Date</label>
+                                        <select class="form-control" formControlName="dateStatus" (change)="dateChange($event.target.value)">
+                                            <option value="expDate">Expiray Date</option>
+                                            <option value="noExpDate">No Expiray Date</option>
+                                        </select>
+
+                                        
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.dateStatus.errors?.required">
+                                                 Date Status is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <!-- <input  type="date"   class="form-control mt-2" formControlName="endDate"
+                                            placeholder="" charOnly >
+                                            -->
+                                        <input *ngIf="expDate" type="text" class="form-control mt-2" placeholder="Pick End Date"
+                                                value="" bsDatepicker placement="auto" bsDatepicker 
+                                                [bsConfig]="{dateInputFormat: 'DD-MM-YYYY', isAnimated: true,containerClass:'theme-dark-blue'}"
+                                                formControlName="endDate" readonly />                                 
+                                        <div *ngIf="ngForm.submitted && expDate">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.endDate.errors?.required">
+                                                End Date is required
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                </div>   
+    
+                               <div class="col-md-4">
+    
+                                    <div class="form-group">
+                                        <label>Policy Upload</label>
+                                        <input type="file" class="form-control" formControlName="policyUpload"
+                                            (change)="fileChange($event)" multiple="true">
+                                        <div *ngIf="ngForm.submitted">
+                                            <div class="alert alert-danger"
+                                                *ngIf="validate_form.policyUpload.errors?.required">
+                                                Policy Upload File is required</div>
+                                        </div>
+                                    </div>
+
+                                    
+    
+                                </div>  
+                                
+                                <div class="col-md-4">
+                                    <div class="form-group" *ngIf="compliancesFormDetails.get('action').value != 'NEW'">
+                                        <label>Status</label>
+                                        <select class="form-control" formControlName="status">
+                                            <option value="ACTIVE">ACTIVE</option>
+                                            <option value="IN ACTIVE">IN ACTIVE</option>
+                                        </select>
+                                    </div>
+                                </div>
+    
+                                
+                            </div>
+    
+ 
+    
+                            <hr>
+    
+                            <div class="row justify-content-center">
+    
+                                <!-- <button type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button>&nbsp; -->
+                                
+                                
+                                <button type="button" (click)="showGrid()"
+                                    class="btn btn-primary btn-reset">Back</button>&nbsp;
+                                <button type="submit" class="btn btn-primary bg-blue">Save</button>
+    
+                            </div>
+    
+                        </form>
+    
+                    </div>
+    
+                 </div>
+    
+                </div>
+    
+            </div>
+        </div>
+        
+
+    </div>
+
+</div>
+
+
+

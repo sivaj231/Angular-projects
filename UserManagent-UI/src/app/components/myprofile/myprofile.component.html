@@ -1,0 +1,340 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>My Profile</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > <b>My Profile </b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+
+            <div id="accordion" class="row">
+
+                <div class="col-md-3">
+
+
+                    <div class="col-md-12 content h-100">
+
+                        <ul class="list-group list-group-flush category_panel" style="background: #F1F6FB;">
+                            <li class="list-group-item" data-toggle="collapse" href="#empBasicInfo"><i
+                                    class="fa fa-user" aria-hidden="true"></i> Employee
+                                Information</li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empAppInfo"><i
+                                    class="fa fa-tachometer" aria-hidden="true"></i> Application
+                                Information</li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empAssetInfo"><i
+                                    class="fa fa-laptop" aria-hidden="true"></i> Asset Information
+                            </li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empCommonDrive">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i> Common Drive Information
+                            </li>
+                            <li class="list-group-item" data-toggle="collapse" href="#empCliqViewReports">
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> QliKView Reports
+                            </li>
+                        </ul>
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-9">
+
+                    <div class="col-md-12 content h-100">
+
+                        <div id="empBasicInfo" class="collapse show" data-parent="#accordion">
+
+                            <p><b>Basic Information</b></p>
+
+                            <hr>
+
+                            <div class="table-responsive">
+
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td>Emp. ID</td>
+                                            <td><b>{{this.empDetails?.empId}}</b></td>
+                                            <td>Emp. Name</td>
+                                            <td><b>{{this.empDetails?.empName}}</b></td>
+                                            <td>Email. ID</td>
+                                            <td><b>{{this.empDetails?.emailId}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile Number</td>
+                                            <td><b>{{this.empDetails?.mobileNo}}</b></td>
+                                            <td>Department</td>
+                                            <td><b>{{this.empDetails?.department}}</b></td>
+                                            <td>Created Date</td>
+                                            <td><b>{{this.empDetails?.createdDate}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Created By</td>
+                                            <td><b>{{this.empDetails?.createdBy}}</b></td>
+                                            <td>Branch Code</td>
+                                            <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                            <td>Branch Name</td>
+                                            <td><b>{{this.empDetails?.branchName}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reporting User ID</td>
+                                            <td><b>{{this.empDetails?.reportUserId}}</b></td>
+                                            <td>Reporting Person Name</td>
+                                            <td><b>{{this.empDetails?.reportPersonName}}</b></td>
+                                            <td>Reporting Branch Code</td>
+                                            <td><b>{{this.empDetails?.branchCode}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Reporting Branch Name</td>
+                                            <td><b>{{this.empDetails?.branchName}}</b></td>
+                                            <td>Status</td>
+                                            <td><b>{{this.empDetails?.status}}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+                        <div id="empAppInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Application Information</b></p>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="col-md-12">
+
+                                    <div class="table-responsive">
+
+                                        <table class="mytable table asset_table">
+
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Application Name</th>
+                                                    <th>Application Code</th>
+                                                    <th>Roles</th>
+                                                    <th class="text-center">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of empDetails.appDetailsDto;let i=index;">
+                                                    <td>
+                                                        <i class="fa fa-tasks asset_icon" aria-hidden="true"></i>
+                                                        &nbsp;{{item.applicationName}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.applicationCode}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="" data-toggle="modal" data-target="#myModal"
+                                                            (click)='viewMappedRoles(item)'>Click to View
+                                                            ({{item.roleName.split(',').length}})</a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span *ngIf="item.status == 'ACTIVE' " class="active_bg">
+                                                            ACTIVE </span>
+                                                        <span *ngIf="item.status == 'IN ACTIVE' " class="in_active_bg">
+                                                            IN ACTIVE </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div id="empAssetInfo" class="collapse" data-parent="#accordion">
+
+                            <p><b>Asset Information</b></p>
+
+                            <hr>
+
+                            <div class="row">
+
+                                <div class="table-responsive">
+
+                                    <table class="mytable table asset_table">
+
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>Asset ID</th>
+                                                <th>Asset Type</th>
+                                                <th>Make</th>
+                                                <th>Model No.</th>
+                                                <th>Serial No.</th>
+                                                <th>Issued</th>
+                                                <th>Returned</th>
+                                                <th class="text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of empDetails.itAssetDto;let i=index;">
+                                                <td>
+                                                    <i class="fa fa-desktop asset_icon" aria-hidden="true"></i>
+                                                    &nbsp;{{item.assetId}}
+                                                </td>
+                                                <td>
+                                                    {{item.assetType}}
+                                                </td>
+                                                <td>{{item.make}}</td>
+                                                <td>{{item.model}}</td>
+                                                <td>{{item.serialNo}}</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td class="text-center">
+                                                    <span *ngIf="item.status == 'ACTIVE' " class="active_bg">
+                                                        {{item.status}} </span>
+                                                    <span *ngIf="item.status == 'IN ACTIVE' " class="in_active_bg">
+                                                        {{item.status}} </span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div id="empCommonDrive" class="collapse" data-parent="#accordion">
+
+                            <p><b>Common Drive Information</b></p>
+                            <hr>
+
+                            <div class="table-responsive">
+
+                                <table class="mytable table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                            <th>PATH</th>
+                                            <th style="width: 135px;" class="text-center">READ</th>
+                                            <th style="width: 135px;" class="text-center">WRITE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of commonDriveList;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a> {{x.pathName}}</a></td>
+                                            <td class="text-center" style="background: #dcdcdc21;">
+                                                <span *ngIf="x.permission === '1' || x.permission !== '2'"> <i
+                                                        class="fa fa-check-square-o"></i>
+                                                </span>
+                                                <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                </span>
+                                            </td>
+                                            <td class="text-center" style="background: #f0f8ff91;">
+                                                <span *ngIf="x.permission === '2'"> <i class="fa fa-check-square-o"></i>
+                                                </span>
+                                                <span *ngIf="x.permission === '1'"> <i class="fa fa-square-o"
+                                                        aria-hidden="true"></i>
+
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                        <div id="empCliqViewReports" class="collapse" data-parent="#accordion">
+
+                            <p><b>QliKView Reports</b></p>
+                            <hr>
+
+                            <div class="table-responsive">
+
+                                <table class="mytable table table-bordered">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th style="width: 80px;">SL NO</th>
+                                            <th>Dashboard Name</th>
+                                            <th style="width: 135px;" class="text-center">STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let x of reportsDashboardMappingList;let i = index;">
+                                            <td>{{i+1}}</td>
+                                            <td><a> {{x.dashboardName}}</a></td>
+                                            <td class="text-center">{{x.status}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Roles</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+
+                <label class="mapped_role" *ngFor="let item1 of mappedRoles.split(',');let i =index; ">
+                    {{item1}}
+                </label>
+
+            </div>
+        </div>
+    </div>
+</div>

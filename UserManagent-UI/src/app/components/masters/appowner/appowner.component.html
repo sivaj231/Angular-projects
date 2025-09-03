@@ -1,0 +1,241 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of App Owner Mapping</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Master > <b>
+                         </b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+
+                <hr>
+                <form [formGroup]="formDeatils" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Application Name</label>
+                                <!-- <input type="text" class="form-control" formControlName="applicationCode"
+                                    placeholder=""> -->
+                                <select class="form-control" formControlName="applicationName" (change)="onChanged($event.target.value)">
+                                    <option value="">Choose</option>
+                                    <option *ngFor="let item of appLists;let i=index;" value="{{item.applicationName}}">
+                                        {{item.applicationName}}</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.applicationName.errors?.required">
+                                        Application Name is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>EMP ID</label>
+                                <select class="form-control" formControlName="empId">
+                                    <option value="">Choose</option>
+                                    <option *ngFor="let item of appOwnerList;let i=index;" value="{{item.empId}}">
+                                        {{item.empId}}</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.empId.errors?.required">
+                                        Emp Id is required</div>
+                                </div>
+                            </div>
+
+                        </div> -->
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Application Owner</label>
+                                <select class="form-control" formControlName="applicationOwner">
+                                    <option value="">Choose</option>
+                                    <option *ngFor="let item of empList;let i=index;" value="{{item.empName}}">
+                                        {{item.empName}}</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.applicationOwner.errors?.required">
+                                        Application Owner is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="">Choose</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger"
+                                        *ngIf="validate_form.status.errors?.required">
+                                        Status is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+                <div class="row" *ngIf="tableGrid">
+
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="appOwnerSearchForm" (ngSubmit)="searchAppOwner()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Application Name</label>
+                                            <select class="form-control" formControlName="applicationName" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of appLists">{{item.applicationName}}
+                                                </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" formControlName="empId"
+                                                placeholder=""> -->
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>EMP ID</label>
+                                            <select class="form-control" formControlName="empId" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option *ngFor="let item of appOwnerList">{{item.empId}} </option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Application Owner</label>
+                                            <input type="text" class="form-control" formControlName="applicationOwner"
+                                                placeholder="" (change)="getAllData()">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select class="form-control" formControlName="status" (change)="getAllData()">
+                                                <option value="">Choose</option>
+                                                <option value="ACTIVE">ACTIVE</option>
+                                                <option value="IN ACTIVE">IN ACTIVE</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchAppOwner()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchAppOwnerReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()" class="btn btn-success btn-block">Add
+                                            New App Owner</button>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="table-responsive" *ngIf="tableGrid">
+                    <br>
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Application Name</th>
+                                <!-- <th>Emp ID</th> -->
+                                <th>Application Owner</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of appList let i=index;">
+                                <td>{{i + 1}}</td>
+                                <td>{{item.applicationCode}}</td>
+                                <!-- <td>{{item.emp_id}}</td> -->
+                                <td>{{item.applicationOwner}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editDesignation(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

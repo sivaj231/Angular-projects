@@ -1,0 +1,170 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><b>List of Assets</b></p>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <p class="text-right">Dashboard > Master > <b>Asset Master</b></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="content">
+
+                <p><b>{{title}}</b></p>
+
+                <hr>
+                <form [formGroup]="formDeatils" #ngForm="ngForm" *ngIf="form" (ngSubmit)="save()">
+
+                    <div class="row">
+
+                        <div class="col-md-3">
+
+                            <div class="form-group">
+                                <label>Asset Type</label>
+                                <input type="text" class="form-control" formControlName="assetType" placeholder="">
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.assetType.errors?.required">
+                                        Asset Type is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3">
+
+                            <div class="form-group" *ngIf="formDeatils.get('action').value != 'NEW'">
+                                <label>Status</label>
+                                <select class="form-control" formControlName="status">
+                                    <option value="">Choose</option>
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="IN ACTIVE">IN ACTIVE</option>
+                                </select>
+                                <div *ngIf="ngForm.submitted">
+                                    <div class="alert alert-danger" *ngIf="validate_form.status.errors?.required">
+                                        Status is required</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+
+                        <button type="button" (click)="showGrid()" class="btn btn-primary btn-reset">Back</button>&nbsp;
+                        <button type="submit" class="btn btn-primary bg-blue">Save</button>
+
+                    </div>
+
+                </form>
+
+
+                <div class="row" *ngIf="tableGrid">
+
+                    <div class="col-md-12">
+
+                        <form [formGroup]="assetSearchForm" (ngSubmit)="searchAsset()">
+
+                            <div class="col-md-12 form_filter">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+
+                                    <div class="form-group">
+                                        <label>Asset Type</label>
+                                        <input type="text" class="form-control" formControlName="assetType" placeholder="" (change)="getAllData()">
+                                    </div>
+        
+                                </div>
+        
+                                <div class="col-md-3">
+        
+                                    <div class="form-group" >
+                                        <label>Status</label>
+                                        <select class="form-control" formControlName="status" (change)="getAllData()">
+                                            <option value="">Choose</option>
+                                            <option value="ACTIVE">ACTIVE</option>
+                                            <option value="IN ACTIVE">IN ACTIVE</option>
+                                        </select>
+                                    </div>
+        
+                                </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="d-block">&nbsp;</label>
+                                            <i (click)="searchAsset()"
+                                                class="fa fa-filter form_filter_search_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                            <i (click)="searchAssetReset()"
+                                                class="fa fa-refresh form_filter_reset_icon cursor_icon"
+                                                aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="col-md-3">
+                                        <label class="d-block">&nbsp;</label>
+                                        <button type="button" (click)="showForm()" class="btn btn-success add_new btn-block">Add
+                                            New Assest</button>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                    
+                </div>
+               
+                <div class="table-responsive" *ngIf="tableGrid">
+
+                    <table id="" class="mydatatable mytable table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>S No.</th>
+                                <th>Asset Type</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of tableGridData; let i=index;">
+                                <td>{{item.id}}</td>
+                                <td>{{item.assetType}}</td>
+                                <td>{{item.status}}</td>
+                                <td class="text-center"><i (click)="editAsset(item)"
+                                        class="fa fa-pencil-square-o edit_icon" aria-hidden="true"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
