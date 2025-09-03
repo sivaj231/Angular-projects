@@ -1,0 +1,30 @@
+input[type="text"],input[type="email"],input[type="date"],input[type="password"],textarea,select {
+    margin-bottom: 15px;
+}
+.approver-title {
+    padding:5px 0;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #095bad;
+    border-bottom: 1px solid rgb(106, 138, 170);
+}
+.module-list{
+    border: 1px solid rgb(204, 201, 201);
+    background-color: rgb(221, 221, 221);
+    list-style-type: circle;
+    padding: 5px;
+}
+.module-list li {
+    display: inline;
+    padding: 5px;
+    word-break: break-all;
+}
+.module-list li::before{
+    content: '*';
+    padding:0 10px 0 5px;;
+    vertical-align: middle;
+    font-size: 20px;
+}
+.title-right{
+    float: right;
+}

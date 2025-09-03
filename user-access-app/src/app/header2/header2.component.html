@@ -1,0 +1,21 @@
+<nav class="mb-2 navbar navbar-expand-lg navbar-light bg-light fixed-top" *ngIf="authService.isLoggedin">
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/rs-logo.png" alt="RS-LOGO" class="img-logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333"
+      aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent-333">      
+      <ul class="navbar-nav ml-auto">       
+        <li class="nav-item text-right">
+          <a class="nav-link"><i class="fa fa-user-circle"></i>&nbsp; Admin
+            <!-- <span class="last-seen-text">Last Seen <spn class="time-text">:&nbsp;10.00am </spn></span> -->
+          </a>          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logout()"><i class="fa fa-power-off"></i>&nbsp; Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
